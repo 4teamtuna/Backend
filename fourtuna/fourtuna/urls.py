@@ -16,7 +16,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from gsmoa import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('gsmoa/', views.main, name='main'),
+    path('gsmoa/login/', views.login, name='login'),
+    path('gsmoa/community/', views.community, name='community'),
+    path('gsmoa/contest/', views.contest, name='contest'),
+    path('gsmoa/contest_detail/<int:contest_id>', views.contest_detail, name='contest_id'),
+    path('gsmoa/chatting', views.chatting, name='chatting'),
+    path('gsmoa/chatting_room/<int:chatting_id', views.chatting_room, name='chatting_id'),
+    path('gsmoa/teaming/', views.teaming, name='teaming'),
+    path('gsmoa/mypage/', views.mypage, name='login'),
 ]
