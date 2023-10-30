@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'contestdb.apps.ContestdbConfig',
     'teaming.apps.TeamingConfig',
     'chatting.apps.ChattingConfig',
+    'community.apps.CommunityConfig',
 ]
 
 MIDDLEWARE = [

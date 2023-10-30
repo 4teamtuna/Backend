@@ -23,6 +23,7 @@ urlpatterns = [
     path('gsmoa/', views.main, name='main'),
     path('gsmoa/login/', views.login, name='login'),
     path('gsmoa/community/', views.community, name='community'),
+    path('gsmoa/community_posting/<int:posting_id>', views.community_posting, name='posting_id'),
     path('gsmoa/contest/', views.contest, name='contest'),
     path('gsmoa/contest_detail/<int:contest_id>', views.contest_detail, name='contest_id'),
     path('gsmoa/chatting', views.chatting, name='chatting'),
