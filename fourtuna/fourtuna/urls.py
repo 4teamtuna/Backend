@@ -15,19 +15,14 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
-from gsmoa import views
+from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('gsmoa/', views.main, name='main'),
-    path('gsmoa/login/', views.login, name='login'),
-    path('gsmoa/community/', views.community, name='community'),
-    path('gsmoa/community_posting/<int:posting_id>', views.community_posting, name='posting_id'),
-    path('gsmoa/contest/', views.contest, name='contest'),
-    path('gsmoa/contest_detail/<int:contest_id>', views.contest_detail, name='contest_id'),
-    path('gsmoa/chatting', views.chatting, name='chatting'),
-    path('gsmoa/chatting_room/<int:chatting_id', views.chatting_room, name='chatting_id'),
-    path('gsmoa/teaming/', views.teaming, name='teaming'),
-    path('gsmoa/mypage/', views.mypage, name='login'),
+    path('gsmoa/', include('gsmoa.urls')),
+    path('contest/', include('contestdb.urls')),
+    path('community/', include('community.urls')),
+    path('chatting/', include('chatting.urls')),
+    path('teaming/', include('teaming.urls')),
+    path('user/', include('user.urls')),
 ]
