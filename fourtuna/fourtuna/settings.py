@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+from sshtunnel import SSHTunnelForwarder
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -79,12 +81,27 @@ WSGI_APPLICATION = 'fourtuna.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+
+SSH_TUNNEL = SSHTunnelForwarder(
+    ('121.182.56.212', 22),
+    ssh_username='b1uesoda',
+    ssh_password='s5584747',
+    remote_bind_address=('172.30.1.24', 3306),
+)
+
+SSH_TUNNEL.start()
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+  'default':  {
+    'ENGINE' : 'django.db.backends.mysql',
+    'NAME' : 'GSMOA',
+    'USER' : 's5584747',
+    'PASSWORD' : 's5584747',
+    'HOST' : '172.30.1.24',
+    'PORT' : '3306',
+  }
 }
+
 
 
 # Password validation
