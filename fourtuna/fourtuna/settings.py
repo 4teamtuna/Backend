@@ -25,33 +25,33 @@ import mysql.connector
 # SSH_TUNNEL.start()
 
 
-with SSHTunnelForwarder(
-    ('121.182.56.212', 22),  # 원격 서버의 주소와 포트
-    ssh_username='b1uesoda',
-    ssh_password='s5584747',
-    remote_bind_address=('172.30.1.24', 3306)  # 원격 서버의 호스트와 포트
-) as tunnel:
-    print("SSH 서버에 성공적으로 연결되었습니다.")
+# with SSHTunnelForwarder(
+#    ('121.182.56.212', 22),  # 원격 서버의 주소와 포트
+#    ssh_username='b1uesoda',
+#    ssh_password='s5584747',
+#    remote_bind_address=('172.30.1.24', 3306)  # 원격 서버의 호스트와 포트
+#) as tunnel:
+#    print("SSH 서버에 성공적으로 연결되었습니다.")
     # MySQL 연결 설정
-    db_host = '127.0.0.1'
-    db_port = '3306'
-    db_user = 'root'
-    db_password = '20-72008672'
-    db_name = 'GSMOA'
+#    db_host = '127.0.0.1'
+#    db_port = '3306'
+#    db_user = 'root'
+#    db_password = '20-72008672'
+#    db_name = 'GSMOA'
 
     # 연결 객체 생성
-    conn = mysql.connector.connect(
-      host=db_host,
-      port=db_port,
-      user=db_user,
-      password=db_password,
-      database=db_name
-    )
+ #   conn = mysql.connector.connect(
+ #     host=db_host,
+ #     port=db_port,
+ #     user=db_user,
+ #     password=db_password,
+ #     database=db_name
+ #   )
     # 연결 확인
-    if conn.is_connected():
-      print("MySQL에 성공적으로 연결되었습니다.")
-    else:
-      print("MySQL에 연결할 수 없습니다.")
+#    if conn.is_connected():
+#      print("MySQL에 성공적으로 연결되었습니다.")
+#    else:
+#      print("MySQL에 연결할 수 없습니다.")
 
 
 
@@ -130,16 +130,16 @@ WSGI_APPLICATION = 'fourtuna.wsgi.application'
 
 
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.bac9kends.mysql',
-#         'HOST': 'localhost',  # SSH 터널을 통해 연결되므로 localhost로 설정
-#         'PORT': '3306',
-#         'NAME': 'GSMOA',
-#         'USER': 's5584747',
-#         'PASSWORD': 's5584747',
-#     }
-# }
+ DATABASES = {
+     'default': {
+         'ENGINE': 'django.db.bac9kends.mysql',
+         'HOST': '172.30.1.24',  # SSH 터널을 통해 연결되므로 localhost로 설정
+         'PORT': '3306',
+         'NAME': 'GSMOA',
+         'USER': 's5584747',
+         'PASSWORD': 's5584747',
+     }
+ }
 
 
 
