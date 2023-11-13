@@ -76,7 +76,6 @@ tunnel = SSHTunnelForwarder(
     ('121.182.56.212',22),
     ssh_username='laders23',
     ssh_password = '20-72008672',
-    ssh_pkey='/Users/KimDongHyeon/Desktop/KMU/2023 Computer Engineering/.ssh/id_rsa',
     remote_bind_address=('127.0.0.1',3306)
 )
 tunnel.start()
