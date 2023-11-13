@@ -70,14 +70,26 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "fourtuna.wsgi.application"
 
+from sshtunnel import SSHTunnelForwarder
 
+tunnel = SSHTunnelForwarder(
+    ('121.182.56.212',22),
+    ssh_username='laders23',
+    ssh_password = '20-72008672',
+    remote_bind_address=('127.0.0.1',3306)
+)
+tunnel.start()
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME' : 'gsmoaDB',
+        'USER' : 'root',
+        'PASSWORD' : '20-72008672',
+        'HOST' : '127.0.0.1',
+        'PORT' : tunnel.local_bind_port
     }
 }
 

@@ -1,7 +1,7 @@
 from django.db import models
 
 # Create your models here.
-class user(models.Model):
+class accounts(models.Model):
     user_id = models.CharField(max_length=20)
     email  = models.CharField(max_length=20)
     password = models.CharField(max_length=20)
@@ -11,3 +11,6 @@ class user(models.Model):
     # Interest_Field
     # Introduce
     # Birthday
+    
+    class Meta:
+        db_table = "user"
