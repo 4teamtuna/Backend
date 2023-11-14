@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth.hashers import make_password, check_password
 from .models import Users
 from django.shortcuts import redirect 
+from django.http import HttpResponse
 
 def login(request):
     if request.method == 'GET':
@@ -18,7 +19,7 @@ def login(request):
             user = Users.objects.get(username = username)
             if check_password(password, user.password):
                 request.session['user'] = user.id
-                return redirect('/')
+                return redirect('users/main/')
             else:
                 errMsg['error'] = "비밀번호를 다시 입력하세요"
         return render(request, 'login.html', errMsg)
@@ -56,3 +57,12 @@ def logout(request):
     if request.session.get('user'):
         del(request.session['user'])
     return redirect('/')
+
+
+def home(request):
+    user_id = request.session.get('user')
+    
+    if user_id:
+        member = Users.objects.get(pk=user_id)
+        return render(request, 'index.html')
+    return render(request, 'index.html')
