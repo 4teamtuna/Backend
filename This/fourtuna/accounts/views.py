@@ -9,19 +9,22 @@ def login(request):
         return render(request, 'login.html')
 
     elif request.method == 'POST':
-        username = request.POST.get('username', None)
+        userid = request.POST.get('userid', None)
         password = request.POST.get('password', None)
         errMsg = {}
 
-        if not (username and password):
+        if not (userid and password):
             errMsg['error'] = "모든 값을 입력하세요"
         else:
-            user = Users.objects.get(username = username)
-            if check_password(password, user.password):
-                request.session['user'] = user.id
-                return redirect('users/main/')
-            else:
-                errMsg['error'] = "비밀번호를 다시 입력하세요"
+            try:
+                user = Users.objects.get(userid=userid)
+                if check_password(password, user.password):
+                    request.session['user'] = user.id
+                    return redirect('users/main/')
+                else:
+                    errMsg['error'] = "비밀번호를 다시 입력하세요"
+            except Users.DoesNotExist:
+                errMsg['error'] = "아이디가 존재하지 않습니다"
         return render(request, 'login.html', errMsg)
     
 
@@ -32,24 +35,28 @@ def register(request):
     
     elif request.method == 'POST':
         username = request.POST.get('username', None)
+        userid = request.POST.get('userid', None)
         password = request.POST.get('password', None)
         repassword = request.POST.get('re-password', None)
         useremail = request.POST.get('useremail', None)
+        introduction = request.POST.get('introduction', None)
         errorMsg = {}
 
-        if not (username and useremail and password and repassword):
+        if not (userid and useremail and password and repassword):
             errorMsg['error'] = "모든 값을 입력해야 합니다."
         elif password != repassword:
             errorMsg['error'] = "비밀번호가 다릅니다."
         else:
             user = Users(
                 username = username,
+                userid = userid,
                 password = make_password(password),
-                useremail = useremail
+                useremail = useremail,
+                introduction = introduction
             )
             user.save()
 
-        return render(request, 'register.html', errorMsg)
+        return redirect('/')
 
 
 
