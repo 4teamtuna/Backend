@@ -1,46 +1,58 @@
-import json
 from django.shortcuts import render
-# from django.http import HttpResponse
-from django.views import View
-from django.http import JsonResponse
-from .models import accounts
-from django.views.decorators.csrf import csrf_exempt
-from django.utils.decorators import method_decorator
+from django.contrib.auth.hashers import make_password, check_password
+from .models import Users
+from django.shortcuts import redirect 
 
-# from .models import user
-# Create your views here.
+def login(request):
+    if request.method == 'GET':
+        return render(request, 'login.html')
 
-@method_decorator(csrf_exempt, name='dispatch')
-class SignUpView(View):
-    def post(self, request):
-        data = json.loads(request.body)
-        accounts(
-            email    = data['email'],
-            password = data['password']
-        ).save()						# 받아온 데이터를 DB에 저장시켜줌
+    elif request.method == 'POST':
+        username = request.POST.get('username', None)
+        password = request.POST.get('password', None)
+        errMsg = {}
 
-        return JsonResponse({'message':'회원가입 완료'},status=200)
-      
-@method_decorator(csrf_exempt, name='dispatch')
-class SignInView(View):
-    def post(self, request):
-        data = json.loads(request.body)
+        if not (username and password):
+            errMsg['error'] = "모든 값을 입력하세요"
+        else:
+            user = Users.objects.get(username = username)
+            if check_password(password, user.password):
+                request.session['user'] = user.id
+                return redirect('/')
+            else:
+                errMsg['error'] = "비밀번호를 다시 입력하세요"
+        return render(request, 'login.html', errMsg)
+    
 
-        if accounts.objects.filter(email = data['email']).exists() :
-            user = accounts.objects.get(email = data['email'])
-            if user.password == data['password'] :
-                return JsonResponse({'message':f'{user.email}님 로그인 성공!'}, status=200)
-            else :
-                return JsonResponse({'message':'비밀번호가 틀렸어요'},status = 200)
+def register(request):
 
-        return JsonResponse({'message':'등록되지 않은 이메일 입니다.'},status=200)
- 
+    if request.method == 'GET':
+        return render(request, 'register.html')
+    
+    elif request.method == 'POST':
+        username = request.POST.get('username', None)
+        password = request.POST.get('password', None)
+        repassword = request.POST.get('re-password', None)
+        useremail = request.POST.get('useremail', None)
+        errorMsg = {}
 
-def login_view(request):
-  return HttpResponse("로그인 페이지")
+        if not (username and useremail and password and repassword):
+            errorMsg['error'] = "모든 값을 입력해야 합니다."
+        elif password != repassword:
+            errorMsg['error'] = "비밀번호가 다릅니다."
+        else:
+            user = Users(
+                username = username,
+                password = make_password(password),
+                useremail = useremail
+            )
+            user.save()
 
-def mypage_view(request):
-  return HttpResponse("마이페이지")
+        return render(request, 'register.html', errorMsg)
 
-def register_view(request):
-  return HttpResponse("회원가입 페이지")
+
+
+def logout(request):
+    if request.session.get('user'):
+        del(request.session['user'])
+    return redirect('/')
