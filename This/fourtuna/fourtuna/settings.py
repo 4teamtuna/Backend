@@ -32,6 +32,7 @@ ALLOWED_HOSTS = ["*"]
 # Application definition
 
 INSTALLED_APPS = [
+    "daphne",
     "channels",
     "chat",
     "django.contrib.admin",
@@ -44,7 +45,16 @@ INSTALLED_APPS = [
     "tag",   
     "community",
 ]
-ASGI_APPLICATION = 'mysite.routing.application'
+ASGI_APPLICATION = 'fourtuna.asgi.application'
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("127.0.0.1", 6379)],
+        },
+    },
+}
 
 
 MIDDLEWARE = [
@@ -59,7 +69,7 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = "fourtuna.urls"
 
-TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
+TEMPLATE_DIR = os.path.join(BASE_DIR, '')
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',

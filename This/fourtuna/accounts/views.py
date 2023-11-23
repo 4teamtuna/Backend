@@ -6,7 +6,7 @@ from django.http import HttpResponse
 
 def login(request):
     if request.method == 'GET':
-        return render(request, 'login.html')
+        return render(request, 'accounts/templates/login.html')
 
     elif request.method == 'POST':
         userid = request.POST.get('userid', None)
@@ -25,13 +25,13 @@ def login(request):
                     errMsg['error'] = "비밀번호를 다시 입력하세요"
             except Users.DoesNotExist:
                 errMsg['error'] = "아이디가 존재하지 않습니다"
-        return render(request, 'login.html', errMsg)
+        return render(request, 'accounts/templates/login.html', errMsg)
     
 
 def register(request):
 
     if request.method == 'GET':
-        return render(request, 'register.html')
+        return render(request, 'accounts/templates/register.html')
     
     elif request.method == 'POST':
         username = request.POST.get('username', None)
@@ -71,5 +71,5 @@ def home(request):
     
     if user_id:
         member = Users.objects.get(pk=user_id)
-        return render(request, 'index.html')
-    return render(request, 'index.html')
+        return render(request, 'accounts/templates/index.html')
+    return render(request, 'accounts/templates/index.html')
