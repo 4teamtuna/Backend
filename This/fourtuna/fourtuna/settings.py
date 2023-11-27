@@ -34,7 +34,6 @@ ALLOWED_HOSTS = ["*"]
 INSTALLED_APPS = [
     "daphne",
     "channels",
-    "chat",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -42,8 +41,9 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "accounts",
-    "tag",   
+    "tag",
     "community",
+    "chat",
 ]
 ASGI_APPLICATION = 'fourtuna.asgi.application'
 
@@ -106,8 +106,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME' : 'gsmoaDB',
-        'USER' : 'root',
-        'PASSWORD' : '20-72008672',
+        'USER' : 's5584747',
+        'PASSWORD' : 's5584747',
         'HOST' : '127.0.0.1',
         'PORT' : tunnel.local_bind_port
     }
