@@ -41,10 +41,13 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "accounts",
-    "tag",   
+    "api",
+    "rest_framework",
+    "tag",
+    "corsheaders",
     "community",
 ]
-ASGI_APPLICATION = 'mysite.routing.application'
+ASGI_APPLICATION = "mysite.routing.application"
 
 
 MIDDLEWARE = [
@@ -59,20 +62,20 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = "fourtuna.urls"
 
-TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
+TEMPLATE_DIR = os.path.join(BASE_DIR, "templates")
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [
             TEMPLATE_DIR,
         ],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.debug",
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
             ],
         },
     },
@@ -83,23 +86,23 @@ WSGI_APPLICATION = "fourtuna.wsgi.application"
 from sshtunnel import SSHTunnelForwarder
 
 tunnel = SSHTunnelForwarder(
-    ('121.182.56.212',22),
-    ssh_username='laders23',
-    ssh_password = '20-72008672',
-    remote_bind_address=('127.0.0.1',3306)
+    ("121.182.56.212", 22),
+    ssh_username="laders23",
+    ssh_password="20-72008672",
+    remote_bind_address=("127.0.0.1", 3306),
 )
 tunnel.start()
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME' : 'gsmoaDB',
-        'USER' : 'root',
-        'PASSWORD' : '20-72008672',
-        'HOST' : '127.0.0.1',
-        'PORT' : tunnel.local_bind_port
+    "default": {
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": "gsmoaDB",
+        "USER": "root",
+        "PASSWORD": "20-72008672",
+        "HOST": "127.0.0.1",
+        "PORT": tunnel.local_bind_port,
     }
 }
 
@@ -138,9 +141,9 @@ USE_TZ = False
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = "/static/"
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, "static"),
 ]
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

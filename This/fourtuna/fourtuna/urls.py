@@ -26,8 +26,9 @@ from accounts.views import home
 # from django.conf.urls import include
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('accounts.urls')),
-    path('community/', include('community.urls')),
-    path('chatting/', include('chat.urls')),
+    path("admin/", admin.site.urls),
+    path("", include("accounts.urls")),
+    path("community/", include("community.urls")),
+    path("chatting/", include("chat.urls")),
+    path("api-auth/", include("rest_framework.urls", namespace="rest_framework")),
 ]
