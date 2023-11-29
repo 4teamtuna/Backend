@@ -1,8 +1,9 @@
 from django.contrib import admin
-from .models import Article
+from .models import Post
+
+
+class PostAdmin(admin.ModelAdmin):
+  search_fields = ['title']
 
 # Register your models here.
-
-class CommunityAdmin(admin.ModelAdmin):
-    list_display = ('title', )
-admin.site.register(Article, CommunityAdmin) # 등록
+admin.site.register(Post)

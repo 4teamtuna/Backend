@@ -1,75 +1,27 @@
-from django.shortcuts import render
-from django.contrib.auth.hashers import make_password, check_password
-from .models import Users
-from django.shortcuts import redirect 
-from django.http import HttpResponse
+# from django.shortcuts import render
+# from django.contrib.auth.hashers import make_password, check_password
+# from django.shortcuts import redirect 
+# from django.http import HttpResponse
+# from .models import UserProfile
+# from django.contrib.auth.models import User
+# from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login
+from django.shortcuts import render, redirect
+from accounts.forms import UserForm
 
-def login(request):
-    if request.method == 'GET':
-        return render(request, 'accounts/templates/login.html')
 
-    elif request.method == 'POST':
-        userid = request.POST.get('userid', None)
-        password = request.POST.get('password', None)
-        errMsg = {}
-
-        if not (userid and password):
-            errMsg['error'] = "모든 값을 입력하세요"
-        else:
-            try:
-                user = Users.objects.get(userid=userid)
-                if check_password(password, user.password):
-                    request.session['user'] = user.id
-                    return redirect('users/main/')
-                else:
-                    errMsg['error'] = "비밀번호를 다시 입력하세요"
-            except Users.DoesNotExist:
-                errMsg['error'] = "아이디가 존재하지 않습니다"
-        return render(request, 'accounts/templates/login.html', errMsg)
     
 
-def register(request):
-
-    if request.method == 'GET':
-        return render(request, 'accounts/templates/register.html')
-    
-    elif request.method == 'POST':
-        username = request.POST.get('username', None)
-        userid = request.POST.get('userid', None)
-        password = request.POST.get('password', None)
-        repassword = request.POST.get('re-password', None)
-        useremail = request.POST.get('useremail', None)
-        introduction = request.POST.get('introduction', None)
-        errorMsg = {}
-
-        if not (userid and useremail and password and repassword):
-            errorMsg['error'] = "모든 값을 입력해야 합니다."
-        elif password != repassword:
-            errorMsg['error'] = "비밀번호가 다릅니다."
-        else:
-            user = Users(
-                username = username,
-                userid = userid,
-                password = make_password(password),
-                useremail = useremail,
-                introduction = introduction
-            )
-            user.save()
-
-        return redirect('/')
-
-
-
-def logout(request):
-    if request.session.get('user'):
-        del(request.session['user'])
-    return redirect('/')
-
-
-def home(request):
-    user_id = request.session.get('user')
-    
-    if user_id:
-        member = Users.objects.get(pk=user_id)
-        return render(request, 'accounts/templates/index.html')
-    return render(request, 'accounts/templates/index.html')
+def signup(request):
+    if request.method == 'POST':
+        form = UserForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=raw_password)
+            login(request, user)
+            return redirect('index')
+    else:
+        form = UserForm()
+    return render(request, 'accounts/templates/common/signup.html', {'form': form})

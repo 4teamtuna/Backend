@@ -1,0 +1,36 @@
+{% load static %}
+<!doctype html>
+<html lang="ko">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel = "stylesheet" type="text/css" href="{% static 'minty_bootstrap.min.css' %}">
+        <link rel = "stylesheet" type="text/css" href="{% static 'style_community.css' %}">
+        <title>Hello Community</title>
+    </head>
+    <body>
+      {% include "templates/navbar.html" %}
+          <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'community:index' %}">Community</a>
+            <button class="navbar-toggler" type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent"
+              aria-expanded="false"
+              aira-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link" href="#">로그인</a>
+              </li>
+            </ul>
+          </div>
+          </div>
+        </nav>
+        {% block content %}
+        {% endblock %}
+      
+    </body>
+</html>
