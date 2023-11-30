@@ -5,12 +5,10 @@
 # from .models import UserProfile
 # from django.contrib.auth.models import User
 # from django.contrib.auth import authenticate, login
+from django.shortcuts import render
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
 from accounts.forms import UserForm
-
-
-    
 
 def signup(request):
     if request.method == 'POST':
@@ -24,4 +22,4 @@ def signup(request):
             return redirect('index')
     else:
         form = UserForm()
-    return render(request, 'accounts/templates/common/signup.html', {'form': form})
+    return render(request, 'templates/accounts/signup.html', {'form': form})

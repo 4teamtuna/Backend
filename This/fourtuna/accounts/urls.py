@@ -19,9 +19,9 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('signup/', views.signup, name='signup'),
   
-]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+]
  
-  # path('mypage/', views.mypage_view),
+  # path('mypage/', views.mypage_view),44
   # path('login/', views.login_view),
   # path('register/', views.register_view),
   # path('sign', include('account.urls')),
