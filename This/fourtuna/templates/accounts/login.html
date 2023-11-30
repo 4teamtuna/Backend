@@ -4,6 +4,7 @@
 <div class="container my-3">
   <form method="post" action="{% url 'accounts:login' %}">
     {% csrf_token %}
+    <input type="hidden" name="text" value="{{ next }}">
     {% include "templates/form_errors.html" %}
     <div class="mb-3">
       <label for="username">사용자ID</label>
