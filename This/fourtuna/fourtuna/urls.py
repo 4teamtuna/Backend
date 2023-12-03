@@ -31,4 +31,5 @@ urlpatterns = [
     path('chat/', include('chat.urls', namespace='chat')),
     path('community/', include('community.urls')),
     path('', include('accounts.urls')),
+    path('team/', include('team.urls', namespace='team')),
 ]

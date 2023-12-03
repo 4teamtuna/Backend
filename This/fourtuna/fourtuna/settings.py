@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     "chat",
     'rest_framework',
     'drf_yasg',
+    'team',
 ]
 ASGI_APPLICATION = 'fourtuna.asgi.application'
 
