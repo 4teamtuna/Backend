@@ -1,25 +1,37 @@
-# from django.shortcuts import render
-# from django.contrib.auth.hashers import make_password, check_password
-# from django.shortcuts import redirect 
-# from django.http import HttpResponse
-# from .models import UserProfile
-# from django.contrib.auth.models import User
-# from django.contrib.auth import authenticate, login
-from django.shortcuts import render
+from rest_framework.response import Response
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework import status
+from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
-from django.shortcuts import render, redirect
-from accounts.forms import UserForm
+from .serializers import UserSerializer
+from django.contrib.auth import logout
+from rest_framework.permissions import IsAuthenticated
 
+
+
+@api_view(['POST'])
 def signup(request):
-    if request.method == 'POST':
-        form = UserForm(request.POST)
-        if form.is_valid():
-            form.save()
-            username = form.cleaned_data.get('username')
-            raw_password = form.cleaned_data.get('password1')
-            user = authenticate(username=username, password=raw_password)
-            login(request, user)
-            return redirect('index')
+    serializer = UserSerializer(data=request.data)
+    if serializer.is_valid():
+        user = serializer.save()
+        login(request, user)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['POST'])
+def login(request):
+    username = request.data.get('username')
+    password = request.data.get('password')
+    user = authenticate(request, username=username, password=password)
+    if user is not None:
+        login(request, user)
+        return Response({'detail': '로그인 성공'}, status=status.HTTP_200_OK)
     else:
-        form = UserForm()
-    return render(request, 'templates/accounts/signup.html', {'form': form})
+        return Response({'detail': '로그인 실패'}, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def logout_api(request):
+    logout(request)
+    return Response({'detail': '로그아웃 성공'}, status=status.HTTP_200_OK)

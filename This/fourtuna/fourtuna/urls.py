@@ -28,8 +28,7 @@ from community import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('accounts/', include('accounts.urls')),
     path('chat/', include('chat.urls', namespace='chat')),
     path('community/', include('community.urls')),
-    path('', views.index, name='index'),
+    path('', include('accounts.urls')),
 ]
