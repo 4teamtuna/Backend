@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "accounts",
     "community",
     "chat",
+    "contest",
 ]
 ASGI_APPLICATION = 'fourtuna.asgi.application'
 
