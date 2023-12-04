@@ -10,7 +10,7 @@ User = get_user_model()
 
 @api_view(['GET'])
 def index(request):
-    chat_rooms = ChatRoom.objects.all()
+    chat_rooms = request.user.chat_rooms.all()
     serializer = ChatRoomSerializer(chat_rooms, many=True)
     return Response(serializer.data)
 
