@@ -20,7 +20,6 @@ from django.urls import path
 from django.views.generic import RedirectView
 from django.conf import settings
 from django.conf.urls.static import static
-from accounts import views
 from community import views
 
 
@@ -30,6 +29,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('chat/', include('chat.urls', namespace='chat')),
     path('community/', include('community.urls')),
-    path('', include('accounts.urls')),
+    path('', include('users.urls')),
     path('team/', include('team.urls', namespace='team')),
 ]
