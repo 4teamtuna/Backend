@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>Chat Rooms</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+    What chat room would you like to enter?<br/>
+    <input id="room-name-input" type="text" size="100"/><br/>
+    <input id="room-name-submit" type="button" value="Enter"/>
+
+    <!-- 채팅방 생성 필드와 버튼 추가 -->
+    Create a new chat room:<br/>
+    <input id="new-room-name-input" type="text" size="100"/><br/>
+    <input id="new-room-name-submit" type="button" value="Create"/>
+
+    <script>
+        document.querySelector('#room-name-input').focus();
+        document.querySelector('#room-name-input').onkeyup = function(e) {
+            if (e.keyCode === 13) {  // enter, return
+                document.querySelector('#room-name-submit').click();
+            }
+        };
+
+        document.querySelector('#room-name-submit').onclick = function(e) {
+            var roomName = document.querySelector('#room-name-input').value;
+            window.location.pathname = '/chat/' + roomName + '/';
+        };
+
+        // 채팅방 생성 기능 추가
+        $("#new-room-name-submit").click(function(){
+            var name = $("#new-room-name-input").val();
+            $.post("/chat/chatroom/",
+                {
+                    name: name,
+                    csrfmiddlewaretoken: '{{ csrf_token }}'
+                },
+                function(data, status){
+                    alert("Chat room created: " + name);
+                });
+        });
+    </script>
+</body>
+</html>
