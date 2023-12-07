@@ -15,6 +15,8 @@ import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+MEDIA_URL = '/Users/KimDongHyeon/Desktop/KMU/2023 Computer Engineering/3-2/캡스톤디자인/Backend/Backend/This/fourtuna/static/contest_img'
+MEDIA_ROOT = os.path.join(BASE_DIR,'/Users/KimDongHyeon/Desktop/KMU/2023 Computer Engineering/3-2/캡스톤디자인/Backend/Backend/This/fourtuna/static/contest_img')
 
 
 # Quick-start development settings - unsuitable for production
