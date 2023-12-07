@@ -13,17 +13,13 @@ from chat import views as chat_views  # 'chat' 앱의 뷰를 가져옵니다.
 router = routers.DefaultRouter()
 router.register(r'contests', Contest_Info_API, basename='contest_info')
 
-
 urlpatterns = [
     path('api/',include(router.urls)),
     path('admin/', admin.site.urls),
     path('chat/', include('chat.urls', namespace='chat')),
     path('community/', include('community.urls')),
-
     path('', include('users.urls')),
     path('team/', include('team.urls', namespace='team')),
-
 ]
-
-+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+## + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
