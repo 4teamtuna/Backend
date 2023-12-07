@@ -40,10 +40,18 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "accounts",
+    'chat',
     "community",
+
+    'rest_framework',
+    'rest_framework.authtoken',
+    'drf_yasg',
+    'team',
+    'users',
+
     "chat",
     "contest",
+
 ]
 ASGI_APPLICATION = 'fourtuna.asgi.application'
 
@@ -113,7 +121,7 @@ DATABASES = {
     }
 }
 
-
+# AUTH_USER_MODEL = 'accounts.User'
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
@@ -159,3 +167,6 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
