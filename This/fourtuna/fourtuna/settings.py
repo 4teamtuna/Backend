@@ -42,11 +42,16 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     'chat',
     "community",
+
     'rest_framework',
     'rest_framework.authtoken',
     'drf_yasg',
     'team',
     'users',
+
+    "chat",
+    "contest",
+
 ]
 ASGI_APPLICATION = 'fourtuna.asgi.application'
 
