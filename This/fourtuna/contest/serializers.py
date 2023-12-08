@@ -11,3 +11,8 @@ class Contest_Info_serializer(serializers.ModelSerializer):
         model = Contest_info
         fields = '__all__'
         
+class ListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Contest_info
+        fields = ('')
+        
