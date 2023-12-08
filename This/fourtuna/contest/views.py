@@ -1,4 +1,5 @@
 import os
+import re
 import datetime
 from django.shortcuts import render
 from rest_framework.response import Response
@@ -8,11 +9,15 @@ from .serializers import Contest_Info_serializer, My_Contest_serializer
 from rest_framework.viewsets import ModelViewSet
 from django.core.files import File
 from openpyxl import load_workbook 
+from django.core.files.images import ImageFile
+from datetime import datetime
 
-# Create your views here.
+def sanitize_filename(filename):
+    return re.sub(r'[/\\:*?"<>|]', "", filename).strip()
 
 def save_image_from_crawl(image_folder, contest_info):
     image_path = os.path.join(image_folder, f"{contest_info.title}.jpg")
+    print("Image path: ", image_path)  # 경로 출력
     with open(image_path, 'rb') as img_file:
         contest_info.image.save(f"{contest_info.title}.jpg", File(img_file))
         contest_info.save()
@@ -20,36 +25,38 @@ def save_image_from_crawl(image_folder, contest_info):
 def upload_xlsx_and_images(xlsx_path, image_folder):
     workbook = load_workbook(filename=xlsx_path)
     sheet = workbook.active
-    headers = [cell.value for cell in sheet[1]]  # xlsx 파일의 첫 번째 행은 헤더라고 가정합니다.
+    headers = [cell.value for cell in sheet[1]]
 
-    for row in sheet.iter_rows(min_row=2):  # 첫 번째 행(헤더)를 제외하고 각 행을 처리합니다.
-        row_dict = {headers[i]: cell.value for i, cell in enumerate(row)}
+    for row in sheet.iter_rows(min_row=2):
+        column_dict = {headers[i]: cell.value for i, cell in enumerate(row)}
+        column_dict = {key: value for key, value in column_dict.items() if key in [f.name for f in Contest_info._meta.fields]}
 
-        # 특정 필드만 처리합니다.
-        selected_fields = ['title', 'link', 'keyword', 'host', 'date','period', 'view']
-       
-        if not row_dict.get('title'):
-            continue
-        row_dict = {key: value for key, value in row_dict.items() if key in selected_fields}
-        
-        if 'date' not in row_dict or row_dict['date'] is None:
-            row_dict['date'] = datetime.datetime.now()
-        row_dict['view'] = row_dict.get('view') or '0'
-        # 딕셔너리의 값으로 Contest_info 인스턴스를 생성합니다.
-        contest_info = Contest_info(**row_dict)
-        contest_info.save()  # DB에 저장합니다.
+        # 'date' 칼럼에 현재 날짜와 시간을 설정합니다.
+        column_dict['date'] = datetime.now()
 
-        # 이미지를 저장합니다.
+        # 이미지 파일 이름을 가져오고, 이미지 파일의 전체 경로를 구합니다.
+        image_name = column_dict.get('trimmed_title')
+        if image_name:
+            image_name = sanitize_filename(image_name)
+            image_name = image_name+".jpg"
+            image_path = os.path.join(image_folder, image_name)
+
+            # 이미지 파일이 실제로 존재하는지 확인합니다.
+            if os.path.exists(image_path):
+                with open(image_path, 'rb') as image_file:
+                    column_dict['image'] = ImageFile(image_file, name=image_name)
+
+        # 데이터베이스에 데이터를 저장합니다.
+        contest_info = Contest_info.objects.create(**column_dict)
+        contest_info.title = sanitize_filename(contest_info.title)
         save_image_from_crawl(image_folder, contest_info)
-            
-            
-#xlsx_path = '/Users/KimDongHyeon/Desktop/KMU/2023 Computer Engineering/3-2/캡스톤디자인/크롤링/공모전.xlsx'
-#image_folder = '/Users/KimDongHyeon/Desktop/KMU/2023 Computer Engineering/3-2/캡스톤디자인/Backend/Backend/This/fourtuna/static/contest_img'
+        # 데이터가 저장되었다는 메시지를 출력합니다.
+        print(f'Data has been saved to the database: {contest_info}')
+
 
 class Contest_Info_API(ModelViewSet):
-    upload_xlsx_and_images(xlsx_path,image_folder)
-    queryset = Contest_info.objects.all()
-    serializer_class = Contest_Info_serializer
+     queryset = Contest_info.objects.all()
+     serializer_class = Contest_Info_serializer
 
 class My_Contest_API(APIView):
     def get(self, request):
@@ -57,5 +64,4 @@ class My_Contest_API(APIView):
         print(queryset)
         serializer = My_Contest_serializer(queryset, many = True)
         return Response(serializer.data)
-    
 
