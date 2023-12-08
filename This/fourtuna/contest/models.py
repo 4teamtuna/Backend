@@ -20,11 +20,11 @@ class Contest_info(models.Model):
     keyword = models.CharField(max_length= 100, null = True)
     contest_info_id = models.AutoField(primary_key=True)
     contest = models.ForeignKey(my_contest, on_delete=models.SET_NULL, null=True)
-    contents = models.TextField()
-    host = models.CharField(max_length=30)
+    content = models.TextField(null=True)
+    host = models.CharField(max_length=100)
     period = models.CharField(max_length=30)
     date = models.DateField()
-    view = models.IntegerField()
+    view = models.IntegerField(default=0)
 
     def __str__(self):
         return self.host
