@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'users',
     "chat",
     "contest",
+    'corsheaders',
 
 ]
 ASGI_APPLICATION = 'fourtuna.asgi.application'
@@ -64,6 +65,7 @@ CHANNEL_LAYERS = {
 
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -72,6 +74,9 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
+
+CORS_ORIGIN_WHITELIST = ('http://127.0.0.1:5173', 'http://localhost:5173')
+CORS_ALLOW_CREDENTIALS = True
 
 ROOT_URLCONF = "fourtuna.urls"
 
@@ -168,3 +173,6 @@ LOGOUT_REDIRECT_URL = '/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+CSRF_COOKIE_NAME = "csrftoken"
+CSRF_HEADER_NAME = 'X-CSRFToken'

@@ -6,12 +6,12 @@ from django.conf import settings
 from django.conf.urls.static import static
 from rest_framework import routers
 from community import views as community_views  # 'community' 앱의 뷰를 가져옵니다.
-from contest.views import Contest_Info_API
+#from contest.views import Contest_Info_API
 from contest import models
 from chat import views as chat_views  # 'chat' 앱의 뷰를 가져옵니다.
 
 router = routers.DefaultRouter()
-router.register(r'contests', Contest_Info_API, basename='contest_info')
+#router.register(r'contests', Contest_Info_API, basename='contest_info')
 
 urlpatterns = [
     path('api/',include(router.urls)),

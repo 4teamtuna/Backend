@@ -43,8 +43,8 @@ def upload_xlsx_and_images(xlsx_path, image_folder):
         save_image_from_crawl(image_folder, contest_info)
             
             
-xlsx_path = '/Users/KimDongHyeon/Desktop/KMU/2023 Computer Engineering/3-2/캡스톤디자인/크롤링/공모전.xlsx'
-image_folder = '/Users/KimDongHyeon/Desktop/KMU/2023 Computer Engineering/3-2/캡스톤디자인/Backend/Backend/This/fourtuna/static/contest_img'
+#xlsx_path = '/Users/KimDongHyeon/Desktop/KMU/2023 Computer Engineering/3-2/캡스톤디자인/크롤링/공모전.xlsx'
+#image_folder = '/Users/KimDongHyeon/Desktop/KMU/2023 Computer Engineering/3-2/캡스톤디자인/Backend/Backend/This/fourtuna/static/contest_img'
 
 class Contest_Info_API(ModelViewSet):
     upload_xlsx_and_images(xlsx_path,image_folder)
