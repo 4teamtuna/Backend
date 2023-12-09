@@ -4,9 +4,12 @@ from rest_framework import serializers
 
 
 class UserSerializer(serializers.ModelSerializer):
+    profile_image = serializers.ImageField(read_only = True, source='userprofile.profile_image')
     class Meta:
         model = User
-        fields = '__all__'
+        fields = ('username', 'profile_image', 'email')
+
+
 
 
 class PostSerializer(serializers.ModelSerializer):
