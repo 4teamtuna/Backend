@@ -38,7 +38,8 @@ class MyPageView(APIView):
 
     def get(self, request):
         user_serializer = UserSerializer(request.user)
-        return Response(user_serializer.data, status=status.HTTP_200_OK)
+        profile_serializer = UserProfileSerializer(request.user.userprofile)
+        return Response({**user_serializer.data, 'profile': profile_serializer.data}, status=status.HTTP_200_OK)
 
 class RegisterView(APIView):
     def post(self, request):
