@@ -10,6 +10,7 @@ from community import views as community_views  # 'community' 앱의 뷰를 가�
 from contest import models
 from chat import views as chat_views  # 'chat' 앱의 뷰를 가져옵니다.
 
+
 router = routers.DefaultRouter()
 #router.register(r'contests', Contest_Info_API, basename='contest_info')
 
