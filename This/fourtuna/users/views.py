@@ -40,25 +40,63 @@ class MyPageView(APIView):
         user_serializer = UserSerializer(request.user)
         return Response(user_serializer.data, status=status.HTTP_200_OK)
 
-
 class RegisterView(APIView):
     def post(self, request):
         user_serializer = UserSerializer(data=request.data)
         profile_serializer = UserProfileSerializer(data=request.data)
 
-        if user_serializer.is_valid() and profile_serializer.is_valid():
+        user_valid = user_serializer.is_valid()
+        profile_valid = profile_serializer.is_valid()
+
+        if user_valid and profile_valid:
             user = user_serializer.save()
             user.set_password(user.password)
             user.save()
 
-            profile = profile_serializer.save(commit=False)
-            profile.user = user
-            profile.save()
+            profile_serializer.validated_data['user'] = user
+            profile = profile_serializer.save()
+
+            token, created = Token.objects.get_or_create(user=user)
 
             login(request, user)
-            return Response(user_serializer.data, status=status.HTTP_201_CREATED)
+            return Response({'token': token.key, **user_serializer.data}, status=status.HTTP_201_CREATED)
         
-        return Response({'errors': user_serializer.errors | profile_serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+        errors = {}
+        if not user_valid:
+            errors.update(user_serializer.errors)
+        if not profile_valid:
+            errors.update(profile_serializer.errors)
+            
+        return Response({'errors': errors}, status=status.HTTP_400_BAD_REQUEST)
+    
+
+class LogoutView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        request.auth.delete()
+        return Response({"detail": "로그아웃 성공"}, status=status.HTTP_200_OK)
+
+
+
+# class RegisterView(APIView):
+#     def post(self, request):
+#         user_serializer = UserSerializer(data=request.data)
+#         profile_serializer = UserProfileSerializer(data=request.data)
+
+#         if user_serializer.is_valid() and profile_serializer.is_valid():
+#             user = user_serializer.save()
+#             user.set_password(user.password)
+#             user.save()
+
+#             profile = profile_serializer.save(commit=False)
+#             profile.user = user
+#             profile.save()
+
+#             login(request, user)
+#             return Response(user_serializer.data, status=status.HTTP_201_CREATED)
+        
+#         return Response({'errors': user_serializer.errors | profile_serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
 # class LoginView(APIView):
 #     def post(self, request):
@@ -74,12 +112,5 @@ class RegisterView(APIView):
 #             return Response({'detail': '로그인 실패'}, status=status.HTTP_400_BAD_REQUEST)
 
 
-
-class LogoutView(APIView):
-    permission_classes = [IsAuthenticated]
-
-    def post(self, request):
-        request.auth.delete()
-        return Response({"detail": "로그아웃 성공"}, status=status.HTTP_200_OK)
 
 
