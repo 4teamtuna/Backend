@@ -40,6 +40,7 @@ class MyPageView(APIView):
         user_serializer = UserSerializer(request.user)
         return Response(user_serializer.data, status=status.HTTP_200_OK)
 
+
 class RegisterView(APIView):
     def post(self, request):
         user_serializer = UserSerializer(data=request.data)
@@ -59,7 +60,11 @@ class RegisterView(APIView):
             token, created = Token.objects.get_or_create(user=user)
 
             login(request, user)
-            return Response({'token': token.key, **user_serializer.data}, status=status.HTTP_201_CREATED)
+            return Response({
+                'token': token.key, 
+                **user_serializer.data, 
+                'profile': profile_serializer.data
+            }, status=status.HTTP_201_CREATED)
         
         errors = {}
         if not user_valid:
@@ -68,6 +73,7 @@ class RegisterView(APIView):
             errors.update(profile_serializer.errors)
             
         return Response({'errors': errors}, status=status.HTTP_400_BAD_REQUEST)
+
     
 
 class LogoutView(APIView):
