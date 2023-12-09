@@ -22,6 +22,5 @@ urlpatterns = [
     path('', include('users.urls')),
     path('team/', include('team.urls', namespace='team')),
     path('contest/',include('contest.urls',namespace='contest')),
-]
-## + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

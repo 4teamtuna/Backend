@@ -16,3 +16,7 @@ class ListSerializer(serializers.ModelSerializer):
         model = Contest_info
         fields = ('image')
         
+class Contest_Info_serializer(serializers.ModelSerializer):
+    class Meta:
+        model = Contest_info
+        fields = '__all__'

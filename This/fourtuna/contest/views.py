@@ -5,7 +5,7 @@ from django.shortcuts import render
 from rest_framework.response import Response
 from .models import Contest_info, my_contest
 from rest_framework.views import APIView
-from .serializers import Contest_Detail_serializer, My_Contest_serializer, ListSerializer
+from .serializers import Contest_Detail_serializer, My_Contest_serializer, ListSerializer, Contest_Info_serializer
 from rest_framework.viewsets import ModelViewSet
 from django.core.files import File
 from openpyxl import load_workbook 
@@ -57,7 +57,7 @@ def upload_xlsx_and_images(xlsx_path, image_folder):
 @api_view(['GET'])
 def Contest_list(request):
     contest_list = Contest_info.objects.all()
-    serializer = ListSerializer(contest_list,many = True)
+    serializer = Contest_Info_serializer(contest_list,many = True)
     return Response(serializer.data)
     
 class My_Contest_API(APIView):
