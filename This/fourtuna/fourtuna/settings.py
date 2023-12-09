@@ -176,3 +176,9 @@ MEDIA_URL = '/media/'
 
 CSRF_COOKIE_NAME = "csrftoken"
 CSRF_HEADER_NAME = 'X-CSRFToken'
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+}

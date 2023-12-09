@@ -6,8 +6,13 @@ class My_Contest_serializer(serializers.ModelSerializer):
         model = my_contest
         fields = '__all__'
 
-class Contest_Info_serializer(serializers.ModelSerializer):
+class Contest_Detail_serializer(serializers.ModelSerializer):
     class Meta:
         model = Contest_info
-        fields = '__all__'
+        fields = ('title','link','content')
+        
+class ListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Contest_info
+        fields = ('image')
         

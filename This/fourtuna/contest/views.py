@@ -5,10 +5,11 @@ from django.shortcuts import render
 from rest_framework.response import Response
 from .models import Contest_info, my_contest
 from rest_framework.views import APIView
-from .serializers import Contest_Info_serializer, My_Contest_serializer
+from .serializers import Contest_Detail_serializer, My_Contest_serializer, ListSerializer
 from rest_framework.viewsets import ModelViewSet
 from django.core.files import File
 from openpyxl import load_workbook 
+from rest_framework.decorators import api_view, permission_classes
 from django.core.files.images import ImageFile
 from datetime import datetime
 
@@ -53,11 +54,12 @@ def upload_xlsx_and_images(xlsx_path, image_folder):
         # 데이터가 저장되었다는 메시지를 출력합니다.
         print(f'Data has been saved to the database: {contest_info}')
 
-
-class Contest_Info_API(ModelViewSet):
-     queryset = Contest_info.objects.all()
-     serializer_class = Contest_Info_serializer
-
+@api_view(['GET'])
+def Contest_list(request):
+    contest_list = Contest_info.objects.all()
+    serializer = ListSerializer(contest_list,many = True)
+    return Response(serializer.data)
+    
 class My_Contest_API(APIView):
     def get(self, request):
         queryset = my_contest.objects.all()
@@ -65,3 +67,8 @@ class My_Contest_API(APIView):
         serializer = My_Contest_serializer(queryset, many = True)
         return Response(serializer.data)
 
+@api_view(['GET'])
+def Contest_Detail(request):
+    contest_detail = Contest_info.objects.all()
+    serializer = Contest_Detail_serializer(contest_detail, many = True)
+    return Response(serializer.data)
