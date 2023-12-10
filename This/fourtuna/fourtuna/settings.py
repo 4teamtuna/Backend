@@ -134,7 +134,7 @@ DATABASES = {
         'HOST' : get_env_variable('DB_HOST'),
         'PORT' : get_env_variable('DB_PORT'),
         'OPTIONS':{
-            'init_comand' : "SET sql_mode = 'STRICT_TRANS_TABLES'"
+            'init_command' : "SET sql_mode = 'STRICT_TRANS_TABLES'"
         }
     }
 }
