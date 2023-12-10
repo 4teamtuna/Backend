@@ -24,7 +24,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR,'/Users/KimDongHyeon/Desktop/KMU/2023 Compute
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = "django-insecure-q#p(gfp$2%2f25@tj)o^jj6u^gghdqy2d(c9!))5sa-1@7h1_x"
+SECRET_KEY = "django-insecure-q#p(gfp$2%2f25@tj)o^jj6u^gghdqy2d(c9!))5sa-1@7h1_x"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -123,16 +123,16 @@ def get_env_variable(var_name):
     error_msg = 'Set the {} environment variable'.format(var_name)
     raise ImproperlyConfigured(error_msg)
 
-SECRET_KEY = get_env_variable('django-insecure-q#p(gfp$2%2f25@tj)o^jj6u^gghdqy2d(c9!))5sa-1@7h1_x')
+SECRET_KEY = get_env_variable('DJANGO_SECRET')
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME' : get_env_variable('gsmoaDB'),
-        'USER' : get_env_variable('s5584747'),
-        'PASSWORD' : get_env_variable('s5584747'),
-        'HOST' : get_env_variable('127.0.0.1'),
-        'PORT' : get_env_variable(tunnel.local_bind_port),
+        'NAME' : get_env_variable('DATABASE'),
+        'USER' : get_env_variable('DB_USER'),
+        'PASSWORD' : get_env_variable('DB_PASSWORD'),
+        'HOST' : get_env_variable('DB_HOST'),
+        'PORT' : get_env_variable('DB_PORT'),
         'OPTIONS':{
             'init_comand' : "SET sql_mode = 'STRICT_TRANS_TABLES'"
         }
