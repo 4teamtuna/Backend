@@ -9,7 +9,7 @@ class My_Contest_serializer(serializers.ModelSerializer):
 class Contest_Detail_serializer(serializers.ModelSerializer):
     class Meta:
         model = Contest_info
-        fields = ('title','link','content')
+        fields = ('title','link','host','period','content')
         
 class ListSerializer(serializers.ModelSerializer):
     class Meta:
