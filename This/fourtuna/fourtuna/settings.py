@@ -132,7 +132,7 @@ DATABASES = {
         'USER' : get_env_variable('DB_USER'),
         'PASSWORD' : get_env_variable('DB_PASSWORD'),
         'HOST' : get_env_variable('DB_HOST'),
-        'PORT' : get_env_variable(tunnel.local_bind_port),
+        'PORT' : tunnel.local_bind_port,
         'OPTIONS':{
             'init_command' : "SET sql_mode = 'STRICT_TRANS_TABLES'"
         }
