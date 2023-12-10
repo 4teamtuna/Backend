@@ -27,6 +27,7 @@ defusedxml==0.7.1
 distlib==0.3.7
 Django==4.2.6
 django-cors-headers==4.3.0
+django-environ==0.11.2
 django-filter==23.3
 django-rest-swagger==2.2.0
 djangorestframework==3.14.0
@@ -36,6 +37,7 @@ fake-useragent==1.4.0
 filelock==3.13.1
 fonttools==4.44.0
 frozenlist==1.4.0
+gunicorn==21.2.0
 h11==0.14.0
 httpie==3.2.2
 hyperlink==21.0.0
@@ -108,6 +110,7 @@ w3lib==2.1.2
 webdriver-manager==4.0.1
 websocket-client==1.7.0
 websockets==10.4
+whitenoise==6.6.0
 wordcloud==1.9.2
 wsproto==1.2.0
 yarl==1.9.3
