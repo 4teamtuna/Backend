@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
+from django.core.exceptions import ImproperlyConfigured
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,10 +27,11 @@ MEDIA_ROOT = os.path.join(BASE_DIR,'/Users/KimDongHyeon/Desktop/KMU/2023 Compute
 SECRET_KEY = "django-insecure-q#p(gfp$2%2f25@tj)o^jj6u^gghdqy2d(c9!))5sa-1@7h1_x"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
-
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True
 
 # Application definition
 
@@ -65,7 +67,7 @@ CHANNEL_LAYERS = {
 
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
+   'corsheaders.middleware.CorsMiddleware',
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -73,6 +75,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 CORS_ORIGIN_WHITELIST = ('http://127.0.0.1:5173', 'http://localhost:5173')
@@ -113,14 +116,24 @@ tunnel.start()
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+def get_env_variable(var_name):
+  try:
+    return os.environ[var_name]
+  except KeyError:
+    error_msg = 'Set the {} environment variable'.format(var_name)
+    raise ImproperlyConfigured(error_msg)
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME' : 'gsmoaDB',
-        'USER' : 's5584747',
-        'PASSWORD' : 's5584747',
-        'HOST' : '127.0.0.1',
-        'PORT' : tunnel.local_bind_port
+        'NAME' : get_env_variable('gsmoaDB'),
+        'USER' : get_env_variable('s5584747'),
+        'PASSWORD' : get_env_variable('s5584747'),
+        'HOST' : get_env_variable('127.0.0.1'),
+        'PORT' : get_env_variable(tunnel.local_bind_port),
+        'OPTIONS':{
+            'init_comand' : "SET sql_mode = 'STRICT_TRANS_TABLES'"
+        }
     }
 }
 
