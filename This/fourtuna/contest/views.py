@@ -32,8 +32,8 @@ def save_image_from_crawl(image_folder, contest_info):
 #         column_dict = {headers[i]: cell.value for i, cell in enumerate(row)}
 #         column_dict = {key: value for key, value in column_dict.items() if key in [f.name for f in Contest_info._meta.fields]}
 
-#         # 'date' 칼럼에 현재 날짜와 시간을 설정합니다.
-#         column_dict['date'] = datetime.now()
+        # 'dacd te' 칼럼에 현재 날짜와 시간을 설정합니다.
+        # column_dict['date'] = datetime.now()
 
 #         # 이미지 파일 이름을 가져오고, 이미지 파일의 전체 경로를 구합니다.
 #         image_name = column_dict.get('trimmed_title')
@@ -68,7 +68,7 @@ class My_Contest_API(APIView):
         return Response(serializer.data)
 
 @api_view(['GET'])
-def Contest_Detail(request):
-    contest_detail = Contest_info.objects.all()
-    serializer = Contest_Detail_serializer(contest_detail, many = True)
+def Contest_Detail(request,contest_info_id):
+    contest_detail = Contest_info.objects.get(contest_info_id = contest_info_id)
+    serializer = Contest_Detail_serializer(contest_detail)
     return Response(serializer.data)

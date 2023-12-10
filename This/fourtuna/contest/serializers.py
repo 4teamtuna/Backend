@@ -14,7 +14,7 @@ class Contest_Detail_serializer(serializers.ModelSerializer):
 class ListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Contest_info
-        fields = ('image')
+        field = 'image'
         
 class Contest_Info_serializer(serializers.ModelSerializer):
     class Meta:
