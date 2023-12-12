@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: SSH-deploy
-        uses: baekggum/4teamtuna@master
+        uses: baekggum/4teamtuna/Backend@master
         with:
           host: ${{secrets.REMOTE_IP}}
           username: ${{secrets.SSH_ID}}
