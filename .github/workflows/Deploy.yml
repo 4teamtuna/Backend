@@ -17,7 +17,7 @@ jobs:
           port: ${{secrets.REMOTE_SSH_PORT}}
           script: |
             whoami
-            cd /root/Backend/gsmoa/bin/activate
+            cd /root/Backend/gsmoa/bin/
             git pull origin main
             npm install --force
             npm run build
