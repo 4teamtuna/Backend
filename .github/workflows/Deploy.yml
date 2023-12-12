@@ -1,4 +1,4 @@
-name: deploy
+name: Backend
   
 on:
   push:
@@ -8,7 +8,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: SSH-deploy
+      - name: Backend
         uses: baekggum/Backend@master
         with:
           host: ${{secrets.REMOTE_IP}}
