@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Backend
-        uses: baekggum/Backend@master
+        uses: baekggum/Backend@main
         with:
           host: ${{secrets.REMOTE_IP}}
           username: ${{secrets.SSH_ID}}
