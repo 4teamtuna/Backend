@@ -1,0 +1,24 @@
+name: deploy
+  
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: SSH-deploy
+        uses: gsmoa/ssh-action@master
+        with:
+          host: ${{secrets.REMOTE_IP}}
+          username: ${{secrets.SSH_ID}}
+          password: ${{secrets.REMOTE_SSH_KEY}}
+          port: ${{secrets.REMOTE_SSH_PORT}}
+          script: |
+            whoami
+            cd /root/Backend/
+            git pull origin main
+            npm install --force
+            npm run build
+            nginx -s reload
