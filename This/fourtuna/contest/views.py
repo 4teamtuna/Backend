@@ -12,6 +12,7 @@ from django.core.files import File
 from rest_framework.decorators import api_view, permission_classes
 from django.core.files.images import ImageFile
 from datetime import datetime
+from django.shortcuts import render
 
 def sanitize_filename(filename):
     return re.sub(r'[/\\:*?"<>|]', "", filename).strip()
