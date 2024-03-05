@@ -1,5 +1,4 @@
 package com.example.gsmoa.entity;
-//import com.example.gsmoa.dto.BoardDTO;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,33 +8,23 @@ import lombok.Setter;
 @Setter
 @Table(name = "board_table")
 public class BoardEntity extends BaseEntity {
-    @Id// pk 컬럼 지정. 필수
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // auto_increment
     private Long id;
 
-    @Column(length = 20, nullable = false) // 크기 20, not null
-    private String boardWriter;
+    // 글 작성자
+    @Column(length = 20, nullable = false)
+    private String writer;
 
-    @Column() // 크기 255, null 가능
-    private String boardPass;
-
+    // 제목
     @Column
-    private String boardTitle;
+    private String title;
 
+    // 내용
     @Column(length = 500)
-    private String boardContents;
+    private String content;
 
+    // 조회수
     @Column
-    private int boardHits;
-
-//    public static BoardEntity toSaveEntity(BoardDTO boardDTO) {
-//        BoardEntity boardEntity = new BoardEntity();
-//        boardEntity.setBoardWriter(boardDTO.getBoardWriter());
-//        boardEntity.setBoardPass(boardDTO.getBoardPass());
-//        boardEntity.setBoardTitle(boardDTO.getBoardTitle());
-//        boardEntity.setBoardContents(boardDTO.getBoardContents());
-//        boardEntity.setBoardHits(0);
-//
-//        return boardEntity;
-//    }
+    private int hits;
 }

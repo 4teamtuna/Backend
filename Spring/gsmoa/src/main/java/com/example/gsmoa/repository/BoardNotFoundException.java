@@ -1,4 +1,4 @@
-package com.example.gsmoa.service;
+package com.example.gsmoa.repository;
 
 public class BoardNotFoundException extends RuntimeException {
     public BoardNotFoundException(Long id) {
