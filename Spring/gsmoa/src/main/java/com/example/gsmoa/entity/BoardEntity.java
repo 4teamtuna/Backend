@@ -1,5 +1,5 @@
 package com.example.gsmoa.entity;
-import com.example.gsmoa.dto.BoardDTO;
+//import com.example.gsmoa.dto.BoardDTO;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -28,14 +28,14 @@ public class BoardEntity extends BaseEntity {
     @Column
     private int boardHits;
 
-    public static BoardEntity toSaveEntity(BoardDTO boardDTO) {
-        BoardEntity boardEntity = new BoardEntity();
-        boardEntity.setBoardWriter(boardDTO.getBoardWriter());
-        boardEntity.setBoardPass(boardDTO.getBoardPass());
-        boardEntity.setBoardTitle(boardDTO.getBoardTitle());
-        boardEntity.setBoardContents(boardDTO.getBoardContents());
-        boardEntity.setBoardHits(0);
-
-        return boardEntity;
-    }
+//    public static BoardEntity toSaveEntity(BoardDTO boardDTO) {
+//        BoardEntity boardEntity = new BoardEntity();
+//        boardEntity.setBoardWriter(boardDTO.getBoardWriter());
+//        boardEntity.setBoardPass(boardDTO.getBoardPass());
+//        boardEntity.setBoardTitle(boardDTO.getBoardTitle());
+//        boardEntity.setBoardContents(boardDTO.getBoardContents());
+//        boardEntity.setBoardHits(0);
+//
+//        return boardEntity;
+//    }
 }
