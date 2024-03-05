@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>글 작성</title>
+    <style>
+        form {
+            width: 300px;
+            margin: 0 auto;
+        }
+        form div {
+            margin-bottom: 10px;
+        }
+        form input[type="text"],
+        form textarea {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+<form action="/board/write" method="post" enctype="multipart/form-data">
+    <div>
+        <label for="boardWriter">작성자:</label>
+        <input type="text" id="boardWriter" name="boardWriter">
+    </div>
+    <div>
+        <label for="boardPass">비밀번호:</label>
+        <input type="text" id="boardPass" name="boardPass">
+    </div>
+    <div>
+        <label for="boardTitle">제목:</label>
+        <input type="text" id="boardTitle" name="boardTitle">
+    </div>
+    <div>
+        <label for="boardContents">내용:</label>
+        <textarea id="boardContents" name="boardContents" cols="30" rows="10"></textarea>
+    </div>
+    <div>
+        <label for="boardFile">파일:</label>
+        <input type="file" id="boardFile" name="boardFile">
+    </div>
+    <div>
+        <input type="submit" value="글작성">
+    </div>
+</form>
+</body>
+</html>
