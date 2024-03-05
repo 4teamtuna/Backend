@@ -13,10 +13,12 @@ import java.time.LocalDateTime;
 @EntityListeners(AuditingEntityListener.class)
 @Getter
 public class BaseEntity {
+    // 글 생성 시간
     @CreationTimestamp
     @Column(updatable = false)
     private LocalDateTime createdTime;
 
+    // 글 업데이트 시간
     @UpdateTimestamp
     @Column(insertable = false)
     private LocalDateTime updatedTime;

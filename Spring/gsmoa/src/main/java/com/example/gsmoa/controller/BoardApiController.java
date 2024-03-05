@@ -2,9 +2,10 @@ package com.example.gsmoa.controller;
 
 import com.example.gsmoa.entity.BoardEntity;
 import com.example.gsmoa.repository.BoardRepository;
-import com.example.gsmoa.service.BoardNotFoundException;
+import com.example.gsmoa.repository.BoardNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.thymeleaf.util.StringUtils;
 
 import java.util.List;
 
@@ -16,8 +17,12 @@ class BoardApiController {
     private BoardRepository repository;
 
     @GetMapping("/boards")
-    List<BoardEntity> all() {
-        return repository.findAll();
+    List<BoardEntity> all(@RequestParam(required = false, defaultValue = "") String title, @RequestParam(required = false, defaultValue = "") String content) {
+        if(StringUtils.isEmpty(title) && StringUtils.isEmpty(content)) {
+            return repository.findAll();
+        } else {
+            return repository.findByTitleOrContent(title, content);
+        }
     }
     // end::get-aggregate-root[]
 
@@ -40,8 +45,8 @@ class BoardApiController {
 
         return repository.findById(id)
                 .map(Board -> {
-                    Board.setBoardTitle(newBoard.getBoardTitle());
-                    Board.setBoardContents(newBoard.getBoardContents());
+                    Board.setTitle(newBoard.getTitle());
+                    Board.setContent(newBoard.getContent());
                     return repository.save(Board);
                 })
                 .orElseGet(() -> {
