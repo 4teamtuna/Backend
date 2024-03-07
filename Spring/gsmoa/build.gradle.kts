@@ -24,6 +24,8 @@ dependencies {
 	runtimeOnly ("com.mysql:mysql-connector-j")
 	annotationProcessor ("org.projectlombok:lombok")
 	implementation ("org.springframework.boot:spring-boot-starter-data-jpa")
+//	implementation ("io.springfox","springfox-swagger2", version = "2.0.2")
+	implementation ("org.springdoc","springdoc-openapi-starter-webmvc-ui", version = "2.0.2")
 }
 
 tasks.withType<Test> {
