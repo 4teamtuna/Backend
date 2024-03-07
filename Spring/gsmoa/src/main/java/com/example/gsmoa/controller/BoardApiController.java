@@ -10,7 +10,6 @@ import org.thymeleaf.util.StringUtils;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
 class BoardApiController {
 
     @Autowired
