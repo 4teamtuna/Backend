@@ -15,7 +15,7 @@ public class CommentEntity extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id", nullable = false)
-    private BoardgEntity post;
+    private BoardEntity post;
 
     @Column(length = 20, nullable = false)
     private String writer;
