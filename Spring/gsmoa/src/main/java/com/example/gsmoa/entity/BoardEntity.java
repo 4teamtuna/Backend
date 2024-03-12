@@ -1,7 +1,9 @@
 package com.example.gsmoa.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
@@ -9,6 +11,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
 @Table(name = "board_table")
 public class BoardEntity extends BaseEntity {
     @Id
@@ -32,5 +35,7 @@ public class BoardEntity extends BaseEntity {
     private int hits;
 
     @OneToMany(mappedBy = "post", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<CommentEntity> comments;
+
 }
