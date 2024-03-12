@@ -10,7 +10,7 @@ import lombok.Setter;
 public class BoardEntity extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // auto_increment
-    private Long id;
+    private Long post_id;
 
     // 글 작성자
     @Column(length = 20, nullable = false)

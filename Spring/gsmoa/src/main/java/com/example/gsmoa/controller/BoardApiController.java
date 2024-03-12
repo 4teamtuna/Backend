@@ -47,7 +47,7 @@ class BoardApiController {
                     return repository.save(Board);
                 })
                 .orElseGet(() -> {
-                    newBoard.setId(id);
+                    newBoard.setPost_id(id);
                     return repository.save(newBoard);
                 });
     }
