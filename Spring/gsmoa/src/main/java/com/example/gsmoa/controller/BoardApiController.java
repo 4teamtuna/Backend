@@ -32,13 +32,24 @@ class BoardApiController {
 
     // Single item
 
-    @GetMapping("/boards/{id}")
-    BoardEntity one(@PathVariable Long id) {
-        return repository.findById(id)
-                .orElseThrow(() -> new BoardNotFoundException(id));
+    @GetMapping("/boards/{post_id}")
+    BoardEntity one(@PathVariable Long post_id) {
+        return repository.findById(post_id).map(board -> {
+            // Hibernate.initialize 메서드를 사용하여 Lazy 로딩을 강제로 초기화할 수 있습니다.
+            // 이 방법은 성능에 영향을 줄 수 있으므로, 필요한 경우에만 사용하세요.
+            // Hibernate.initialize(board.getComments());
+
+            // 위의 Hibernate.initialize 대신, 아래와 같이 게시글의 댓글에 접근하는 것만으로도
+            // LAZY 로딩이 수행되어 댓글 정보를 가져올 수 있습니다.
+            board.getComments().size();
+
+            return board;
+        }).orElseThrow(() -> new BoardNotFoundException(post_id));
     }
 
-    @PutMapping("/boards/{id}")
+
+
+    @PutMapping("/boards/{post_id}")
     BoardEntity replaceBoard(@RequestBody BoardEntity newBoard, @PathVariable Long id) {
         return repository.findById(id)
                 .map(Board -> {
@@ -52,7 +63,7 @@ class BoardApiController {
                 });
     }
 
-    @DeleteMapping("/boards/{id}")
+    @DeleteMapping("/boards/{post_id}")
     void deleteBoard(@PathVariable Long id) {
         repository.deleteById(id);
     }

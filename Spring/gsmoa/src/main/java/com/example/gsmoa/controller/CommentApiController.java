@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/boards/{postId}/comments")
+@RequestMapping("/boards/{post_id}/comments")
 public class CommentApiController {
 
     @Autowired
@@ -19,14 +19,14 @@ public class CommentApiController {
 
     // 특정 게시글에 댓글 작성
     @PostMapping("/")
-    public CommentEntity addCommentToPost(@PathVariable Long postId, @RequestBody CommentEntity comment) {
-        BoardEntity post = postRepository.findById(postId).orElseThrow(() -> new RuntimeException("Post not found"));
+    public CommentEntity addCommentToPost(@PathVariable Long post_id, @RequestBody CommentEntity comment) {
+        BoardEntity post = postRepository.findById(post_id).orElseThrow(() -> new RuntimeException("Post not found"));
         comment.setPost(post);
         return commentRepository.save(comment);
     }
 
     // 특정 댓글 수정
-    @PutMapping("/{commentId}")
+    @PutMapping("/{comment_id}")
     public CommentEntity updateComment(@PathVariable Long postId, @PathVariable Long commentId, @RequestBody CommentEntity commentDetails) {
         postRepository.findById(postId).orElseThrow(() -> new RuntimeException("Post not found")); // 게시글 존재 여부만 확인합니다.
         CommentEntity comment = commentRepository.findById(commentId)
@@ -39,7 +39,7 @@ public class CommentApiController {
     }
 
     // 댓글 삭제
-    @DeleteMapping("/{commentId}")
+    @DeleteMapping("/{comment_id}")
     public void deleteComment(@PathVariable Long commentId) {
         commentRepository.deleteById(commentId);
     }

@@ -1,7 +1,10 @@
 package com.example.gsmoa.entity;
+
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.List;
 
 @Entity
 @Getter
@@ -27,4 +30,7 @@ public class BoardEntity extends BaseEntity {
     // 조회수
     @Column
     private int hits;
+
+    @OneToMany(mappedBy = "post", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<CommentEntity> comments;
 }
