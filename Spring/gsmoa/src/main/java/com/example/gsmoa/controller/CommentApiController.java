@@ -14,7 +14,7 @@ public class CommentApiController {
     private CommentRepository commentRepository;
 
     @Autowired
-    private BoardRepository postRepository; // 명확한 이해를 위해 변수 이름을 postRepository로 유지합니다.
+    private BoardRepository postRepository;
 
     // 특정 게시글에 댓글 작성
     @PostMapping("/boards/{post_id}/comment")
