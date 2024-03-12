@@ -34,14 +34,12 @@ class BoardApiController {
 
     @GetMapping("/boards/{id}")
     BoardEntity one(@PathVariable Long id) {
-
         return repository.findById(id)
                 .orElseThrow(() -> new BoardNotFoundException(id));
     }
 
     @PutMapping("/boards/{id}")
     BoardEntity replaceBoard(@RequestBody BoardEntity newBoard, @PathVariable Long id) {
-
         return repository.findById(id)
                 .map(Board -> {
                     Board.setTitle(newBoard.getTitle());
