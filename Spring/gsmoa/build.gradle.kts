@@ -26,6 +26,10 @@ dependencies {
 	implementation ("org.springframework.boot:spring-boot-starter-data-jpa")
 //	implementation ("io.springfox","springfox-swagger2", version = "2.0.2")
 	implementation ("org.springdoc","springdoc-openapi-starter-webmvc-ui", version = "2.0.2")
+
+	// websocket
+	implementation ("org.springframework.boot:spring-boot-starter-websocket")
+	implementation ("org.springframework.boot:spring-boot-starter-thymeleaf")
 }
 
 tasks.withType<Test> {

@@ -10,7 +10,7 @@ import org.thymeleaf.util.StringUtils;
 import java.util.List;
 
 @RestController
-class BoardApiController {
+class BoardController {
 
     @Autowired
     private BoardRepository repository;

@@ -3,24 +3,28 @@ package com.example.gsmoa.entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Getter
 @Setter
-@Table(name = "comment")
-public class CommentEntity extends BaseEntity {
+@NoArgsConstructor
+@Table(name = "chat_room_member")
+public class ChatRoomMembersEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long comment_id;
+    private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "post_id")
+    @JoinColumn(name = "chat_room_id")
     @JsonBackReference
-    private BoardEntity post;
+    private ChatRoomEntity chat_room;
 
-    private Integer writer_id;
+    private int member_id;
 
-    @Column(length = 500)
-    private String content;
+
+
 }
+
+
