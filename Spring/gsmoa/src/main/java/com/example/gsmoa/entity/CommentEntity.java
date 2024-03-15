@@ -8,7 +8,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@Table(name = "comment_table")
+@Table(name = "comment")
 public class CommentEntity extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,8 +19,7 @@ public class CommentEntity extends BaseEntity {
     @JsonBackReference
     private BoardEntity post;
 
-    @Column(length = 20, nullable = false)
-    private String writer;
+    private Integer writer_id;
 
     @Column(length = 500)
     private String content;

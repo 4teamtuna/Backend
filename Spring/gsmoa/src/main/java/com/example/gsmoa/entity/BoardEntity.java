@@ -12,15 +12,14 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name = "board_table")
+@Table(name = "board")
 public class BoardEntity extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // auto_increment
     private Long post_id;
 
-    // 글 작성자
-    @Column(length = 20, nullable = false)
-    private String writer;
+    // 글 작성자 Id
+    private int writer_id;
 
     // 제목
     @Column

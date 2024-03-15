@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-public class CommentApiController {
+public class CommentController {
 
     @Autowired
     private CommentRepository commentRepository;

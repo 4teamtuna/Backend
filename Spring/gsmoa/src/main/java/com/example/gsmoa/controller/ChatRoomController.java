@@ -18,11 +18,8 @@ import java.time.LocalDateTime;
 @RestController
 @RequestMapping("/chat")
 public class ChatRoomController {
-
-
     @Autowired
     private ChatRoomRepository repository;
-
 
     @PostMapping("/newRoom")
     ChatRoomEntity newRoom(@RequestBody ChatRoomEntity newRoom) {
