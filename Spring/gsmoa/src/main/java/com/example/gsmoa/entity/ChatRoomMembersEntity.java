@@ -16,12 +16,14 @@ public class ChatRoomMembersEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "chat_room_id")
+    @JsonBackReference
+    private ChatRoomEntity chat_room;
+
     private int member_id;
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "chat_room_id")
-//    @JsonBackReference
-//    private ChatRoomEntity chat_room;
+
 
 }
 
