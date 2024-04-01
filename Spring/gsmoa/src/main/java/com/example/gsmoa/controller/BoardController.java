@@ -13,9 +13,15 @@ import java.util.List;
 class BoardController {
 
     @Autowired
-    private BoardRepository repository;
+    private BoardRepository repository; // BoardRepository 인터페이스를 사용하여 DB에 접근합니다.
 
-    @GetMapping("/boards")
+    @GetMapping("/boards") // GET 요청을 받아 게시글 목록을 반환합니다.
+    // @RequestParam 어노테이션을 사용하여 요청 파라미터를 받아올 수 있습니다.
+    // required 속성을 사용하여 해당 파라미터가 필수인지 여부를 지정할 수 있습니다.
+    // defaultValue 속성을 사용하여 해당 파라미터가 없을 경우 기본값을 지정할 수 있습니다.
+    // title, content 파라미터가 모두 없을 경우, 전체 게시글 목록을 반환합니다.
+    // title, content 파라미터 중 하나라도 있을 경우, 해당 파라미터로 검색하여 게시글 목록을 반환합니다.
+    // title, content 파라미터가 모두 있을 경우, title 또는 content로 검색하여 게시글 목록을 반환합니다.
     List<BoardEntity> all(@RequestParam(required = false, defaultValue = "") String title, @RequestParam(required = false, defaultValue = "") String content) {
         if(StringUtils.isEmpty(title) && StringUtils.isEmpty(content)) {
             return repository.findAll();
@@ -23,32 +29,37 @@ class BoardController {
             return repository.findByTitleOrContent(title, content);
         }
     }
-    // end::get-aggregate-root[]
 
+    // 게시글 생성
     @PostMapping("/boards")
+    // @RequestBody 어노테이션을 사용하여 요청 바디에 있는 JSON 데이터를 BoardEntity 객체로 변환합니다.
+    // 변환된 객체를 save 메서드를 사용하여 DB에 저장합니다.
     BoardEntity newBoard(@RequestBody BoardEntity newBoard) {
         return repository.save(newBoard);
     }
 
-    // Single item
 
+    // 게시글 조회
     @GetMapping("/boards/{post_id}")
+    // @PathVariable 어노테이션을 사용하여 URL 경로에 있는 post_id 값을 받아올 수 있습니다.
+    // 해당 post_id에 해당하는 게시글을 반환합니다.
+    // 게시글이 없을 경우, BoardNotFoundException 예외를 발생시킵니다.
     BoardEntity one(@PathVariable Long post_id) {
         return repository.findById(post_id).map(board -> {
-            // Hibernate.initialize 메서드를 사용하여 Lazy 로딩을 강제로 초기화할 수 있습니다.
-            // 이 방법은 성능에 영향을 줄 수 있으므로, 필요한 경우에만 사용하세요.
-            // Hibernate.initialize(board.getComments());
+            board.setHits(board.getHits() + 1); // 조회수 증가
+            board.getComments().size(); // 댓글 목록 조회
 
-            // 위의 Hibernate.initialize 대신, 아래와 같이 게시글의 댓글에 접근하는 것만으로도
-            // LAZY 로딩이 수행되어 댓글 정보를 가져올 수 있습니다.
-            board.getComments().size();
-
-            return board;
-        }).orElseThrow(() -> new BoardNotFoundException(post_id));
+            return board; // 조회된 게시글 반환
+        }).orElseThrow(() -> new BoardNotFoundException(post_id)); // 게시글이 없을 경우 예외 발생
     }
 
 
-
+    // 게시글 수정
+    // @PutMapping 어노테이션을 사용하여 PUT 요청을 받아 게시글을 수정합니다.
+    // @RequestBody 어노테이션을 사용하여 요청 바디에 있는 JSON 데이터를 BoardEntity 객체로 변환합니다.
+    // 해당 post_id에 해당하는 게시글을 찾아 제목과 내용을 수정합니다.
+    // 게시글이 없을 경우, 새로운 게시글을 생성합니다.
+    // 수정된 게시글을 반환합니다.
     @PutMapping("/boards/{post_id}")
     BoardEntity replaceBoard(@RequestBody BoardEntity newBoard, @PathVariable Long id) {
         return repository.findById(id)
@@ -63,6 +74,12 @@ class BoardController {
                 });
     }
 
+    // 게시글 삭제
+    // @DeleteMapping 어노테이션을 사용하여 DELETE 요청을 받아 게시글을 삭제합니다.
+    // 해당 post_id에 해당하는 게시글을 삭제합니다.
+    // 삭제된 게시글의 post_id를 반환합니다.
+    // 게시글이 없을 경우, BoardNotFoundException 예외를 발생시킵니다.
+    // 게시글이 삭제되었을 경우, 삭제된 게시글의 post_id를 반환합니다.
     @DeleteMapping("/boards/{post_id}")
     void deleteBoard(@PathVariable Long id) {
         repository.deleteById(id);
