@@ -9,18 +9,21 @@ import java.util.HashSet;
 import java.util.Set;
 
 
+// 채팅방 정보를 담는 ChatRoom 클래스
 @Getter
 public class ChatRoom {
-    private String roomId;
-    private String name;
-    private Set<WebSocketSession> sessions = new HashSet<>();
+    private String roomId; // 방번호
+    private String name; // 방이름
+    private Set<WebSocketSession> sessions = new HashSet<>(); // 채팅방에 입장한 세션 정보
 
+    // ChatRoom 생성자
     @Builder
     public ChatRoom(String roomId, String name) {
-        this.roomId = roomId;
-        this.name = name;
+        this.roomId = roomId; // 방번호
+        this.name = name; // 방이름
     }
 
+    // 채팅방에 입장한 세션 정보를 추가하는 메소드
     public void handleActions(WebSocketSession session, ChatMessage chatMessage, ChatService chatService) {
         if (chatMessage.getType().equals(ChatMessageType.ENTER)) {
             sessions.add(session);
@@ -29,6 +32,7 @@ public class ChatRoom {
         sendMessage(chatMessage, chatService);
     }
 
+    // 채팅방에 메시지를 전송하는 메소드
     public <T> void sendMessage(T message, ChatService chatService) {
         sessions.parallelStream().forEach(session -> chatService.sendMessage(session, message));
     }

@@ -11,12 +11,17 @@ import org.springframework.web.bind.annotation.*;
 public class CommentController {
 
     @Autowired
-    private CommentRepository commentRepository;
+    private CommentRepository commentRepository; // CommentRepository 인터페이스를 사용하여 DB에 접근합니다.
 
     @Autowired
-    private BoardRepository postRepository;
+    private BoardRepository postRepository; // BoardRepository 인터페이스를 사용하여 DB에 접근합니다.
 
     // 특정 게시글에 댓글 작성
+    // @RequestBody 어노테이션을 사용하여 요청 바디에 있는 JSON 데이터를 CommentEntity 객체로 변환합니다.
+    // 해당 post_id에 해당하는 게시글을 찾아 댓글을 추가합니다.
+    // 댓글을 저장하고 반환합니다.
+    // 게시글이 없을 경우, RuntimeException 예외를 발생시킵니다.
+    // 게시글이 있을 경우, 댓글을 저장하고 반환합니다.
     @PostMapping("/boards/{post_id}/comment")
     public CommentEntity addCommentToPost(@PathVariable Long post_id, @RequestBody CommentEntity comment) {
         BoardEntity post = postRepository.findById(post_id).orElseThrow(() -> new RuntimeException("Post not found"));
@@ -25,6 +30,10 @@ public class CommentController {
     }
 
     // 특정 댓글 수정
+    // @RequestBody 어노테이션을 사용하여 요청 바디에 있는 JSON 데이터를 CommentEntity 객체로 변환합니다.
+    // 해당 comment_id에 해당하는 댓글을 찾아 내용을 수정합니다.
+    // 댓글을 저장하고 반환합니다.
+    // 댓글이 없을 경우, RuntimeException 예외를 발생시킵니다.
     @PutMapping("/boards/{post_id}/comment/{comment_id}")
     public CommentEntity updateComment(@PathVariable Long postId, @PathVariable Long commentId, @RequestBody CommentEntity commentDetails) {
         postRepository.findById(postId).orElseThrow(() -> new RuntimeException("Post not found")); // 게시글 존재 여부만 확인합니다.
@@ -38,6 +47,10 @@ public class CommentController {
     }
 
     // 댓글 삭제
+    // @PathVariable 어노테이션을 사용하여 URL 경로에 있는 comment_id 값을 받아올 수 있습니다.
+    // 해당 comment_id에 해당하는 댓글을 삭제합니다.
+    // 댓글이 없을 경우, RuntimeException 예외를 발생시킵니다.
+    // 댓글이 있을 경우, 댓글을 삭제합니다.
     @DeleteMapping("/boards/{post_id}/comment/{comment_id}")
     public void deleteComment(@PathVariable Long commentId) {
         commentRepository.deleteById(commentId);
