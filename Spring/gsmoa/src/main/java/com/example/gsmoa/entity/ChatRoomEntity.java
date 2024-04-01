@@ -1,32 +1,21 @@
 package com.example.gsmoa.entity;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
-
+// 채팅방 정보를 저장하는 ChatRoomEntity 클래스
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor
 @Table(name = "chat_room")
 public class ChatRoomEntity {
+
+    // 채팅방 Id
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long chat_room_id;
+    private Long id;
 
-    private int room_owner_id;
-
-    @Column
-    private String room_name;
-
-//    @OneToMany(mappedBy = "chat_room", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//    @JsonManagedReference
-//    private List<ChatRoomMembersEntity> member_id;
-
+    private String roomId; // 방번호
+    private String name; // 방이름
 }
-
-
