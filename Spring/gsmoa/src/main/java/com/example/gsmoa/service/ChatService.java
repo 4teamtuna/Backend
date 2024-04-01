@@ -21,35 +21,35 @@ import java.util.*;
 @Slf4j
 @RequiredArgsConstructor
 @Service
+// 채팅방 생성 및 조회를 위한 ChatService 클래스
 public class ChatService {
 
-    private final ObjectMapper objectMapper;
+    private final ObjectMapper objectMapper; // ObjectMapper 객체
 
 
-    private Map<String, ChatRoom> chatRooms;
-    private final ChatRoomRepository chatRoomRepository;
+    private Map<String, ChatRoom> chatRooms; // 채팅방 정보를 담는 Map 객체
+    private final ChatRoomRepository chatRoomRepository; // ChatRoomRepository 객체
 
     @Autowired
-    private ChatMessageRepository chatMessageRepository;
+    private ChatMessageRepository chatMessageRepository; // ChatMessageRepository 객체
 
-
-
-
-
-
+    // ChatService 생성자
     @PostConstruct
     private void init() {
         chatRooms = new LinkedHashMap<>();
     }
 
+    // 채팅방 목록을 조회하는 메소드
     public List<ChatRoom> findAllRoom() {
         return new ArrayList<>(chatRooms.values());
     }
 
+    // 채팅방 정보를 조회하는 메소드
     public ChatRoom findRoomById(String roomId) {
         return chatRooms.get(roomId);
     }
 
+    // 채팅방 생성하는 메소드
     public ChatRoom createRoom(String name) {
         String randomId = UUID.randomUUID().toString();
         ChatRoom chatRoom = ChatRoom.builder()
@@ -66,7 +66,7 @@ public class ChatService {
         return chatRoom;
     }
 
-
+    // 채팅방에 메시지를 전송하는 메소드
     public <T> void sendMessage(WebSocketSession session, T message) {
         try {
             session.sendMessage(new TextMessage(objectMapper.writeValueAsString(message)));
