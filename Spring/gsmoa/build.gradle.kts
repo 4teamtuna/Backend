@@ -26,7 +26,9 @@ dependencies {
 	implementation ("org.springframework.boot:spring-boot-starter-data-jpa")
 //	implementation ("io.springfox","springfox-swagger2", version = "2.0.2")
 	implementation ("org.springdoc","springdoc-openapi-starter-webmvc-ui", version = "2.0.2")
-
+	implementation("org.springframework.boot:spring-boot-starter-security")
+	implementation("org.thymeleaf.extras:thymeleaf-extras-springsecurity6")
+	implementation("org.springframework.security:spring-security-test")
 	// websocket
 	implementation ("org.springframework.boot:spring-boot-starter-websocket")
 	implementation ("org.springframework.boot:spring-boot-starter-thymeleaf")
