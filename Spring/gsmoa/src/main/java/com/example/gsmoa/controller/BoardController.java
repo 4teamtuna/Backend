@@ -3,6 +3,7 @@ package com.example.gsmoa.controller;
 import com.example.gsmoa.entity.BoardEntity;
 import com.example.gsmoa.repository.BoardRepository;
 import com.example.gsmoa.repository.BoardNotFoundException;
+import com.example.gsmoa.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.thymeleaf.util.StringUtils;
@@ -14,6 +15,9 @@ class BoardController {
 
     @Autowired
     private BoardRepository repository; // BoardRepository 인터페이스를 사용하여 DB에 접근합니다.
+
+    @Autowired
+    private BoardService boardService;
 
     @GetMapping("/boards") // GET 요청을 받아 게시글 목록을 반환합니다.
     // @RequestParam 어노테이션을 사용하여 요청 파라미터를 받아올 수 있습니다.
@@ -32,10 +36,8 @@ class BoardController {
 
     // 게시글 생성
     @PostMapping("/boards")
-    // @RequestBody 어노테이션을 사용하여 요청 바디에 있는 JSON 데이터를 BoardEntity 객체로 변환합니다.
-    // 변환된 객체를 save 메서드를 사용하여 DB에 저장합니다.
     BoardEntity newBoard(@RequestBody BoardEntity newBoard) {
-        return repository.save(newBoard);
+        return boardService.createPost(newBoard.getTitle(), newBoard.getContent());
     }
 
 

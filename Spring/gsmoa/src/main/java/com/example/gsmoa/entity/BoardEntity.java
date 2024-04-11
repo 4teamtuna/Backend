@@ -22,8 +22,8 @@ public class BoardEntity extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY) // auto_increment
     private Long post_id;
 
-    // 글 작성자 Id
-    private int writer_id;
+    // 글 작성자 닉네임
+    private String writer_id;
 
     // 제목
     @Column
