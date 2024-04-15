@@ -25,7 +25,7 @@ public class CommentEntity extends BaseEntity {
     private BoardEntity post;
 
     // 댓글 작성자 Id
-    private Integer writer_id;
+    private String writer;
 
     // 댓글 내용
     @Column(length = 500)

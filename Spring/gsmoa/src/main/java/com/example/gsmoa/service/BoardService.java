@@ -23,7 +23,7 @@ public class BoardService {
     public BoardEntity createPost(String title, String content) {
         // 현재 로그인된 사용자의 nickname 가져오기
         User currentUser = userService.getCurrentUser();
-        String writerId = currentUser.getUsername();
+        String writerId = currentUser.getNickname();
 
         BoardEntity newPost = new BoardEntity();
         newPost.setTitle(title);

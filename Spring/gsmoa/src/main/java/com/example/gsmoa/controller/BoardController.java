@@ -47,7 +47,7 @@ class BoardController {
         User currentUser = userService.getCurrentUser();
         if (currentUser == null)
             throw new RuntimeException("Current user is not available");
-        newBoard.setWriter_id(currentUser.getEmail()); // writer_id에 현재 로그인된 사용자의 이메일을 설정
+        newBoard.setWriter_id(currentUser.getNickname()); // writer_id에 현재 로그인된 사용자의 이메일을 설정
         return boardService.createPost(newBoard.getTitle(), newBoard.getContent());
     }
 
