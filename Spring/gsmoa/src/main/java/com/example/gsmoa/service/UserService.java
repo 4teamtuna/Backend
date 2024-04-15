@@ -3,6 +3,9 @@ import lombok.RequiredArgsConstructor;
 import com.example.gsmoa.dto.AddUserRequest;
 import com.example.gsmoa.entity.User;
 import com.example.gsmoa.repository.UserRepository;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -23,4 +26,15 @@ public class UserService {
                 .interests(dto.getInterests())
                 .build()).getId();
     }
+
+    public User getCurrentUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null) {
+            throw new RuntimeException("Authentication is not available");
+        }
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        return userRepository.findByEmail(userDetails.getUsername())
+                .orElseThrow(() -> new RuntimeException("User not found"));
+    }
+
 }
