@@ -17,17 +17,18 @@ public class BoardService {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private UserService userService;
 
     public BoardEntity createPost(String title, String content) {
         // 현재 로그인된 사용자의 nickname 가져오기
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentUserName = authentication.getName();
-        User currentUser = userRepository.findByNickname(currentUserName);
+        User currentUser = userService.getCurrentUser();
+        String writerId = currentUser.getUsername();
 
         BoardEntity newPost = new BoardEntity();
         newPost.setTitle(title);
         newPost.setContent(content);
-        newPost.setWriter_id(currentUser.getNickname()); // writer_id에 nickname 설정
+        newPost.setWriter_id(writerId); // writer_id에 nickname 설정
 
         return boardRepository.save(newPost);
     }

@@ -1,10 +1,15 @@
 package com.example.gsmoa.controller;
 
 import com.example.gsmoa.entity.BoardEntity;
+import com.example.gsmoa.entity.User;
 import com.example.gsmoa.repository.BoardRepository;
 import com.example.gsmoa.repository.BoardNotFoundException;
 import com.example.gsmoa.service.BoardService;
+import com.example.gsmoa.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.thymeleaf.util.StringUtils;
 
@@ -18,6 +23,8 @@ class BoardController {
 
     @Autowired
     private BoardService boardService;
+    @Autowired
+    private UserService userService;
 
     @GetMapping("/boards") // GET 요청을 받아 게시글 목록을 반환합니다.
     // @RequestParam 어노테이션을 사용하여 요청 파라미터를 받아올 수 있습니다.
@@ -36,9 +43,14 @@ class BoardController {
 
     // 게시글 생성
     @PostMapping("/boards")
-    BoardEntity newBoard(@RequestBody BoardEntity newBoard) {
+    public BoardEntity createBoard(@RequestBody BoardEntity newBoard) {
+        User currentUser = userService.getCurrentUser();
+        if (currentUser == null)
+            throw new RuntimeException("Current user is not available");
+        newBoard.setWriter_id(currentUser.getEmail()); // writer_id에 현재 로그인된 사용자의 이메일을 설정
         return boardService.createPost(newBoard.getTitle(), newBoard.getContent());
     }
+
 
 
     // 게시글 조회
