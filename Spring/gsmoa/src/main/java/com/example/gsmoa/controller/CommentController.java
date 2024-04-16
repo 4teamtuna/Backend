@@ -44,9 +44,9 @@ public class CommentController {
     // 댓글을 저장하고 반환합니다.
     // 댓글이 없을 경우, RuntimeException 예외를 발생시킵니다.
     @PutMapping("/boards/{post_id}/comment/{comment_id}")
-    public CommentEntity updateComment(@PathVariable Long postId, @PathVariable Long commentId, @RequestBody CommentEntity commentDetails) {
-        postRepository.findById(postId).orElseThrow(() -> new RuntimeException("Post not found")); // 게시글 존재 여부만 확인합니다.
-        CommentEntity comment = commentRepository.findById(commentId)
+    public CommentEntity updateComment(@PathVariable Long post_id, @PathVariable Long comment_id, @RequestBody CommentEntity commentDetails) {
+        postRepository.findById(post_id).orElseThrow(() -> new RuntimeException("Post not found")); // 게시글 존재 여부만 확인합니다.
+        CommentEntity comment = commentRepository.findById(comment_id)
                 .orElseThrow(() -> new RuntimeException("Comment not found"));
 
         comment.setContent(commentDetails.getContent());
@@ -61,7 +61,9 @@ public class CommentController {
     // 댓글이 없을 경우, RuntimeException 예외를 발생시킵니다.
     // 댓글이 있을 경우, 댓글을 삭제합니다.
     @DeleteMapping("/boards/{post_id}/comment/{comment_id}")
-    public void deleteComment(@PathVariable Long commentId) {
-        commentRepository.deleteById(commentId);
+    public void deleteComment(@PathVariable Long post_id, @PathVariable Long comment_id) {
+        postRepository.findById(post_id).orElseThrow(() -> new RuntimeException("Post not found")); // 게시글 존재 여부만 확인합니다.
+
+        commentRepository.deleteById(comment_id);
     }
 }
