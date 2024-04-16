@@ -75,15 +75,15 @@ class BoardController {
     // 게시글이 없을 경우, 새로운 게시글을 생성합니다.
     // 수정된 게시글을 반환합니다.
     @PutMapping("/boards/{post_id}")
-    BoardEntity replaceBoard(@RequestBody BoardEntity newBoard, @PathVariable Long id) {
-        return repository.findById(id)
+    BoardEntity replaceBoard(@RequestBody BoardEntity newBoard, @PathVariable Long post_id) {
+        return repository.findById(post_id)
                 .map(Board -> {
                     Board.setTitle(newBoard.getTitle());
                     Board.setContent(newBoard.getContent());
                     return repository.save(Board);
                 })
                 .orElseGet(() -> {
-                    newBoard.setPost_id(id);
+                    newBoard.setPost_id(post_id);
                     return repository.save(newBoard);
                 });
     }
@@ -95,7 +95,7 @@ class BoardController {
     // 게시글이 없을 경우, BoardNotFoundException 예외를 발생시킵니다.
     // 게시글이 삭제되었을 경우, 삭제된 게시글의 post_id를 반환합니다.
     @DeleteMapping("/boards/{post_id}")
-    void deleteBoard(@PathVariable Long id) {
-        repository.deleteById(id);
+    void deleteBoard(@PathVariable Long post_id) {
+        repository.deleteById(post_id);
     }
 }
