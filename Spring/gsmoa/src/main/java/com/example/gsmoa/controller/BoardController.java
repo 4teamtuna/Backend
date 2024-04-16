@@ -78,14 +78,15 @@ class BoardController {
     BoardEntity replaceBoard(@RequestBody BoardEntity newBoard, @PathVariable Long post_id) {
         return repository.findById(post_id)
                 .map(Board -> {
+                    User currentUser = userService.getCurrentUser();
+                    if (currentUser == null || !currentUser.getNickname().equals(Board.getWriter_id())) {
+                        throw new RuntimeException("You are not authorized to edit this post");
+                    }
                     Board.setTitle(newBoard.getTitle());
                     Board.setContent(newBoard.getContent());
                     return repository.save(Board);
                 })
-                .orElseGet(() -> {
-                    newBoard.setPost_id(post_id);
-                    return repository.save(newBoard);
-                });
+                .orElseThrow(() -> new RuntimeException("Post not found"));
     }
 
     // 게시글 삭제
@@ -96,6 +97,12 @@ class BoardController {
     // 게시글이 삭제되었을 경우, 삭제된 게시글의 post_id를 반환합니다.
     @DeleteMapping("/boards/{post_id}")
     void deleteBoard(@PathVariable Long post_id) {
+        BoardEntity Board = repository.findById(post_id)
+                .orElseThrow(() -> new RuntimeException("Post not found"));
+        User currentUser = userService.getCurrentUser();
+        if (currentUser == null || !currentUser.getNickname().equals(Board.getWriter_id())) {
+            throw new RuntimeException("You are not authorized to delete this post");
+        }
         repository.deleteById(post_id);
     }
 }

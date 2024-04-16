@@ -48,10 +48,12 @@ public class CommentController {
         postRepository.findById(post_id).orElseThrow(() -> new RuntimeException("Post not found")); // 게시글 존재 여부만 확인합니다.
         CommentEntity comment = commentRepository.findById(comment_id)
                 .orElseThrow(() -> new RuntimeException("Comment not found"));
-
+        User currentUser = userService.getCurrentUser();
+        if (currentUser == null || !currentUser.getNickname().equals(comment.getWriter())) {
+            throw new RuntimeException("You are not authorized to edit this comment");
+        }
         comment.setContent(commentDetails.getContent());
         // 필요한 경우, 여기에서 댓글 작성자 등 다른 필드도 업데이트 할 수 있습니다.
-
         return commentRepository.save(comment);
     }
 
@@ -63,7 +65,14 @@ public class CommentController {
     @DeleteMapping("/boards/{post_id}/comment/{comment_id}")
     public void deleteComment(@PathVariable Long post_id, @PathVariable Long comment_id) {
         postRepository.findById(post_id).orElseThrow(() -> new RuntimeException("Post not found")); // 게시글 존재 여부만 확인합니다.
-
+        CommentEntity comment = commentRepository.findById(comment_id)
+                .orElseThrow(() -> new RuntimeException("Comment not found"));
+        User currentUser = userService.getCurrentUser();
+        if (currentUser == null || !currentUser.getNickname().equals(comment.getWriter())) {
+            throw new RuntimeException("You are not authorized to delete this comment");
+        }
         commentRepository.deleteById(comment_id);
+
+
     }
 }
