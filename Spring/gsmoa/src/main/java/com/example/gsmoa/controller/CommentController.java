@@ -31,6 +31,7 @@ public class CommentController {
     public CommentEntity addCommentToPost(@PathVariable Long post_id, @RequestBody CommentEntity comment) {
         BoardEntity post = postRepository.findById(post_id).orElseThrow(() -> new RuntimeException("Post not found"));
         User currentUser = userService.getCurrentUser();
+        // 현재 로그인된 사용자가 없을 경우, RuntimeException 예외를 발생시킵니다.
         if (currentUser == null)
             throw new RuntimeException("Current user is not available");
         comment.setWriter(currentUser.getNickname()); // writer_id에 현재 로그인된 사용자의 이메일을 설정
@@ -49,7 +50,9 @@ public class CommentController {
         CommentEntity comment = commentRepository.findById(comment_id)
                 .orElseThrow(() -> new RuntimeException("Comment not found"));
         User currentUser = userService.getCurrentUser();
+        // 댓글 작성자와 현재 로그인된 사용자가 같은지 확인합니다.
         if (currentUser == null || !currentUser.getNickname().equals(comment.getWriter())) {
+            // 댓글 작성자와 현재 로그인된 사용자가 다를 경우, RuntimeException 예외를 발생시킵니다.
             throw new RuntimeException("You are not authorized to edit this comment");
         }
         comment.setContent(commentDetails.getContent());
@@ -68,7 +71,9 @@ public class CommentController {
         CommentEntity comment = commentRepository.findById(comment_id)
                 .orElseThrow(() -> new RuntimeException("Comment not found"));
         User currentUser = userService.getCurrentUser();
+        // 댓글 작성자와 현재 로그인된 사용자가 같은지 확인합니다.
         if (currentUser == null || !currentUser.getNickname().equals(comment.getWriter())) {
+            // 댓글 작성자와 현재 로그인된 사용자가 다를 경우, RuntimeException 예외를 발생시킵니다.
             throw new RuntimeException("You are not authorized to delete this comment");
         }
         commentRepository.deleteById(comment_id);

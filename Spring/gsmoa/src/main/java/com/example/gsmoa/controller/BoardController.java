@@ -45,6 +45,7 @@ class BoardController {
     @PostMapping("/boards")
     public BoardEntity createBoard(@RequestBody BoardEntity newBoard) {
         User currentUser = userService.getCurrentUser();
+        // 현재 로그인된 사용자가 없을 경우, RuntimeException 예외를 발생시킵니다.
         if (currentUser == null)
             throw new RuntimeException("Current user is not available");
         newBoard.setWriter_id(currentUser.getNickname()); // writer_id에 현재 로그인된 사용자의 이메일을 설정
@@ -79,6 +80,7 @@ class BoardController {
         return repository.findById(post_id)
                 .map(Board -> {
                     User currentUser = userService.getCurrentUser();
+                    // 게시글 작성자와 현재 로그인된 사용자가 같은지 확인합니다.
                     if (currentUser == null || !currentUser.getNickname().equals(Board.getWriter_id())) {
                         throw new RuntimeException("You are not authorized to edit this post");
                     }
@@ -100,6 +102,7 @@ class BoardController {
         BoardEntity Board = repository.findById(post_id)
                 .orElseThrow(() -> new RuntimeException("Post not found"));
         User currentUser = userService.getCurrentUser();
+        // 게시글 작성자와 현재 로그인된 사용자가 같은지 확인합니다.
         if (currentUser == null || !currentUser.getNickname().equals(Board.getWriter_id())) {
             throw new RuntimeException("You are not authorized to delete this post");
         }
