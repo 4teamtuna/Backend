@@ -26,8 +26,8 @@ public class BoardService {
         String writerId = currentUser.getNickname();
 
         BoardEntity newPost = new BoardEntity();
-        newPost.setTitle(title);
-        newPost.setContent(content);
+        newPost.setTitle(title); // title 설정
+        newPost.setContent(content); // content 설정
         newPost.setWriter_id(writerId); // writer_id에 nickname 설정
 
         return boardRepository.save(newPost);
