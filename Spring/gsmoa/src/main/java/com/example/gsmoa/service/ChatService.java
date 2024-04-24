@@ -4,6 +4,7 @@ import com.example.gsmoa.dto.ChatMessage;
 import com.example.gsmoa.dto.ChatRoom;
 import com.example.gsmoa.entity.ChatMessageEntity;
 import com.example.gsmoa.entity.ChatRoomEntity;
+import com.example.gsmoa.entity.User;
 import com.example.gsmoa.repository.ChatMessageRepository;
 import com.example.gsmoa.repository.ChatRoomRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -33,6 +34,9 @@ public class ChatService {
     @Autowired
     private ChatMessageRepository chatMessageRepository; // ChatMessageRepository 객체
 
+    @Autowired
+    private UserService userService;
+
     // ChatService 생성자
     @PostConstruct
     private void init() {
@@ -52,14 +56,21 @@ public class ChatService {
     // 채팅방 생성하는 메소드
     public ChatRoom createRoom(String name) {
         String randomId = UUID.randomUUID().toString();
+        User currentUser = userService.getCurrentUser();
+        if (currentUser == null)
+            throw new RuntimeException("Current user is not available");
+        String creator = currentUser.getNickname(); // creator에 현재 로그인된 사용자의 닉네임을 설정
+
         ChatRoom chatRoom = ChatRoom.builder()
                 .roomId(randomId)
                 .name(name)
+                .creator(creator)
                 .build();
 
         ChatRoomEntity chatRoomEntity = new ChatRoomEntity();
         chatRoomEntity.setRoomId(randomId);
         chatRoomEntity.setName(name);
+        chatRoomEntity.setCreator(creator);
         chatRoomRepository.save(chatRoomEntity); // 데이터베이스에 저장
 
         chatRooms.put(randomId, chatRoom); // 메모리에 DTO 저장
