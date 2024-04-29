@@ -36,7 +36,6 @@ public class WebSecurityConfig {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .dispatcherTypeMatchers(HttpMethod.valueOf("/ws/**")).permitAll()
                 .anyRequest().authenticated();
 
         return (web) -> web.ignoring()
@@ -49,6 +48,7 @@ public class WebSecurityConfig {
         return http
                 .addFilter(corsFilter()) // CORS 필터 추가
                 .authorizeRequests() // 인증, 인가 설정
+                .requestMatchers("/ws/**").permitAll() // WebSocket 경로에 대한 접근 허용
                 .requestMatchers("/login", "/signup", "/user").permitAll()
                 .anyRequest().authenticated()
                 .and()
