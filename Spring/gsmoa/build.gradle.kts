@@ -32,6 +32,13 @@ dependencies {
 	// websocket
 	implementation ("org.springframework.boot:spring-boot-starter-websocket")
 	implementation ("org.springframework.boot:spring-boot-starter-thymeleaf")
+
+	// sockjs
+	implementation ("org.webjars:sockjs-client:1.5.1")
+	// stomp
+	implementation ("org.webjars:stomp-websocket:2.3.4")
+	// gson
+	implementation ("com.google.code.gson:gson:2.9.0")
 }
 
 tasks.withType<Test> {
