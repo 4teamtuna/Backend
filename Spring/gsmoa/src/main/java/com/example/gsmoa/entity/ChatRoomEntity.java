@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 // 채팅방 정보를 저장하는 ChatRoomEntity 클래스
+// 채팅방 정보를 저장하는 ChatRoomEntity 클래스
 @Entity
 @Getter
 @Setter
@@ -18,4 +19,5 @@ public class ChatRoomEntity {
 
     private String roomId; // 방번호
     private String name; // 방이름
+    private String creator; // 방 생성자
 }

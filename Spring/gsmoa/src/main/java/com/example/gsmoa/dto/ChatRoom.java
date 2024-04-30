@@ -14,13 +14,15 @@ import java.util.Set;
 public class ChatRoom {
     private String roomId; // 방번호
     private String name; // 방이름
+    private String creator;
     private Set<WebSocketSession> sessions = new HashSet<>(); // 채팅방에 입장한 세션 정보
 
     // ChatRoom 생성자
     @Builder
-    public ChatRoom(String roomId, String name) {
+    public ChatRoom(String roomId, String name, String creator) {
         this.roomId = roomId; // 방번호
         this.name = name; // 방이름
+        this.creator = creator;
     }
 
     // 채팅방에 입장한 세션 정보를 추가하는 메소드

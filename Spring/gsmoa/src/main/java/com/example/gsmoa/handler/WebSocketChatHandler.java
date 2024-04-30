@@ -18,6 +18,11 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 public class WebSocketChatHandler extends TextWebSocketHandler {
     private final ObjectMapper objectMapper;
     private final ChatService chatService;
+    //최초 연결 시
+    @Override
+    public void afterConnectionEstablished(WebSocketSession session) throws Exception {
+
+    }
 
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
