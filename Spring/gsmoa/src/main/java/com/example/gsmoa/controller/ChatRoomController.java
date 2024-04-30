@@ -62,7 +62,7 @@ public class ChatRoomController {
     // 파라미터로 넘어오는 roomId 를 확인후 해당 roomId 를 기준으로
     // 채팅방을 찾아서 클라이언트를 chatroom 으로 보낸다.
     @GetMapping("/chat/room")
-    public String roomDetail(Model model, String roomId, @AuthenticationPrincipal PrincipalDetails principalDetails){
+    public String roomDetail(Model model, @RequestParam("roomId") String roomId, @AuthenticationPrincipal PrincipalDetails principalDetails){
 
         log.info("roomId {}", roomId);
 

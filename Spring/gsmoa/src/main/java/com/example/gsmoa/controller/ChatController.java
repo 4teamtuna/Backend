@@ -96,7 +96,7 @@ public class ChatController {
     // 채팅에 참여한 유저 리스트 반환
     @GetMapping("/chat/userlist")
     @ResponseBody
-    public ArrayList<String> userList(String roomId) {
+    public ArrayList<String> userList(@RequestParam("roomId") String roomId) {
 
         return repository.getUserList(roomId);
     }
@@ -105,7 +105,6 @@ public class ChatController {
     @GetMapping("/chat/duplicateName")
     @ResponseBody
     public String isDuplicateName(@RequestParam("roomId") String roomId, @RequestParam("username") String username) {
-
         // 유저 이름 확인
         String userName = repository.isDuplicateName(roomId, username);
         log.info("동작확인 {}", userName);

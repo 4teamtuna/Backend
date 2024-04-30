@@ -12,8 +12,8 @@ java {
 	targetCompatibility = JavaVersion.VERSION_17
 }
 
-compileJava {
-	options.compilerArgs += ['-parameters']
+tasks.compileJava {
+	options.compilerArgs.add("-parameters")
 }
 
 
