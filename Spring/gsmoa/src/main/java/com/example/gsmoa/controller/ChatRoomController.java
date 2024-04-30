@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
-@RestController
+@Controller
 @Slf4j
 public class ChatRoomController {
 
@@ -45,12 +45,12 @@ public class ChatRoomController {
     // 채팅방 생성
     // 채팅방 생성 후 다시 / 로 return
     @PostMapping("/chat/createroom")
-    public String createRoom(@RequestParam("roomName") String name, @RequestParam("roomPwd")String roomPwd, @RequestParam("secretChk")String secretChk,
+    public String createRoom(@RequestParam("roomName") String name,
                              @RequestParam(value = "maxUserCnt", defaultValue = "100")String maxUserCnt,  RedirectAttributes rttr) {
 
 //        log.info("chk {}", secretChk);
         // 매개변수 : 방 이름, 패스워드, 방 잠금 여부, 방 인원수
-        ChatRoomDto room = chatRepository.createChatRoom(name, roomPwd, Boolean.parseBoolean(secretChk), Integer.parseInt(maxUserCnt));
+        ChatRoomDto room = chatRepository.createChatRoom(name, Integer.parseInt(maxUserCnt));
 
         log.info("CREATE Chat Room [{}]", room);
 
@@ -76,15 +76,6 @@ public class ChatRoomController {
         return "chatroom";
     }
 
-    // 채팅방 비밀번호 확인
-    @PostMapping("/chat/confirmPwd/{roomId}")
-    @ResponseBody
-    public boolean confirmPwd(@PathVariable String roomId, @RequestParam String roomPwd){
-
-        // 넘어온 roomId 와 roomPwd 를 이용해서 비밀번호 찾기
-        // 찾아서 입력받은 roomPwd 와 room pwd 와 비교해서 맞으면 true, 아니면  false
-        return chatRepository.confirmPwd(roomId, roomPwd);
-    }
 
     // 채팅방 삭제
     @GetMapping("/chat/delRoom/{roomId}")

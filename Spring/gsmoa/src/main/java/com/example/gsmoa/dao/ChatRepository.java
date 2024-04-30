@@ -42,14 +42,12 @@ public class ChatRepository {
     }
 
     // roomName 로 채팅방 만들기
-    public ChatRoomDto createChatRoom(String roomName, String roomPwd, boolean secretChk, int maxUserCnt){
+    public ChatRoomDto createChatRoom(String roomName, int maxUserCnt){
         // roomName 와 roomPwd 로 chatRoom 빌드 후 return
 
         ChatRoomDto chatRoomDto = ChatRoomDto.builder()
                 .roomId(UUID.randomUUID().toString())
                 .roomName(roomName)
-                .roomPwd(roomPwd) // 채팅방 패스워드
-                .secretChk(secretChk) // 채팅방 잠금 여부
                 .userlist(new HashMap<String, String>())
                 .userCount(0) // 채팅방 참여 인원수
                 .maxUserCnt(maxUserCnt) // 최대 인원수 제한
@@ -137,11 +135,7 @@ public class ChatRepository {
         return list;
     }
 
-    // 채팅방 비밀번호 조회
-    public boolean confirmPwd(String roomId, String roomPwd) {
-//        String pwd = chatRoomMap.get(roomId).getRoomPwd();
-        return roomPwd.equals(chatRoomMap.get(roomId).getRoomPwd());
-    }
+
 
     // 채팅방 삭제
     public void delChatRoom(String roomId) {
