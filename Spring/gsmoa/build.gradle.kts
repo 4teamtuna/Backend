@@ -9,7 +9,13 @@ version = "0.0.1-SNAPSHOT"
 
 java {
 	sourceCompatibility = JavaVersion.VERSION_17
+	targetCompatibility = JavaVersion.VERSION_17
 }
+
+compileJava {
+	options.compilerArgs += ['-parameters']
+}
+
 
 repositories {
 	mavenCentral()
@@ -26,7 +32,8 @@ dependencies {
 	implementation ("org.springframework.boot:spring-boot-starter-data-jpa")
 //	implementation ("io.springfox","springfox-swagger2", version = "2.0.2")
 	implementation ("org.springdoc","springdoc-openapi-starter-webmvc-ui", version = "2.0.2")
-	implementation("org.springframework.boot:spring-boot-starter-security")
+	implementation("org.springframework.boot:spring-boot-starter-security:2.7.3")
+	implementation("org.springframework.security:spring-security-oauth2-client")
 	implementation("org.thymeleaf.extras:thymeleaf-extras-springsecurity6")
 	implementation("org.springframework.security:spring-security-test")
 	// websocket
@@ -39,6 +46,8 @@ dependencies {
 	implementation ("org.webjars:stomp-websocket:2.3.4")
 	// gson
 	implementation ("com.google.code.gson:gson:2.9.0")
+
+	implementation("org.springframework.cloud:spring-cloud-starter-aws:2.2.1.RELEASE")
 }
 
 tasks.withType<Test> {
