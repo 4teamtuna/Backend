@@ -54,7 +54,7 @@ public class WebSecurityConfig {
                 .and()
                 .formLogin() // 폼 기반 로그인 설정
                 .loginPage("/login")
-                .defaultSuccessUrl("/boards")
+                .defaultSuccessUrl("/")
                 .and()
                 .logout() // 로그아웃 설정
                 .logoutSuccessUrl("/login")
