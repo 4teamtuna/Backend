@@ -25,7 +25,7 @@ public class ChatRoomController {
 
     // 스프링 시큐리티의 로그인 유저 정보는 Security 세션의 PrincipalDetails 안에 담긴다
     // 정확히는 PrincipalDetails 안에 ChatUser 객체가 담기고, 이것을 가져오면 된다.
-    @GetMapping("/teams")
+    @GetMapping("/")
     public String goChatRoom(Model model, @AuthenticationPrincipal PrincipalDetails principalDetails){
 
         model.addAttribute("list", chatRepository.findAllRoom());

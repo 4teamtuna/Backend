@@ -21,17 +21,18 @@ public class SecurityConfig {
         http
                 // 권한 설정
                 .authorizeHttpRequests(authz -> authz
-                        .requestMatchers("**").permitAll()
+                        .requestMatchers("/css/**", "/js/**", "/fonts/**", "/images/**", "/vendor/**").permitAll() // 정적 리소스에 대한 접근 허용
+                        .anyRequest().authenticated()
                 )
                 .formLogin(formLogin -> formLogin
                         .loginPage("/chatlogin")
                         .loginProcessingUrl("/login")
-                        .defaultSuccessUrl("/")
+                        .defaultSuccessUrl("/home")
                         .permitAll()
                 )
                 .logout(logout -> logout
                         .logoutUrl("/logout")
-                        .logoutSuccessUrl("/")
+                        .logoutSuccessUrl("/chatlogin")
                         .permitAll()
                 )
                 .oauth2Login(oauth2Login -> {
