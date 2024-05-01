@@ -6,10 +6,15 @@
 </head>
 <body>
 <button onclick="saveReq()">게시판</button>
+<button onclick="goToTeams()">팀 매칭</button>
 </body>
 <script>
     const saveReq = () => {
         location.href = "/board/main";
+    }
+
+    const goToTeams = () => {
+        location.href = "/teams";
     }
 </script>
 </html>
