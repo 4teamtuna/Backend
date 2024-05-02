@@ -2,43 +2,42 @@ package com.example.gsmoa.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Data
 @Entity
+@Getter
+@Builder
+@NoArgsConstructor
 public class Member {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
-    @NotEmpty
-    private String userid;
-
-    @Column
-    @NotEmpty
-    private String password;
-
-    @Column
-    @NotEmpty
-    private String username;
-
-    @Column
-    @NotEmpty
-    private String nickname;
-
-    @Column
-    @NotEmpty
+    @Column(nullable = false)
     private String email;
 
-    @Column
+    @Column(nullable = false)
+    private String password;
+
+    @Column(nullable = false)
+    private String nickname;
+
     @Enumerated(EnumType.STRING)
-    private UserRole role;
+    private Authority authority;
 
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
 
+    public void setPassword(String password) { this.password = password; }
+
+    @Builder
+    public Member(Long id, String email, String password, String nickname, Authority authority) {
+        this.id = id;
+        this.email = email;
+        this.password = password;
+        this.nickname = nickname;
+        this.authority = authority;
+    }
 }
