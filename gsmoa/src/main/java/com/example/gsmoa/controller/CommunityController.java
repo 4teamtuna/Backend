@@ -5,8 +5,10 @@ import com.example.gsmoa.entity.PostEntity;
 import com.example.gsmoa.service.PostService;
 import com.example.gsmoa.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -52,9 +54,13 @@ public class CommunityController {
 
     @PostMapping("/{postId}/comment")
     public CommentEntity createComment(@PathVariable Long postId, @RequestBody CommentEntity comment) {
+        PostEntity post = postService.getPost(postId);
+        if (post == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Post not found");
+        }
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         comment.setWriterId(username);
-        comment.setPost(postService.getPost(postId));
+        comment.setPost(post);
         return commentService.createComment(comment);
     }
 
