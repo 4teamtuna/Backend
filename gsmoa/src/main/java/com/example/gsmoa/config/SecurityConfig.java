@@ -3,6 +3,7 @@ package com.example.gsmoa.config;
 import com.example.gsmoa.jwt.JWTFilter;
 import com.example.gsmoa.jwt.JWTUtil;
 import com.example.gsmoa.jwt.LoginFilter;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -13,6 +14,10 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+
+import java.util.Collections;
 
 @Configuration
 @EnableWebSecurity
@@ -43,6 +48,27 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
+        http
+                .cors((cors) -> cors
+                        .configurationSource(new CorsConfigurationSource() {
+                            @Override
+                            public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
+
+                                CorsConfiguration configuration = new CorsConfiguration(); //CORS 설정 객체 생성
+
+                                configuration.setAllowedOrigins(Collections.singletonList("http://localhost:3000"));
+                                configuration.setAllowedMethods(Collections.singletonList("*")); //허용할 메소드
+                                configuration.setAllowCredentials(true); //인증정보를 같이 보낼지 여부
+                                configuration.setAllowedHeaders(Collections.singletonList("*")); //허용할 헤더
+                                configuration.setMaxAge(3600L); //캐싱시간
+
+                                configuration.setExposedHeaders(Collections.singletonList("Authorization")); //헤더 노출
+
+
+                                return configuration;
+                            }
+                        }));
+
         // csrf disable
         http
                 .csrf((auth) -> auth.disable());
@@ -60,6 +86,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests((auth) -> auth
                         .requestMatchers("/login", "/", "/join").permitAll()
                         .requestMatchers("/admin").hasRole("ADMIN")
+                        .requestMatchers("/main").hasRole("ADMIN")
                         .anyRequest().authenticated());
 
         http
