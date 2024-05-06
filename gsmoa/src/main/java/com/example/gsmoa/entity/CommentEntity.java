@@ -22,7 +22,7 @@ public class CommentEntity extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "postId")
     @JsonBackReference
-    private BoardEntity post;
+    private PostEntity post;
 
     // 댓글 작성자 Id
     private String writerId;

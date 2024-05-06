@@ -1,6 +1,6 @@
 package com.example.gsmoa.repository;
 
-import com.example.gsmoa.entity.BoardEntity;
+import com.example.gsmoa.entity.PostEntity;
 import com.example.gsmoa.entity.CommentEntity;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.OneToMany;
@@ -10,13 +10,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 // JpaRepository 인터페이스를 상속받아 DB에 접근하는 메서드를 사용할 수 있습니다.
-public interface BoardRepository extends JpaRepository<BoardEntity, Long> {
+public interface PostRepository extends JpaRepository<PostEntity, Long> {
 
     // 게시글 제목으로 검색
-    List<BoardEntity> findByTitle(String title);
+    List<PostEntity> findByTitle(String title);
 
     // 게시글 내용으로 검색
-    List<BoardEntity> findByTitleOrContent(String title, String content);
+    List<PostEntity> findByTitleOrContent(String title, String content);
 
     // 게시글 Id로 검색
     @OneToMany(mappedBy = "board", cascade = CascadeType.ALL, orphanRemoval = true)

@@ -13,9 +13,9 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name = "board")
+@Table(name = "post")
 // BaseEntity 클래스를 상속받아 생성 시간과 업데이트 시간을 자동으로 관리합니다.
-public class BoardEntity extends BaseEntity {
+public class PostEntity extends BaseEntity {
 
     // 게시글 Id
     @Id
