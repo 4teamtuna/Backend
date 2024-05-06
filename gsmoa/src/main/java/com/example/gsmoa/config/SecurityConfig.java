@@ -1,5 +1,6 @@
 package com.example.gsmoa.config;
 
+import com.example.gsmoa.jwt.JWTFilter;
 import com.example.gsmoa.jwt.JWTUtil;
 import com.example.gsmoa.jwt.LoginFilter;
 import org.springframework.context.annotation.Bean;
@@ -60,6 +61,9 @@ public class SecurityConfig {
                         .requestMatchers("/login", "/", "/join").permitAll()
                         .requestMatchers("/admin").hasRole("ADMIN")
                         .anyRequest().authenticated());
+
+        http
+                .addFilterBefore(new JWTFilter(jwtUtil), LoginFilter.class);
 
         http
                 .addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration), jwtUtil), UsernamePasswordAuthenticationFilter.class);
