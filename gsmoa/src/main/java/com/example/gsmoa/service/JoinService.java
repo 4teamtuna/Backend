@@ -22,6 +22,11 @@ public class JoinService {
 
         String username = joinDTO.getUsername();
         String password = joinDTO.getPassword();
+        String name = joinDTO.getName();
+        String gender = joinDTO.getGender();
+        String birth = joinDTO.getBirth();
+        String email = joinDTO.getEmail();
+        String introduce = joinDTO.getIntroduce();
 
         Boolean isExist = userRepository.existsByUsername(username);
 
@@ -34,6 +39,11 @@ public class JoinService {
         data.setUsername(username);
         data.setPassword(bCryptPasswordEncoder.encode(password));
         data.setRole("ROLE_ADMIN");
+        data.setName(name);
+        data.setGender(gender);
+        data.setBirth(birth);
+        data.setEmail(email);
+        data.setIntroduce(introduce);
 
         userRepository.save(data);
     }
