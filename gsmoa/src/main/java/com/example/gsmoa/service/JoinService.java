@@ -1,6 +1,6 @@
 package com.example.gsmoa.service;
 
-import com.example.gsmoa.dto.JoinDTO;
+import com.example.gsmoa.dto.JoinDto;
 import com.example.gsmoa.entity.UserEntity;
 import com.example.gsmoa.repository.UserRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -18,13 +18,13 @@ public class JoinService {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
-    public void joinProcess(JoinDTO joinDTO) {
+    public void joinProcess(JoinDto joinDTO) {
 
         String username = joinDTO.getUsername();
         String password = joinDTO.getPassword();
         String name = joinDTO.getName();
-        String gender = joinDTO.getGender();
-        String birth = joinDTO.getBirth();
+        String nickname = joinDTO.getNickname();
+        String interest = joinDTO.getInterest();
         String email = joinDTO.getEmail();
         String introduce = joinDTO.getIntroduce();
 
@@ -40,8 +40,8 @@ public class JoinService {
         data.setPassword(bCryptPasswordEncoder.encode(password));
         data.setRole("ROLE_ADMIN");
         data.setName(name);
-        data.setGender(gender);
-        data.setBirth(birth);
+        data.setNickname(nickname);
+        data.setInterest(interest);
         data.setEmail(email);
         data.setIntroduce(introduce);
 

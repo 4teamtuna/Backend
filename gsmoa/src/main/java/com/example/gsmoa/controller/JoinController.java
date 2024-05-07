@@ -1,6 +1,6 @@
 package com.example.gsmoa.controller;
 
-import com.example.gsmoa.dto.JoinDTO;
+import com.example.gsmoa.dto.JoinDto;
 import com.example.gsmoa.service.JoinService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,7 +17,7 @@ public class JoinController {
     }
 
     @PostMapping("/join")
-    public String joinProcess(JoinDTO joinDTO) {
+    public String joinProcess(JoinDto joinDTO) {
         joinService.joinProcess(joinDTO);
 
         return "ok";

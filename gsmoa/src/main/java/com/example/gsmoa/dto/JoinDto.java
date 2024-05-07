@@ -5,15 +5,14 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class JoinDTO {
+public class JoinDto {
 
     private String username;
     private String password;
 
     private String name;
-    private String gender;
-    private String birth;
     private String email;
+    private String nickname;
     private String introduce;
-
+    private String interest;
 }
