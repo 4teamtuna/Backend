@@ -1,5 +1,5 @@
 server:
-  port: 8012
+  port: 0
 
 spring:
   jwt:
@@ -17,16 +17,20 @@ spring:
       password: 20-72008672
       driver-class-name: com.mysql.cj.jdbc.Driver
   application:
-    name: member-service
+    name: global-service
 
 eureka:
   instance:
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+    lease-renewal-interval-in-seconds: 10
+    lease-expiration-duration-in-seconds: 2
+
     prefer-ip-address: true
   client:
     register-with-eureka: true
     fetch-registry: true
     serviceUrl:
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: ${EUREKA_SERVICE_URL:http://localhost:8761/eureka}
 
 management:
   endpoints:

@@ -6,7 +6,16 @@
   <component name="ChangeListManager">
     <list default="true" id="46631693-4cd1-45e2-aef2-cb9c99fee6e3" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/../.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Community/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/Community/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Community/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/Community/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EurekaServer/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/EurekaServer/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EurekaServer/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/EurekaServer/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/global/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/src/main/java/com/example/global/GlobalApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/global/src/main/java/com/example/global/GlobalApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/global/src/main/resources/application.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,6 +38,9 @@
     <projectState path="$PROJECT_DIR$/EurekaServer/global">
       <ProjectState />
     </projectState>
+    <projectState path="$PROJECT_DIR$/GatewayServer">
+      <ProjectState />
+    </projectState>
     <projectState path="$PROJECT_DIR$/global">
       <ProjectState />
     </projectState>
@@ -48,6 +60,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -87,7 +100,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;deletionFromPopupRequiresConfirmation&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;feat/2-3&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feat/1__MSA__ver3&quot;,
     &quot;jdk.selected.JAVA_MODULE&quot;: &quot;18&quot;,
     &quot;last_opened_file_path&quot;: &quot;/Users/KimDongHyeon/Desktop/KMU/2024 Computer Engineering/4-1/캡스톤디자인(2)/Spring/Backend/MSA_ver3/global/src/main/resources&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
@@ -99,7 +112,7 @@
     &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
-    &quot;spring.configuration.checksum&quot;: &quot;9441e2b79e076f891ea09c868334c857&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;2c9e575ba85be1b8d071b1306f36b36c&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -123,10 +136,18 @@
       <recent name="com.example.global.entity" />
     </key>
   </component>
-  <component name="RunManager" selected="Spring Boot.GlobalApplication">
+  <component name="RunDashboard">
+    <option name="configurationTypes">
+      <set>
+        <option value="Application" />
+      </set>
+    </option>
+  </component>
+  <component name="RunManager" selected="Spring Boot.GatewayServerApplication">
     <configuration name="CommunityApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="com.example.MSA_ver3.main" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.community.CommunityApplication" />
+      <option name="VM_PARAMETERS" value="-Dspring.profiles.active=local" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -138,13 +159,27 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="GlobalApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
-      <module name="global.MSA_ver3.main" />
-      <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.global.GlobalApplication" />
+    <configuration name="GatewayServerApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="GatewayServer.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.gatewayserver.GatewayServerApplication" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="GlobalApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="global.MSA_ver3.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.global.GlobalApplication" />
+      <option name="VM_PARAMETERS" value="-Dspring.profiles.active=local" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Spring Boot.GatewayServerApplication" />
+      <item itemvalue="Spring Boot.CommunityApplication" />
+      <item itemvalue="Spring Boot.EurekaServerApplication" />
+      <item itemvalue="Spring Boot.GlobalApplication" />
+    </list>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -160,22 +195,13 @@
       <workItem from="1715266810255" duration="97000" />
       <workItem from="1715266915775" duration="1275000" />
       <workItem from="1715268243332" duration="6493000" />
+      <workItem from="1715355441719" duration="2257000" />
+      <workItem from="1715357707863" duration="1715000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/global/src/main/java/com/example/global/GlobalApplication.java</url>
-          <line>8</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
