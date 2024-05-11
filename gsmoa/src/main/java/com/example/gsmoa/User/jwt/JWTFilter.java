@@ -2,6 +2,7 @@ package com.example.gsmoa.User.jwt;
 
 import com.example.gsmoa.User.dto.CustomUserDetails;
 import com.example.gsmoa.User.entity.UserEntity;
+import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -40,12 +41,20 @@ public class JWTFilter extends OncePerRequestFilter {
         String token = authorization.split(" ")[1];
 
         //토큰 소멸 시간 검증
-        if (jwtUtil.isExpired(token)) {
+//        if (jwtUtil.isExpired(token)) {
+//
+//            System.out.println("token expired");
+//            filterChain.doFilter(request, response);
+//
+//            //조건이 해당되면 메소드 종료 (필수)
+//            return;
+//        }
 
-            System.out.println("token expired");
+        try {
+            jwtUtil.getUsername(token);
+            jwtUtil.getRole(token);
+        } catch (ExpiredJwtException e) {
             filterChain.doFilter(request, response);
-
-            //조건이 해당되면 메소드 종료 (필수)
             return;
         }
 
