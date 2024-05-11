@@ -1,0 +1,42 @@
+server:
+  port: 0
+
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+  datasource:
+    url: jdbc:mysql://spring-db-gsmoa.clcmmk2ygw1j.ap-northeast-2.rds.amazonaws.com/Community?allowPublicKeyRetrieval=true&sslMode=REQUIRED&serverTimezone=UTC
+    username: root
+    password: 20-72008672
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  application:
+    name: community-service
+
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+    lease-renewal-interval-in-seconds: 10
+    lease-expiration-duration-in-seconds: 2
+    prefer-ip-address: true
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    serviceUrl:
+      defaultZone: ${EUREKA_SERVICE_URL:http://localhost:8761/eureka}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+logging:
+  level:
+    com:
+      netflix:
+        eureka=DEBUG:
