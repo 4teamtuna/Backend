@@ -1,4 +1,4 @@
-package com.example.gsmoa.Chatting.model;
+package com.example.gsmoa.TeamChatting.model;
 
 import lombok.Getter;
 import lombok.Setter;

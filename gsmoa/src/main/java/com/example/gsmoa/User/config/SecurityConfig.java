@@ -56,7 +56,7 @@ public class SecurityConfig {
 
                                 CorsConfiguration configuration = new CorsConfiguration(); //CORS 설정 객체 생성
 
-                                configuration.setAllowedOrigins(Collections.singletonList("http://localhost:3000"));
+                                configuration.setAllowedOrigins(Collections.singletonList("http://localhost:5173"));
                                 configuration.setAllowedMethods(Collections.singletonList("*")); //허용할 메소드
                                 configuration.setAllowCredentials(true); //인증정보를 같이 보낼지 여부
                                 configuration.setAllowedHeaders(Collections.singletonList("*")); //허용할 헤더
@@ -84,7 +84,7 @@ public class SecurityConfig {
         //경로별 인가 작업
         http
                 .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers("/login", "/", "/join", "/v3/**", "/swagger-ui/**", "/ws/chat/**", "/api/data/**").permitAll()
+                        .requestMatchers("/login", "/", "/join", "/v3/**", "/swagger-ui/**", "/ws/chat/**", "/teams/**").permitAll()
                         .requestMatchers("/admin").hasRole("ADMIN")
                         .requestMatchers("/main/**").hasRole("ADMIN")
                         .anyRequest().authenticated());
