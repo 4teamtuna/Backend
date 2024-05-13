@@ -18,7 +18,7 @@ public class Contest {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer contest_id;
 
-    @Column(nullable = false, length = 255)
+    @Column(nullable = false, length = 255, unique = true)
     private String title;
 
     @Column(name = "host_name", length = 100)

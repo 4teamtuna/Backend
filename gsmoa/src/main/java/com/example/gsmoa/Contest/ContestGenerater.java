@@ -43,7 +43,7 @@ public class ContestGenerater {
 
                 String imagePath = values[4];
                 byte[] imageBytes = Files.readAllBytes(Paths.get(imagePath));
-                //contest.setImage(imageBytes);
+                contest.setImage(imageBytes);
 
                 records.add(contest);
             }
