@@ -38,5 +38,9 @@ public class ChatController {
         return teamRepository.findAll();
     }
 
+    @GetMapping("/teams/{roomId}")
+    public Team getRoom(@PathVariable("roomId") Long roomId) {
+        return teamRepository.findById(roomId).orElse(null);
+    }
     // Add more methods as needed
 }
