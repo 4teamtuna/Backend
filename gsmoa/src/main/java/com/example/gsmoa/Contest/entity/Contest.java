@@ -34,6 +34,7 @@ public class Contest {
     private String tag;
 
     @Lob
+    @Convert(converter = BlobConverter.class)
     @Column
     private byte[] image;
 

@@ -3,6 +3,7 @@ package com.example.gsmoa.Contest;
 import com.example.gsmoa.Contest.entity.Contest;
 import com.example.gsmoa.Contest.service.ContestService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Component;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -13,7 +14,9 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @SpringBootApplication
 public class ContestGenerater {
@@ -41,7 +44,7 @@ public class ContestGenerater {
                 contest.setPeriod(Integer.parseInt(period));
                 contest.setTag(values[6]);
 
-                String imagePath = values[4];
+                String imagePath = values[4].replace("\"", ""); // Remove quotes from the image path
                 byte[] imageBytes = Files.readAllBytes(Paths.get(imagePath));
                 contest.setImage(imageBytes);
 
@@ -61,7 +64,17 @@ public class ContestGenerater {
     }
     public void saveAllContestsToDB(String filePath) {
         List<Contest> records = parseCSV(filePath);
-        contestService.saveAllContests(records);
+        Set<String> reportedTitles = new HashSet<>();
+        for (Contest contest : records) {
+            try {
+                contestService.saveContest(contest);
+            } catch (Exception e) {
+                if (!reportedTitles.contains(contest.getTitle())) {
+                    System.out.println("이미 존재하는 공모전: " + contest.getTitle());
+                    reportedTitles.add(contest.getTitle());
+                }
+            }
+        }
     }
 
     public static void main(String[] args) {
