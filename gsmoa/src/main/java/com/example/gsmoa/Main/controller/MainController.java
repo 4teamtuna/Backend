@@ -15,7 +15,6 @@ import java.util.Iterator;
 public class MainController {
 
     @GetMapping("/main")
-
     public String mainP() {
 
         String username = SecurityContextHolder.getContext().getAuthentication().getName();

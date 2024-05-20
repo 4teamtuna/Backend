@@ -1,4 +1,3 @@
-// ChatRoom.java
 package com.example.gsmoa.TeamChatting.model;
 
 import com.example.gsmoa.Contest.entity.Contest;
@@ -6,7 +5,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-
+import java.util.List;
 
 @Entity
 @Getter
@@ -19,9 +18,10 @@ public class Team {
     private String teamName;
     private String leader;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "contest_id")
     private Contest contest;
+
     private String contestName;
 
     private String content;
