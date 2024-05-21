@@ -15,6 +15,9 @@ public class CustomGlobalFilter implements GlobalFilter, Ordered {
             exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
             return exchange.getResponse().setComplete();
         }
+        // Add the token to the request
+        String token = exchange.getRequest().getHeaders().get("Authorization").get(0);
+        exchange.getRequest().mutate().header("User-Token", token).build();
         return chain.filter(exchange);
     }
 

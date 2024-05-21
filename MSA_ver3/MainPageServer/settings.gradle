@@ -1,1 +1,3 @@
-rootProject.name = 'MainPageServer'
+rootProject.name = 'MSA_ver3'
+
+include 'global'

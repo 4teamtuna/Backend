@@ -24,4 +24,6 @@ public class UserEntity {
     private String interest;
 
     private String role;
+
+
 }
