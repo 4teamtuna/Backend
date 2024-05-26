@@ -91,8 +91,12 @@ public class ChatController {
     }
 
     @GetMapping("/teams/{roomId}")
-    public Team getRoom(@PathVariable("roomId") Long roomId) {
-        return teamRepository.findById(roomId).orElse(null);
+    public TeamResponseDto getRoom(@PathVariable("roomId") Long roomId) {
+        Team team = teamRepository.findById(roomId).orElse(null);
+        if (team != null) {
+            return convertToDto(team);
+        }
+        return null;
     }
     // Add more methods as needed
 
