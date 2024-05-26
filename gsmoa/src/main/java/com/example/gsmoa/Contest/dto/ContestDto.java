@@ -8,7 +8,7 @@ import java.sql.Timestamp;
 @Getter
 @Setter
 public class ContestDto {
-    private Integer contest_id;
+    private Integer id;
     private String title;
     private String hostName;
     private Integer period;
