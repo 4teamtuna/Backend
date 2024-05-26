@@ -12,6 +12,7 @@ public class TeamResponseDto {
     private String content;
     private byte[] contestImage;
     private Integer contestId;
+    private int sessionCount;
     private String contestTitle;
     // Add more contest fields as needed
 

@@ -3,6 +3,7 @@ package com.example.gsmoa.TeamChatting.controller;
 import com.example.gsmoa.Contest.dto.ContestDto;
 import com.example.gsmoa.Contest.entity.Contest;
 import com.example.gsmoa.Contest.service.ContestService;
+import com.example.gsmoa.TeamChatting.config.WebSocketConfig;
 import com.example.gsmoa.TeamChatting.dto.TeamRequestDto;
 import com.example.gsmoa.TeamChatting.dto.TeamResponseDto;
 import com.example.gsmoa.TeamChatting.model.ChatMessage;
@@ -22,12 +23,14 @@ public class ChatController {
     private final SimpMessagingTemplate simpMessagingTemplate;
     private final TeamRepository teamRepository;
     private final ContestService contestService;
+    private final WebSocketConfig webSocketConfig;
 
     @Autowired
     public ChatController(SimpMessagingTemplate simpMessagingTemplate, TeamRepository teamRepository, ContestService contestService) {
         this.simpMessagingTemplate = simpMessagingTemplate;
         this.teamRepository = teamRepository;
         this.contestService = contestService;
+        this.webSocketConfig = new WebSocketConfig();
     }
 
     @MessageMapping("/chat/message")
@@ -77,6 +80,7 @@ public class ChatController {
         team.setTeamName(teamRequestDto.getTeamName());
         team.setLeader(teamRequestDto.getLeader());
         team.setContent(teamRequestDto.getContent());
+        team.setMaxMember(teamRequestDto.getMaxMember());
         team.setContest(contest);
         return teamRepository.save(team);
     }
@@ -86,7 +90,9 @@ public class ChatController {
         List<Team> teams = teamRepository.findAll();
         List<TeamResponseDto> teamDtos = new ArrayList<>();
         for (Team team : teams) {
-            teamDtos.add(convertToDto(team));
+            TeamResponseDto dto = convertToDto(team);
+            dto.setSessionCount(webSocketConfig.getTeamSessionCount().getOrDefault(dto.getId().toString(), 0));
+            teamDtos.add(dto);
         }
         return teamDtos;
     }

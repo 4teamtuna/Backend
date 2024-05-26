@@ -10,5 +10,6 @@ public class TeamRequestDto {
     private String leader;
     private String content;
     private Integer contestId;
+    private Long maxMember;
 
 }

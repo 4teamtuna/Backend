@@ -17,6 +17,7 @@ public class Team {
 
     private String teamName;
     private String leader;
+    private Long maxMember;
 
     @ManyToOne
     @JoinColumn(name = "contest_id")
