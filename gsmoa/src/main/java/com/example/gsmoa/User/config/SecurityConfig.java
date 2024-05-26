@@ -84,7 +84,7 @@ public class SecurityConfig {
         //경로별 인가 작업
         http
                 .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers("/login", "/", "/join", "/v3/**", "/swagger-ui/**", "/ws/chat/**", "/teams/**").permitAll()
+                        .requestMatchers("/login", "/", "/join", "/v3/**", "/swagger-ui/**", "/ws/chat/**", "/teams/**", "/contest/**", "/contestImg/**", "/contestImgs/**", "/contestImgsURL/**").permitAll()
                         .requestMatchers("/admin").hasRole("ADMIN")
                         .requestMatchers("/main/**").hasRole("ADMIN")
                         .anyRequest().authenticated());
