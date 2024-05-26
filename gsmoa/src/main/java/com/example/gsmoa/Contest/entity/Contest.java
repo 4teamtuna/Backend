@@ -16,7 +16,7 @@ public class Contest {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer contest_id;
+    private Integer id;
 
     @Column(nullable = false, length = 255, unique = true)
     private String title;
