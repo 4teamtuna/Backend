@@ -3,6 +3,8 @@ package com.example.gsmoa.Contest.service;
 import com.example.gsmoa.Contest.dto.ContestDto;
 import com.example.gsmoa.Contest.entity.Contest;
 import com.example.gsmoa.Contest.repository.ContestRepository;
+import com.example.gsmoa.TeamChatting.model.Team;
+import com.example.gsmoa.TeamChatting.repository.TeamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,9 @@ import java.util.List;
 public class ContestService {
     @Autowired
     private ContestRepository contestRepository;
+
+    @Autowired
+    private TeamRepository teamRepository;
 
     public Contest saveContest(Contest contest) throws Exception { // Contest 객체 저장
         if (contestRepository.existsByTitle(contest.getTitle())) {
@@ -60,6 +65,10 @@ public class ContestService {
             images.add(contest.getImage());
         }
         return images;
+    }
+
+    public List<Team> getTeamsByContestId(Integer contestId) {
+        return teamRepository.findByContestId(contestId);
     }
 
 

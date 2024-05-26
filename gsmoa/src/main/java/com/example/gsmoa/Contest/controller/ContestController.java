@@ -3,6 +3,8 @@ package com.example.gsmoa.Contest.controller;
 import com.example.gsmoa.Contest.dto.ContestDto;
 import com.example.gsmoa.Contest.entity.Contest;
 import com.example.gsmoa.Contest.service.ContestService;
+import com.example.gsmoa.TeamChatting.dto.ContestTeamDto;
+import com.example.gsmoa.TeamChatting.model.Team;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -20,6 +22,7 @@ import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @RestController
@@ -35,7 +38,18 @@ public class ContestController {
 
     @GetMapping("/contest/{id}") // id에 해당하는 이미지를 제외한 공모전 정보를 반환
     public ContestDto getContest(@PathVariable(name = "id") Integer id) {
-        return contestService.getContest(id);
+        ContestDto contestDto = contestService.getContest(id);
+        List<Team> teams = contestService.getTeamsByContestId(id);
+        List<ContestTeamDto> teamNames = teams.stream()
+                .map(team -> {
+                    ContestTeamDto dto = new ContestTeamDto();
+                    dto.setTeamName(team.getTeamName());
+                    dto.setId(team.getId());
+                    return dto;
+                })
+                .collect(Collectors.toList());
+        contestDto.setTeams(teamNames);
+        return contestDto;
     }
 
     @GetMapping("/contestImg/{id}") // id에 해당하는 공모전 이미지 반환
