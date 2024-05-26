@@ -5,11 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bb8b8c6f-8fdc-4ee2-ba86-442a59c0b4b4" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/gsmoa/TeamChatting/dto/TeamResponseDto.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/com/example/gsmoa/Contest/entity/Contest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/com/example/gsmoa/Contest/entity/Contest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/com/example/gsmoa/User/controller/MainController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gsmoa/Contest/entity/Contest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gsmoa/Contest/entity/Contest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gsmoa/Main/controller/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gsmoa/Main/controller/MainController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/com/example/gsmoa/TeamChatting/controller/ChatController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/com/example/gsmoa/TeamChatting/controller/ChatController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gsmoa/TeamChatting/controller/ChatController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gsmoa/TeamChatting/controller/ChatController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
