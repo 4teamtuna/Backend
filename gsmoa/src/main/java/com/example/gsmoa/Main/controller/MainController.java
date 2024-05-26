@@ -1,31 +1,28 @@
-package com.example.gsmoa.Main.controller;
+package com.example.gsmoa.User.controller;
 
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Controller;
+import com.example.gsmoa.User.entity.UserEntity;
+import com.example.gsmoa.User.repository.UserRepository;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.context.SecurityContextHolder;
 
-import java.util.Collection;
-import java.util.Iterator;
-
-@Controller
-@ResponseBody
+@RestController
+@RequestMapping("/main")
 public class MainController {
 
-    @GetMapping("/main")
-    public String mainP() {
+    private final UserRepository userRepository;
 
+    public MainController(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
+    @GetMapping
+    public ResponseEntity<UserEntity> getUserInfo() {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        UserEntity user = userRepository.findByUsername(username);
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
-        Iterator<? extends GrantedAuthority> iter = authorities.iterator();
-        GrantedAuthority auth = iter.next();
-        String role = auth.getAuthority();
-
-        return "안녕하세요\n" + username + "님";
+        return ResponseEntity.ok(user);
     }
 }
