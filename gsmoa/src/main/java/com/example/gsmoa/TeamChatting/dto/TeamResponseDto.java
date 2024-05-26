@@ -10,6 +10,7 @@ public class TeamResponseDto {
     private String teamName;
     private String leader;
     private String content;
+    private byte[] contestImage;
     private Integer contestId;
     private String contestTitle;
     // Add more contest fields as needed

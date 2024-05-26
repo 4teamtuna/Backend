@@ -60,6 +60,7 @@ public class ChatController {
         if (contest != null) {
             dto.setContestId(contest.getId());
             dto.setContestTitle(contest.getTitle());
+            dto.setContestImage(contest.getImage());
             // Add more contest fields to the DTO as needed
         }
 

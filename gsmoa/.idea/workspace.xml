@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bb8b8c6f-8fdc-4ee2-ba86-442a59c0b4b4" name="Changes" comment="" />
+    <list default="true" id="bb8b8c6f-8fdc-4ee2-ba86-442a59c0b4b4" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gsmoa/TeamChatting/controller/ChatController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gsmoa/TeamChatting/controller/ChatController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gsmoa/TeamChatting/dto/TeamResponseDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gsmoa/TeamChatting/dto/TeamResponseDto.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -107,7 +110,7 @@
     "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "ml.llm.LLMConfigurable",
+    "settings.editor.selected.configurable": "reference.settingsdialog.IDE.editor.colors.Color Scheme Font",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
