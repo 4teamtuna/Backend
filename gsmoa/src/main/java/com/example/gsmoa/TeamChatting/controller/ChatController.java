@@ -4,6 +4,7 @@ import com.example.gsmoa.Contest.dto.ContestDto;
 import com.example.gsmoa.Contest.entity.Contest;
 import com.example.gsmoa.Contest.service.ContestService;
 import com.example.gsmoa.TeamChatting.dto.TeamRequestDto;
+import com.example.gsmoa.TeamChatting.dto.TeamResponseDto;
 import com.example.gsmoa.TeamChatting.model.ChatMessage;
 import com.example.gsmoa.TeamChatting.model.Team;
 import com.example.gsmoa.TeamChatting.repository.TeamRepository;
@@ -38,7 +39,7 @@ public class ChatController {
 
     public Contest dtoToEntity(ContestDto contestDto) {
         Contest contest = new Contest();
-        contest.setContest_id(contestDto.getContest_id());
+        contest.setId(contestDto.getId());
         contest.setTitle(contestDto.getTitle());
         contest.setHostName(contestDto.getHostName());
         contest.setPeriod(contestDto.getPeriod());
@@ -47,6 +48,25 @@ public class ChatController {
         contest.setViewCount(contestDto.getViewCount());
         return contest;
     }
+
+    public TeamResponseDto convertToDto(Team team) {
+        TeamResponseDto dto = new TeamResponseDto();
+        dto.setId(team.getId());
+        dto.setTeamName(team.getTeamName());
+        dto.setLeader(team.getLeader());
+        dto.setContent(team.getContent());
+
+        Contest contest = team.getContest();
+        if (contest != null) {
+            dto.setContestId(contest.getId());
+            dto.setContestTitle(contest.getTitle());
+            // Add more contest fields to the DTO as needed
+        }
+
+        return dto;
+    }
+
+
 
     @PostMapping("/teams/{contestId}")
     public Team createRoom(@PathVariable("contestId") Integer contestId, @RequestBody TeamRequestDto teamRequestDto) {
@@ -61,8 +81,13 @@ public class ChatController {
     }
 
     @GetMapping("/teams")
-    public List<Team> getRooms() {
-        return teamRepository.findAll();
+    public List<TeamResponseDto> getRooms() {
+        List<Team> teams = teamRepository.findAll();
+        List<TeamResponseDto> teamDtos = new ArrayList<>();
+        for (Team team : teams) {
+            teamDtos.add(convertToDto(team));
+        }
+        return teamDtos;
     }
 
     @GetMapping("/teams/{roomId}")
@@ -70,4 +95,6 @@ public class ChatController {
         return teamRepository.findById(roomId).orElse(null);
     }
     // Add more methods as needed
+
+
 }
