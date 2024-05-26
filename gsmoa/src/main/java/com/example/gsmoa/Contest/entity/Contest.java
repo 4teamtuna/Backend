@@ -18,7 +18,7 @@ public class Contest {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "contest_id")
+    @Column(name = "id")
     private Integer contest_id;
 
     @Column(nullable = false, length = 255, unique = true)

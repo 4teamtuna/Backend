@@ -1,4 +1,5 @@
-package com.example.gsmoa.User.controller;
+package com.example.gsmoa.Main.controller;
+
 
 import com.example.gsmoa.User.entity.UserEntity;
 import com.example.gsmoa.User.repository.UserRepository;
