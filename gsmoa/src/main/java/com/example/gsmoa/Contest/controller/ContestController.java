@@ -11,8 +11,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -45,9 +49,6 @@ public class ContestController {
         return ResponseEntity.notFound().build();
     }
 
-
-
-
     @GetMapping("/contestImgs/{startId}/{endId}") // startId부터 endId까지의 공모전 이미지 반환, 0/0이면 모든 공모전 이미지 반환
     public List<ResponseEntity<byte[]>> getContestImgsInRange(@PathVariable(name = "startId") Integer startId, @PathVariable(name = "endId") Integer endId) throws SQLException {
         List<byte[]> imgBytesList = contestService.getContestImgsInRange(startId, endId);
@@ -61,6 +62,33 @@ public class ContestController {
             }
         }
         return responses;
+    }
+
+    @GetMapping("/contestImgsURL/{startId}/{endId}") // startId부터 endId까지의 공모전 이미지 반환, 0/0이면 모든 공모전 이미지 반환
+    public List<String> getContestImgsInRangeURL(@PathVariable(name = "startId") Integer startId, @PathVariable(name = "endId") Integer endId) throws SQLException {
+        List<byte[]> imgBytesList = contestService.getContestImgsInRange(startId, endId);
+        List<String> imageUrls = new ArrayList<>();
+
+        for (byte[] imgBytes : imgBytesList) {
+            if (imgBytes != null) {
+                String imageName = "image_" + System.currentTimeMillis() + ".jpg";
+                Path path = Paths.get("images/" + imageName);
+                try {
+                    Files.createDirectories(path.getParent());
+                    Files.write(path, imgBytes);
+                } catch (IOException e) {
+                    System.err.println("Error writing file: " + e.getMessage());
+                }
+
+                String imageUrl = ServletUriComponentsBuilder.fromCurrentContextPath()
+                        .path("/images/")
+                        .path(imageName)
+                        .toUriString();
+
+                imageUrls.add(imageUrl);
+            }
+        }
+        return imageUrls;
     }
 
 }

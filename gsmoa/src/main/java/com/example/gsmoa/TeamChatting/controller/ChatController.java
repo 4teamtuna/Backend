@@ -38,7 +38,7 @@ public class ChatController {
 
     public Contest dtoToEntity(ContestDto contestDto) {
         Contest contest = new Contest();
-        contest.setContest_id(contestDto.getContest_id());
+        contest.setId(contestDto.getId());
         contest.setTitle(contestDto.getTitle());
         contest.setHostName(contestDto.getHostName());
         contest.setPeriod(contestDto.getPeriod());
