@@ -1,6 +1,7 @@
 package com.example.gsmoa.User.dto;
 
 import com.example.gsmoa.User.entity.UserEntity;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -10,6 +11,16 @@ import java.util.Collection;
 public class CustomUserDetails implements UserDetails {
 
     private final UserEntity userEntity;
+
+    private String nickname;
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
 
     public CustomUserDetails(UserEntity userEntity) {
         this.userEntity = userEntity;
