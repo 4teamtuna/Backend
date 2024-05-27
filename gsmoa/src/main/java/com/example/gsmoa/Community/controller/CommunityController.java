@@ -70,7 +70,8 @@ public class CommunityController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Post not found");
         }
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        comment.setWriterId(username);
+        UserEntity user = userRepository.findByUsername(username);
+        comment.setWriterId(user.getNickname());
         comment.setPost(post);
         return commentService.createComment(comment);
     }
