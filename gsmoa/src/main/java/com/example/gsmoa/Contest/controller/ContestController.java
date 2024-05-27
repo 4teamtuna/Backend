@@ -2,6 +2,8 @@ package com.example.gsmoa.Contest.controller;
 
 import com.example.gsmoa.Contest.dto.ContestDto;
 import com.example.gsmoa.Contest.entity.Contest;
+import com.example.gsmoa.Contest.entity.ContestJjim;
+import com.example.gsmoa.Contest.service.ContestJjimService;
 import com.example.gsmoa.Contest.service.ContestService;
 import com.example.gsmoa.TeamChatting.dto.ContestTeamDto;
 import com.example.gsmoa.TeamChatting.model.Team;
@@ -10,9 +12,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.io.IOException;
@@ -30,6 +30,13 @@ public class ContestController {
 
     @Autowired
     private ContestService contestService;
+
+    private final ContestJjimService contestJjimService;
+
+    @Autowired
+    public ContestController(ContestJjimService contestJjimService) {
+        this.contestJjimService = contestJjimService;
+    }
 
 //    @GetMapping("/contest/{id}") // id에 해당하는 이미지를 제외한 공모전 정보를 반환
 //    public ContestDto getContest(@PathVariable Integer id) {
@@ -103,6 +110,21 @@ public class ContestController {
             }
         }
         return imageUrls;
+    }
+
+    @PostMapping("/like")
+    public ContestJjim addLike(@RequestBody ContestJjim contestJjim) {
+        return contestJjimService.addLike(contestJjim);
+    }
+
+    @DeleteMapping("/like/{id}")
+    public void removeLike(@PathVariable Long id) {
+        contestJjimService.removeLike(id);
+    }
+
+    @GetMapping("/like/{userId}")
+    public List<ContestJjim> getLikedContests(@PathVariable Long userId) {
+        return contestJjimService.getLikedContests(userId);
     }
 
 }
