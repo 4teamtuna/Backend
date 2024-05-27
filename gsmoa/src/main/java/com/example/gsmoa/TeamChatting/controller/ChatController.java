@@ -73,7 +73,7 @@ public class ChatController {
 
 
     @PostMapping("/teams/{contestId}")
-    public Team createRoom(@PathVariable("contestId") Integer contestId, @RequestBody TeamRequestDto teamRequestDto) {
+    public Long createRoom(@PathVariable("contestId") Integer contestId, @RequestBody TeamRequestDto teamRequestDto) {
         ContestDto contestDto = contestService.getContest(contestId);
         Contest contest = dtoToEntity(contestDto);
         Team team = new Team();
@@ -82,8 +82,10 @@ public class ChatController {
         team.setContent(teamRequestDto.getContent());
         team.setMaxMember(teamRequestDto.getMaxMember());
         team.setContest(contest);
-        return teamRepository.save(team);
+        Team savedTeam = teamRepository.save(team);
+        return savedTeam.getId(); // Return the ID of the newly created team
     }
+
 
     @GetMapping("/teams")
     public List<TeamResponseDto> getRooms() {
