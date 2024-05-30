@@ -54,4 +54,8 @@ public class ContestJjimService {
                 })
                 .collect(Collectors.toList());
     }
+
+    public boolean isJjim(Long userId, Integer contestId) {
+        return contestJjimRepository.findByUserIdAndContestId(userId, contestId).isPresent();
+    }
 }

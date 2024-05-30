@@ -53,7 +53,7 @@ public class ContestController {
 //    }
 
     @GetMapping("/contest/{id}") // id에 해당하는 이미지를 제외한 공모전 정보를 반환
-    public ContestDto getContest(@PathVariable(name = "id") Integer id) {
+    public ContestDto getContest(@PathVariable(name = "id") Integer id, @RequestParam Long userId) {
         ContestDto contestDto = contestService.getContest(id);
         List<Team> teams = contestService.getTeamsByContestId(id);
         List<ContestTeamDto> teamNames = teams.stream()
@@ -65,6 +65,9 @@ public class ContestController {
                 })
                 .collect(Collectors.toList());
         contestDto.setTeams(teamNames);
+
+        boolean isJjim = contestJjimService.isJjim(userId, id);
+        contestDto.setJjim(isJjim);
         return contestDto;
     }
 
