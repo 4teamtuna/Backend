@@ -50,6 +50,13 @@ public class CommunityController {
 
     @GetMapping("/{postId}")
     public PostEntity getPost(@PathVariable Long postId) {
+        PostEntity post = postService.getPost(postId);
+        if (post == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Post not found");
+        }
+        post.increaseHits();
+        postService.createPost(post);
+
         return postService.getPost(postId);
     }
 
