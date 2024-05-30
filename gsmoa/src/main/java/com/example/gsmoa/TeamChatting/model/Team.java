@@ -1,14 +1,11 @@
-// ChatRoom.java
 package com.example.gsmoa.TeamChatting.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.example.gsmoa.Contest.entity.Contest;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-
+import java.util.List;
 
 @Entity
 @Getter
@@ -20,7 +17,13 @@ public class Team {
 
     private String teamName;
     private String leader;
+    private Long maxMember;
+
+    @ManyToOne
+    @JoinColumn(name = "contest_id")
+    private Contest contest;
+
     private String contestName;
-    private String contestLink;
+
     private String content;
 }

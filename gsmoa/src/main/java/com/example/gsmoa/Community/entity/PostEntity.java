@@ -42,4 +42,8 @@ public class PostEntity extends BaseEntity {
     @JsonManagedReference
     private List<CommentEntity> comments;
 
+    public void increaseHits() {
+        this.hits++;
+    }
+
 }

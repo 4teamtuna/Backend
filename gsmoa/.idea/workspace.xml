@@ -5,20 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bb8b8c6f-8fdc-4ee2-ba86-442a59c0b4b4" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/gsmoa/TeamChatting/model/Team.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/gsmoa/TeamChatting/repository/TeamRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_springframework_boot_spring_boot_3_2_5.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_springframework_boot_spring_boot_3_2_5.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/gsmoa.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/gsmoa.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/modules/gsmoa.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/gsmoa.main.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/modules/gsmoa.test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/gsmoa.test.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gsmoa/Chatting/config/WebSocketConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gsmoa/TeamChatting/config/WebSocketConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gsmoa/Chatting/controller/ChatController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gsmoa/TeamChatting/controller/ChatController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gsmoa/Chatting/model/ChatMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gsmoa/TeamChatting/model/ChatMessage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gsmoa/User/config/CorsMvcConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gsmoa/User/config/CorsMvcConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gsmoa/User/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gsmoa/User/config/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/com/example/gsmoa/Contest/controller/ContestController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/com/example/gsmoa/Contest/controller/ContestController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gsmoa/Community/controller/CommunityController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gsmoa/Community/controller/CommunityController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gsmoa/Community/entity/PostEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gsmoa/Community/entity/PostEntity.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,21 +44,56 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="package-info" />
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/.." value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="GitToolBoxStore">
     <option name="projectConfigVersion" value="5" />
+    <option name="recentBranches">
+      <RecentBranches>
+        <option name="branchesForRepo">
+          <list>
+            <RecentBranchesForRepo>
+              <option name="branches">
+                <list>
+                  <RecentBranch>
+                    <option name="branchName" value="feat/2-3" />
+                    <option name="lastUsedInstant" value="1716720523" />
+                  </RecentBranch>
+                  <RecentBranch>
+                    <option name="branchName" value="main" />
+                    <option name="lastUsedInstant" value="1716720522" />
+                  </RecentBranch>
+                </list>
+              </option>
+              <option name="repositoryRootUrl" value="file://$PROJECT_DIR$/.." />
+            </RecentBranchesForRepo>
+          </list>
+        </option>
+      </RecentBranches>
+    </option>
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="jar://$PROJECT_DIR$/../../../../../Program Files/Java/jdk-17/lib/src.zip!/java.base/java/util/concurrent/ConcurrentHashMap.java" root0="SKIP_INSPECTION" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 7
 }</component>
   <component name="ProjectId" id="2gJF7bV3m1HtbQKozwN2jCEW1Ho" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -121,7 +149,16 @@
       <option name="presentableId" value="Default" />
       <updated>1715407609854</updated>
       <workItem from="1715407612313" duration="1047000" />
-      <workItem from="1715518668368" duration="11106000" />
+      <workItem from="1715518668368" duration="12018000" />
+      <workItem from="1715703597963" duration="5379000" />
+      <workItem from="1715873181504" duration="623000" />
+      <workItem from="1715929757382" duration="87000" />
+      <workItem from="1716131058505" duration="1690000" />
+      <workItem from="1716207567508" duration="18000" />
+      <workItem from="1716212810162" duration="5713000" />
+      <workItem from="1716815460191" duration="10632000" />
+      <workItem from="1716904728945" duration="65000" />
+      <workItem from="1717067084878" duration="2043000" />
     </task>
     <servers />
   </component>
