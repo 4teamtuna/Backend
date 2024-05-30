@@ -1,6 +1,7 @@
 package com.example.gsmoa.Contest.entity;
 
 import com.example.gsmoa.TeamChatting.model.Team;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -45,4 +46,8 @@ public class Contest {
 
     @OneToMany(mappedBy = "contest")
     private List<Team> teams;
+
+
+//    @JsonManagedReference
+//    private List<ContestJjim> contestJjims;
 }

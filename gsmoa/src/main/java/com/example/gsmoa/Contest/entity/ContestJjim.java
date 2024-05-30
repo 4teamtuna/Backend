@@ -1,28 +1,25 @@
 package com.example.gsmoa.Contest.entity;
 
 import com.example.gsmoa.User.entity.UserEntity;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-
 
 @Entity
 @Getter
 @Setter
 @Table(name = "contest_jjim")
-public class ContestJjim {
+public class ContestJjim{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private UserEntity user;
+    @Column
+    private Long userId;
 
-    @ManyToOne
-    @JoinColumn(name = "contest_id")
-    private Contest contest;
+    @Column
+    private Long contestId;
 
-    // getters and setters
 }
