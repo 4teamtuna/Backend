@@ -37,6 +37,10 @@ public class PostEntity extends BaseEntity {
     @Column
     private int hits;
 
+    // 좋아요
+    @Column
+    private int likes;
+
     // 댓글 목록
     @OneToMany(mappedBy = "post", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonManagedReference
@@ -44,6 +48,14 @@ public class PostEntity extends BaseEntity {
 
     public void increaseHits() {
         this.hits++;
+    }
+
+    public void increaseLikes() {
+        this.likes++;
+    }
+
+    public void decreaseLikes() {
+        this.likes--;
     }
 
 }

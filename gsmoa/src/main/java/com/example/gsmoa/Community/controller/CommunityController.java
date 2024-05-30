@@ -70,6 +70,28 @@ public class CommunityController {
         postService.deletePost(postId);
     }
 
+    @PostMapping("/{postId}/like")
+    public PostEntity likePost(@PathVariable Long postId) {
+        PostEntity post = postService.getPost(postId);
+        if (post == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Post not found");
+        }
+        post.increaseLikes(); // 좋아요 증가
+        postService.createPost(post);
+        return post;
+    }
+
+    @PostMapping("/{postId}/dislike")
+    public PostEntity dislikePost(@PathVariable Long postId) {
+        PostEntity post = postService.getPost(postId);
+        if (post == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Post not found");
+        }
+        post.decreaseLikes(); // 좋아요 증가
+        postService.createPost(post);
+        return post;
+    }
+
     @PostMapping("/{postId}/comment")
     public CommentEntity createComment(@PathVariable Long postId, @RequestBody CommentEntity comment) {
         PostEntity post = postService.getPost(postId);
