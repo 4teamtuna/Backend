@@ -98,9 +98,9 @@ public class CommunityController {
         if (post == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Post not found");
         }
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        UserEntity user = userRepository.findByUsername(username);
-        comment.setWriterId(user.getNickname());
+//        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+//        UserEntity user = userRepository.findByUsername(username);
+//        comment.setWriterId(user.getNickname());
         comment.setPost(post);
         return commentService.createComment(comment);
     }
