@@ -3,10 +3,13 @@ package com.example.gsmoa.Contest.controller;
 import com.example.gsmoa.Contest.dto.ContestDto;
 import com.example.gsmoa.Contest.entity.Contest;
 import com.example.gsmoa.Contest.entity.ContestJjim;
+import com.example.gsmoa.Contest.repository.ContestRepository;
 import com.example.gsmoa.Contest.service.ContestJjimService;
 import com.example.gsmoa.Contest.service.ContestService;
 import com.example.gsmoa.TeamChatting.dto.ContestTeamDto;
 import com.example.gsmoa.TeamChatting.model.Team;
+import com.example.gsmoa.User.repository.UserRepository;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -14,6 +17,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import java.util.Map;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -32,6 +36,11 @@ public class ContestController {
     private ContestService contestService;
 
     private final ContestJjimService contestJjimService;
+    @Autowired
+    private ContestRepository contestRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
     public ContestController(ContestJjimService contestJjimService) {
@@ -44,7 +53,7 @@ public class ContestController {
 //    }
 
     @GetMapping("/contest/{id}") // id에 해당하는 이미지를 제외한 공모전 정보를 반환
-    public ContestDto getContest(@PathVariable(name = "id") Integer id) {
+    public ContestDto getContest(@PathVariable(name = "id") Integer id, @RequestParam Long userId) {
         ContestDto contestDto = contestService.getContest(id);
         List<Team> teams = contestService.getTeamsByContestId(id);
         List<ContestTeamDto> teamNames = teams.stream()
@@ -56,6 +65,9 @@ public class ContestController {
                 })
                 .collect(Collectors.toList());
         contestDto.setTeams(teamNames);
+
+        boolean isJjim = contestJjimService.isJjim(userId, id);
+        contestDto.setJjim(isJjim);
         return contestDto;
     }
 
@@ -112,19 +124,21 @@ public class ContestController {
         return imageUrls;
     }
 
-    @PostMapping("/like")
+    @PostMapping("/contest/like")
     public ContestJjim addLike(@RequestBody ContestJjim contestJjim) {
-        return contestJjimService.addLike(contestJjim);
+        return contestJjimService.saveContestJjim(contestJjim);
     }
 
-    @DeleteMapping("/like/{id}")
-    public void removeLike(@PathVariable Long id) {
-        contestJjimService.removeLike(id);
+    @DeleteMapping("/contest/like")
+    public void removeLike(@RequestBody Map<String, Object> params) {
+        Long userId = Long.valueOf((Integer) params.get("userId"));
+        Integer contestId = (Integer) params.get("contestId");
+        contestJjimService.removeLikedContest(userId, contestId);
     }
 
-    @GetMapping("/like/{userId}")
-    public List<ContestJjim> getLikedContests(@PathVariable Long userId) {
-        return contestJjimService.getLikedContests(userId);
+    @GetMapping("/contest/like/{userId}")
+    public List<ContestDto> getLikedContestsDetails(@PathVariable Long userId) {
+        return contestJjimService.getLikedContestsDetails(userId);
     }
 
 }

@@ -18,5 +18,6 @@ public class ContestDto {
     private Timestamp postedDate;
     private String tag;
     private Integer viewCount;
+    private boolean jjim;
     private List<ContestTeamDto> teams;
 }
