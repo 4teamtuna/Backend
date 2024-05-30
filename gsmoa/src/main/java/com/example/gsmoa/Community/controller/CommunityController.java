@@ -35,10 +35,10 @@ public class CommunityController {
     @PostMapping("/post")
     public PostEntity createPost(@RequestBody PostEntity board) {
         // Get the nickname of the currently logged in user
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        UserEntity user = userRepository.findByUsername(username);
-        // Set the writerId of the board to the nickname
-        board.setWriterId(user.getNickname());
+//        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+//        UserEntity user = userRepository.findByUsername(username);
+//        // Set the writerId of the board to the nickname
+//        board.setWriterId(user.getNickname());
         // Create the post
         return postService.createPost(board);
     }
