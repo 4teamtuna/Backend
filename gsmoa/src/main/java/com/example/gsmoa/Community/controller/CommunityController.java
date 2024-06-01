@@ -2,6 +2,8 @@ package com.example.gsmoa.Community.controller;
 
 import com.example.gsmoa.Community.entity.CommentEntity;
 import com.example.gsmoa.Community.entity.PostEntity;
+import com.example.gsmoa.Community.entity.PostLike;
+import com.example.gsmoa.Community.service.PostLikeService;
 import com.example.gsmoa.Community.service.PostService;
 import com.example.gsmoa.Community.service.CommentService;
 import com.example.gsmoa.User.dto.CustomUserDetails;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/main/community")
@@ -23,13 +26,15 @@ public class CommunityController {
     private final PostService postService;
     private final CommentService commentService;
     private final UserRepository userRepository;
+    private final PostLikeService postLikeService;
 
 
     @Autowired
-    public CommunityController(PostService postService, CommentService commentService, UserRepository userRepository) {
+    public CommunityController(PostService postService, CommentService commentService, UserRepository userRepository, PostLikeService postLikeService) {
         this.postService = postService;
         this.commentService = commentService;
         this.userRepository = userRepository;
+        this.postLikeService = postLikeService;
     }
 
     @PostMapping("/post")
@@ -44,8 +49,13 @@ public class CommunityController {
     }
 
     @GetMapping("/list")
-    public List<PostEntity> getAllPosts() {
-        return postService.getAllPosts();
+    public List<PostEntity> getAllPosts(@RequestParam Long userId) {
+        List<PostEntity> posts = postService.getAllPosts(userId);
+        for(PostEntity post : posts) {
+            boolean isLiked = postLikeService.isLiked(userId, post.getPostId());
+            post.setLiked(isLiked);
+        }
+        return posts;
     }
 
     @GetMapping("/{postId}")
@@ -114,4 +124,17 @@ public class CommunityController {
     public void deleteComment(@PathVariable Long postId, @PathVariable Long commentId) {
         commentService.deleteComment(commentId);
     }
+
+    @PostMapping("/post/like")
+    public PostLike likePost(@RequestBody PostLike post) {
+        return postLikeService.savePostLike(post);
+    }
+
+    @DeleteMapping("/post/like")
+    public void dislikePost(@RequestBody Map<String, Object> params) {
+        Long userId = Long.valueOf(params.get("userId").toString());
+        Long postId = Long.valueOf(params.get("postId").toString());
+        postLikeService.removeLikedPost(userId, postId);
+    }
+
 }
