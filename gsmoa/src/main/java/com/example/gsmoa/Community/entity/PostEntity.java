@@ -58,4 +58,6 @@ public class PostEntity extends BaseEntity {
         this.likes--;
     }
 
+    @Transient
+    private boolean liked;
 }

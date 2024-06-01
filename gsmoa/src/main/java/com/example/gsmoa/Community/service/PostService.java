@@ -12,18 +12,28 @@ import java.util.List;
 public class PostService {
 
     private final PostRepository postRepository;
+    private final PostLikeService postLikeService;
 
     @Autowired
-    public PostService(PostRepository postRepository) {
+    public PostService(PostRepository postRepository, PostLikeService postLikeService) {
         this.postRepository = postRepository;
+        this.postLikeService = postLikeService;
     }
 
     public PostEntity createPost(PostEntity board) {
         return postRepository.save(board);
     }
 
-    public List<PostEntity> getAllPosts() {
-        return postRepository.findAll();
+    // PostService.java
+    public List<PostEntity> getAllPosts(Long userId) {
+        List<PostEntity> posts = postRepository.findAll();
+        for (PostEntity post : posts) {
+            boolean isLiked = postLikeService.isLiked(userId, post.getPostId());
+            int likesCount = postLikeService.getPostLikesCount(post.getPostId());
+            post.setLiked(isLiked);
+            post.setLikes(likesCount);
+        }
+        return posts;
     }
 
     public PostEntity getPost(Long id) {
