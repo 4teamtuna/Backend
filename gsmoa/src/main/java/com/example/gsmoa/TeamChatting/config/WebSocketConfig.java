@@ -48,6 +48,8 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
                         return path.substring(path.lastIndexOf('/') + 1);
                     }
                 });
+
+        registry.addEndpoint("/ws/notification").setAllowedOrigins("http://localhost:5173").withSockJS();
     }
 
     public Map<String, Integer> getTeamSessionCount() {

@@ -2,6 +2,9 @@ package com.example.gsmoa.Community.service;
 
 import com.example.gsmoa.Community.entity.CommentEntity;
 import com.example.gsmoa.Community.repository.CommentRepository;
+import com.example.gsmoa.User.entity.UserEntity;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
+import com.example.gsmoa.User.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,14 +14,28 @@ import java.util.List;
 public class CommentService {
 
     private final CommentRepository commentRepository;
+    private final SimpMessagingTemplate messagingTemplate;
+    private final UserRepository userRepository;
 
     @Autowired
-    public CommentService(CommentRepository commentRepository) {
+    public CommentService(CommentRepository commentRepository, SimpMessagingTemplate simpMessagingTemplate, UserRepository userRepository) {
         this.commentRepository = commentRepository;
+        this.messagingTemplate = simpMessagingTemplate;
+        this.userRepository = userRepository;
     }
 
-    public CommentEntity createComment(CommentEntity comment) {
-        return commentRepository.save(comment);
+    public CommentEntity createComment(CommentEntity comment, Long loggedInUserId) {
+        UserEntity loggedInUser = userRepository.findById(loggedInUserId.intValue()).orElseThrow();
+        comment.setPostOwner(loggedInUser);
+        CommentEntity savedComment = commentRepository.save(comment);
+        if (loggedInUser.equals(savedComment.getPostOwner())){
+            messagingTemplate.convertAndSendToUser(
+                    loggedInUser.getUsername(),
+                    "/queue/notification",
+                    "New comment on your post: " + savedComment.getContent()
+            );
+        }
+        return savedComment;
     }
 
     public List<CommentEntity> getCommentsByBoardId(Long postId) {

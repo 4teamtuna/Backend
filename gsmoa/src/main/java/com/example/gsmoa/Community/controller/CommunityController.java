@@ -108,11 +108,10 @@ public class CommunityController {
         if (post == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Post not found");
         }
-//        String username = SecurityContextHolder.getContext().getAuthentication().getName();
-//        UserEntity user = userRepository.findByUsername(username);
-//        comment.setWriterId(user.getNickname());
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        UserEntity user = userRepository.findByUsername(userDetails.getUsername());
         comment.setPost(post);
-        return commentService.createComment(comment);
+        return commentService.createComment(comment, (long) user.getId());
     }
 
     @PutMapping("/{postId}/comment/{commentId}")
