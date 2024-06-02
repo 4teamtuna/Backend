@@ -33,6 +33,7 @@ public class ContestService {
             contestDto.setPostedDate(contest.getPostedDate());
             contestDto.setTag(contest.getTag());
             contestDto.setViewCount(contest.getViewCount());
+            contestDto.setDetails(contest.getDetails()); // Add details to the DTO
             return contestDto;
         }
         return null;
@@ -62,9 +63,14 @@ public class ContestService {
         return images;
     }
 
-
-
-
+    public Contest updateContestDetails(Integer id, String details) { // id에 해당하는 공모전의 details를 업데이트
+        Contest contest = contestRepository.findById(id).orElse(null);
+        if (contest != null) {
+            contest.setDetails(details);
+            return contestRepository.save(contest);
+        }
+        return null;
+    }
 
 
 }

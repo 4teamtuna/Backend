@@ -46,6 +46,7 @@ public class ChatController {
         contest.setPostedDate(contestDto.getPostedDate());
         contest.setTag(contestDto.getTag());
         contest.setViewCount(contestDto.getViewCount());
+        contest.setDetails(contestDto.getDetails());
         return contest;
     }
 
