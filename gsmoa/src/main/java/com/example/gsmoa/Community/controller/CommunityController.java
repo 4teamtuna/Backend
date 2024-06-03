@@ -114,22 +114,36 @@ public class CommunityController {
         return post;
     }
 
+//    @PostMapping("/{postId}/comment")
+//    public CommentEntity createComment(@PathVariable Long postId, @RequestBody CommentEntity comment) {
+//        PostEntity post = postService.getPost(postId);
+//        if (post == null) {
+//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Post not found");
+//        }
+//        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        if (principal instanceof UserDetails userDetails) {
+//            UserEntity user = userRepository.findByUsername(userDetails.getUsername());
+//            post.setWriterId(user.getNickname());
+//            comment.setPost(post);
+//            return commentService.createComment(comment, (long) user.getId());
+//        } else {
+//            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "User details not found");
+//        }
+//    }
+// CommunityController.java
     @PostMapping("/{postId}/comment")
     public CommentEntity createComment(@PathVariable Long postId, @RequestBody CommentEntity comment) {
-        PostEntity post = postService.getPost(postId);
-        if (post == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Post not found");
-        }
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (principal instanceof UserDetails userDetails) {
-            UserEntity user = userRepository.findByUsername(userDetails.getUsername());
-            post.setWriterId(user.getNickname());
-            comment.setPost(post);
-            return commentService.createComment(comment, (long) user.getId());
-        } else {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "User details not found");
-        }
+    PostEntity post = postService.getPost(postId);
+    if (post == null) {
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Post not found");
     }
+    UserEntity user = userRepository.findById(comment.getUserId().intValue()).orElseThrow();
+    comment.setPostOwner(user);
+    comment.setPost(post);
+    return commentService.createComment(comment, (long) user.getId());
+}
+
+
     @PutMapping("/{postId}/comment/{commentId}")
     public CommentEntity updateComment(@PathVariable Long postId, @PathVariable Long commentId, @RequestBody CommentEntity comment) {
         return commentService.updateComment(commentId, comment);

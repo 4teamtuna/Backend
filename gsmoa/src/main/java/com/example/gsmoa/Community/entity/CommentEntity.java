@@ -28,6 +28,9 @@ public class CommentEntity extends BaseEntity {
     // 댓글 작성자 Id
     private String writerId;
 
+    @Transient
+    private Long userId;
+
     // 댓글 내용
     @Column(length = 500)
     private String content;
