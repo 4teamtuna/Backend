@@ -27,6 +27,7 @@ public class CommentService {
     public CommentEntity createComment(CommentEntity comment, Long loggedInUserId) {
         UserEntity loggedInUser = userRepository.findById(loggedInUserId.intValue()).orElseThrow();
         comment.setPostOwner(loggedInUser);
+        comment.setWriterId(loggedInUser.getNickname());
         CommentEntity savedComment = commentRepository.save(comment);
         if (loggedInUser.equals(savedComment.getPostOwner())){
             messagingTemplate.convertAndSendToUser(

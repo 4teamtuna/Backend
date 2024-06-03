@@ -37,14 +37,26 @@ public class CommunityController {
         this.postLikeService = postLikeService;
     }
 
+//    @PostMapping("/post")
+//    public PostEntity createPost(@RequestBody PostEntity board) {
+//        // Get the nickname of the currently logged in user
+////        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+////        UserEntity user = userRepository.findByUsername(username);
+////        // Set the writerId of the board to the nickname
+////        board.setWriterId(user.getNickname());
+//        // Create the post
+//        return postService.createPost(board);
+//    }
+
     @PostMapping("/post")
     public PostEntity createPost(@RequestBody PostEntity board) {
-        // Get the nickname of the currently logged in user
-//        String username = SecurityContextHolder.getContext().getAuthentication().getName();
-//        UserEntity user = userRepository.findByUsername(username);
-//        // Set the writerId of the board to the nickname
-//        board.setWriterId(user.getNickname());
-        // Create the post
+        // Get the username of the currently logged in user
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        UserEntity user = userRepository.findByUsername(username);
+        board.setWriterId(user.getNickname());
+        // Set the writer of the post to the user
+        board.setWriter(user);
+        // Save the post
         return postService.createPost(board);
     }
 
@@ -111,6 +123,7 @@ public class CommunityController {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal instanceof UserDetails userDetails) {
             UserEntity user = userRepository.findByUsername(userDetails.getUsername());
+            post.setWriterId(user.getNickname());
             comment.setPost(post);
             return commentService.createComment(comment, (long) user.getId());
         } else {
