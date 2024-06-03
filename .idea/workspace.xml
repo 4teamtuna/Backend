@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="446f8d03-6089-4266-b9a2-d8f10d160378" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MSA_ver3/.idea/checkstyle-idea.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MSA_ver3/.idea/compiler.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MSA_ver3/.idea/gradle.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MSA_ver3/.idea/jarRepositories.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MSA_ver3/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MSA_ver3/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MSA_ver3/.idea/modules/EurekaServer.MSA_ver3.main.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MSA_ver3/.idea/modules/com.example.MSA_ver3.main.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MSA_ver3/.idea/modules/global.MSA_ver3.main.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MSA_ver3/.idea/uiDesigner.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MSA_ver3/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MSA_ver3/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MSA_ver3/Community/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/MSA_ver3/Community/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MSA_ver3/Community/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/MSA_ver3/Community/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MSA_ver3/GatewayServer/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/MSA_ver3/GatewayServer/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MSA_ver3/GatewayServer/src/test/java/com/example/gatewayserver/GatewayServerApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/MSA_ver3/GatewayServer/src/test/java/com/example/gatewayserver/GatewayServerApplicationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MSA_ver3/MainPageServer/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/MSA_ver3/MainPageServer/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MSA_ver3/MainPageServer/src/main/java/com/example/mainpageserver/controller/MainPageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/MSA_ver3/MainPageServer/src/main/java/com/example/mainpageserver/controller/MainPageController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MSA_ver3/MainPageServer/src/main/java/com/example/mainpageserver/service/MainContentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/MSA_ver3/MainPageServer/src/main/java/com/example/mainpageserver/service/MainContentService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MSA_ver3/global/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/MSA_ver3/Contest/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MSA_ver3/global/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/MSA_ver3/Contest/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MSA_ver3/global/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" afterPath="$PROJECT_DIR$/MSA_ver3/Contest/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MSA_ver3/global/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/MSA_ver3/Contest/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MSA_ver3/global/gradlew" beforeDir="false" afterPath="$PROJECT_DIR$/MSA_ver3/Contest/gradlew" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MSA_ver3/global/gradlew.bat" beforeDir="false" afterPath="$PROJECT_DIR$/MSA_ver3/Contest/gradlew.bat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MSA_ver3/global/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/MSA_ver3/Contest/settings.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MSA_ver3/global/src/main/java/com/example/global/GlobalApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MSA_ver3/global/src/main/java/com/example/global/config/CorsMvcConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/MSA_ver3/AuthServer/src/main/java/com/example/authserver/config/CorsMvcConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MSA_ver3/global/src/main/java/com/example/global/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/MSA_ver3/AuthServer/src/main/java/com/example/authserver/config/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MSA_ver3/global/src/main/java/com/example/global/config/WebSocketConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MSA_ver3/global/src/main/java/com/example/global/controller/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/MSA_ver3/AuthServer/src/main/java/com/example/authserver/controller/AdminController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MSA_ver3/global/src/main/java/com/example/global/controller/ChatController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MSA_ver3/global/src/main/java/com/example/global/controller/ContestController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MSA_ver3/global/src/main/java/com/example/global/controller/JoinController.java" beforeDir="false" afterPath="$PROJECT_DIR$/MSA_ver3/AuthServer/src/main/java/com/example/authserver/controller/JoinController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MSA_ver3/global/src/main/java/com/example/global/controller/MypageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/MSA_ver3/AuthServer/src/main/java/com/example/authserver/controller/MypageController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MSA_ver3/global/src/main/java/com/example/global/dto/ContestDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MSA_ver3/global/src/main/java/com/example/global/dto/CustomUserDetails.java" beforeDir="false" afterPath="$PROJECT_DIR$/MSA_ver3/AuthServer/src/main/java/com/example/authserver/dto/CustomUserDetails.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MSA_ver3/global/src/main/java/com/example/global/dto/JoinDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/MSA_ver3/AuthServer/src/main/java/com/example/authserver/dto/JoinDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MSA_ver3/global/src/main/java/com/example/global/dto/TeamRequestDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MSA_ver3/global/src/main/java/com/example/global/dto/UserDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/MSA_ver3/AuthServer/src/main/java/com/example/authserver/dto/UserDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MSA_ver3/global/src/main/java/com/example/global/dto/UserUpdateDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/MSA_ver3/AuthServer/src/main/java/com/example/authserver/dto/UserUpdateDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MSA_ver3/global/src/main/java/com/example/global/entity/BlobConverter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MSA_ver3/global/src/main/java/com/example/global/entity/Contest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MSA_ver3/global/src/main/java/com/example/global/entity/ContestTag.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MSA_ver3/global/src/main/java/com/example/global/entity/UserEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/MSA_ver3/AuthServer/src/main/java/com/example/authserver/entity/UserEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MSA_ver3/global/src/main/java/com/example/global/jwt/JWTFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/MSA_ver3/AuthServer/src/main/java/com/example/authserver/jwt/JWTFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MSA_ver3/global/src/main/java/com/example/global/jwt/JWTUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/MSA_ver3/AuthServer/src/main/java/com/example/authserver/jwt/JWTUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MSA_ver3/global/src/main/java/com/example/global/jwt/LoginFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/MSA_ver3/AuthServer/src/main/java/com/example/authserver/jwt/LoginFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MSA_ver3/global/src/main/java/com/example/global/model/ChatMessage.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MSA_ver3/global/src/main/java/com/example/global/model/Team.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MSA_ver3/global/src/main/java/com/example/global/repository/ContestRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MSA_ver3/global/src/main/java/com/example/global/repository/TeamRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MSA_ver3/global/src/main/java/com/example/global/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/MSA_ver3/AuthServer/src/main/java/com/example/authserver/repository/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MSA_ver3/global/src/main/java/com/example/global/service/ContestService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MSA_ver3/global/src/main/java/com/example/global/service/CustomUserDetailsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/MSA_ver3/AuthServer/src/main/java/com/example/authserver/service/CustomUserDetailsService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MSA_ver3/global/src/main/java/com/example/global/service/JoinService.java" beforeDir="false" afterPath="$PROJECT_DIR$/MSA_ver3/AuthServer/src/main/java/com/example/authserver/service/JoinService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MSA_ver3/global/src/main/java/com/example/global/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/MSA_ver3/AuthServer/src/main/java/com/example/authserver/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MSA_ver3/global/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/MSA_ver3/Contest/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MSA_ver3/global/src/test/java/com/example/global/GlobalApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/MSA_ver3/Contest/src/test/java/com/example/contest/GlobalApplicationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MSA_ver3/setting.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/MSA_ver3/setting.gradle" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand />
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8
+}</component>
+  <component name="ProjectId" id="2fxvMn1bapN8fgxU9mFSxtjCnyF" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "android.gradle.sync.needed": "true",
+    "git-widget-placeholder": "feat/1__MSA__ver3",
+    "last_opened_file_path": "/Users/KimDongHyeon/Desktop/KMU/2024 Computer Engineering/4-1/캡스톤디자인(2)/Spring/Backend",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="446f8d03-6089-4266-b9a2-d8f10d160378" name="Changes" comment="" />
+      <created>1714755498347</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1714755498347</updated>
+      <workItem from="1714755499430" duration="78000" />
+      <workItem from="1717175515774" duration="10000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

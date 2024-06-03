@@ -1,0 +1,8 @@
+subprojects {
+    group = 'com.gsmoa-msa'
+    version = '1.0.0'
+
+    repositories {
+        mavenCentral()
+    }
+}

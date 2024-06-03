@@ -1,0 +1,36 @@
+spring:
+  profiles:
+    active: local
+  application:
+    name: app-gateway
+  cloud:
+    loadbalancer:
+      ribbon:
+        enabled: false
+    gateway:
+      routes:
+        - id: app-web
+          predicates:
+            - Path=/app-web/**
+          uri: lb://app-web
+
+---
+# local
+server:
+  port: 9001
+
+spring:
+  config:
+    activate:
+      on-profile: local
+
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+    lease-renewal-interval-in-seconds: 10
+    lease-expiration-duration-in-seconds: 2
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:9000/eureka/
