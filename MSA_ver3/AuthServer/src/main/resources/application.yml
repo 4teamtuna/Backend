@@ -1,0 +1,20 @@
+server:
+    port: 49856
+
+spring:
+    application:
+        name: Auth-Server
+    datasource:
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://spring-db-gsmoa.clcmmk2ygw1j.ap-northeast-2.rds.amazonaws.com/spring-DB
+        username: root
+        password: 20-72008672
+    jpa:
+        hibernate:
+            ddl-auto: update
+            naming:
+                physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    jwt:
+        secret: vmfhaltmskdlstkfkdgodyroqkfwkdbalroqkfwkdbalaaaaaaaaaaaaaaaabbbbb
+    main:
+        allow-bean-definition-overriding: true

@@ -5,7 +5,6 @@
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="gradleJvm" value="18" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
@@ -13,11 +12,26 @@
         </option>
       </GradleProjectSettings>
       <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/AuthServer" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/AuthServer" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
         <option name="externalProjectPath" value="$PROJECT_DIR$/Community" />
-        <option name="gradleJvm" value="18" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$/Community" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/Contest" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/Contest" />
           </set>
         </option>
       </GradleProjectSettings>
@@ -42,15 +56,15 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$/MainPageServer" />
+            <option value="$PROJECT_DIR$/MainPageServer/global" />
           </set>
         </option>
       </GradleProjectSettings>
       <GradleProjectSettings>
-        <option name="externalProjectPath" value="$PROJECT_DIR$/global" />
-        <option name="gradleJvm" value="18" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/TeamChatting" />
         <option name="modules">
           <set>
-            <option value="$PROJECT_DIR$/global" />
+            <option value="$PROJECT_DIR$/TeamChatting" />
           </set>
         </option>
       </GradleProjectSettings>

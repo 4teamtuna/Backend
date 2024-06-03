@@ -1,5 +1,5 @@
 server:
-  port: 0
+  port: 49810
 
 spring:
   application:
@@ -8,13 +8,24 @@ spring:
     gateway:
       routes:
         - id: community-service
-          uri: lb://community-service
+          uri: lb://COMMUNITY-SERVER
           predicates:
-            - Path=/api/community/**
+            - Path=/main/community/**
+
         - id: global-service
           uri: lb://global-service
           predicates:
             - Path=/api/global/**
+
+        - id: MainPage-service
+          uri: lb://MainPage-service
+          predicates:
+            - Path=/api/MainPage/**
+
+        - id: Registration-service
+          uri: lb://AUTH-SERVER
+          predicates:
+            - Path=/api/join/**
 
 eureka:
   instance:

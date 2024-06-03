@@ -1,5 +1,5 @@
 server:
-  port: 0
+  port: 56885
 
 spring:
   jpa:
@@ -15,7 +15,7 @@ spring:
     password: 20-72008672
     driver-class-name: com.mysql.cj.jdbc.Driver
   application:
-    name: community-service
+    name: Community-Server
 
 eureka:
   instance:
