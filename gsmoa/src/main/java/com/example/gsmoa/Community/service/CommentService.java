@@ -35,6 +35,15 @@ public class CommentService {
                     "New comment on your post: " + savedComment.getContent()
             );
         }
+        // 게시글 작성자에게 알림을 보냅니다.
+        UserEntity postOwner = savedComment.getPost().getPostOwner();
+        if (!postOwner.equals(loggedInUser)) {
+            messagingTemplate.convertAndSendToUser(
+                    postOwner.getUsername(),
+                    "/queue/notification",
+                    "New comment on your post: " + savedComment.getContent()
+            );
+        }
         return savedComment;
     }
 
