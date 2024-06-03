@@ -37,7 +37,7 @@ public class CommentService {
             );
         }
         // 게시글 작성자에게 알림을 보냅니다.
-        UserEntity postOwner = savedComment.getPost().getPostOwner();
+        UserEntity postOwner = savedComment.getPostOwner();
         if (!postOwner.equals(loggedInUser)) {
             messagingTemplate.convertAndSendToUser(
                     postOwner.getUsername(),
