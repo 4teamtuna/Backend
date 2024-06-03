@@ -108,12 +108,15 @@ public class CommunityController {
         if (post == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Post not found");
         }
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        UserEntity user = userRepository.findByUsername(userDetails.getUsername());
-        comment.setPost(post);
-        return commentService.createComment(comment, (long) user.getId());
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetails userDetails) {
+            UserEntity user = userRepository.findByUsername(userDetails.getUsername());
+            comment.setPost(post);
+            return commentService.createComment(comment, (long) user.getId());
+        } else {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "User details not found");
+        }
     }
-
     @PutMapping("/{postId}/comment/{commentId}")
     public CommentEntity updateComment(@PathVariable Long postId, @PathVariable Long commentId, @RequestBody CommentEntity comment) {
         return commentService.updateComment(commentId, comment);
