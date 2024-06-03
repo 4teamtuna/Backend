@@ -14,7 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class ContestService {
+public cla
+        ContestService {
     @Autowired
     private ContestRepository contestRepository;
 
