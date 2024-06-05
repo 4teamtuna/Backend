@@ -38,11 +38,14 @@ public class Contest {
 
     @Lob
     @Convert(converter = BlobConverter.class)
-    @Column
+    @Column(columnDefinition = "LONGBLOB")
     private byte[] image;
 
     @Column(name = "view_count")
     private Integer viewCount = 0;
+
+    @Column(length = 4000)
+    private String details;
 
     @OneToMany(mappedBy = "contest")
     private List<Team> teams;
