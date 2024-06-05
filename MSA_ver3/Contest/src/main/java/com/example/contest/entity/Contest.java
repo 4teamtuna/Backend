@@ -1,6 +1,6 @@
 package com.example.contest.entity;
 
-import com.example.TeamChatting.model.Team;
+import com.example.contest.model.Team;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;

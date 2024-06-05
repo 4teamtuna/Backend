@@ -2,8 +2,10 @@ package com.example.teamchatting.controller;
 
 import com.example.teamchatting.Contest.dto.ContestDto;
 import com.example.teamchatting.Contest.entity.Contest;
-import com.example.teamchatting.Contest.service.ContestService;
+import com.example.teamchatting.Service.ContestClientService;
 import com.example.teamchatting.config.WebSocketConfig;
+import com.example.teamchatting.dto.ChatTeamResponse;
+import com.example.teamchatting.dto.ContestDtoResponse;
 import com.example.teamchatting.dto.TeamRequestDto;
 import com.example.teamchatting.dto.TeamResponseDto;
 import com.example.teamchatting.model.ChatMessage;
@@ -22,14 +24,15 @@ public class ChatController {
 
     private final SimpMessagingTemplate simpMessagingTemplate;
     private final TeamRepository teamRepository;
-    private final ContestService contestService;
+
+    private final ContestClientService contestClientService;
     private final WebSocketConfig webSocketConfig;
 
     @Autowired
-    public ChatController(SimpMessagingTemplate simpMessagingTemplate, TeamRepository teamRepository, ContestService contestService) {
+    public ChatController(SimpMessagingTemplate simpMessagingTemplate, TeamRepository teamRepository,  ContestClientService contestClientService) {
         this.simpMessagingTemplate = simpMessagingTemplate;
         this.teamRepository = teamRepository;
-        this.contestService = contestService;
+        this.contestClientService = contestClientService;
         this.webSocketConfig = new WebSocketConfig();
     }
 
@@ -73,17 +76,24 @@ public class ChatController {
 
 
     @PostMapping("/teams/{contestId}")
-    public Long createRoom(@PathVariable("contestId") Integer contestId, @RequestBody TeamRequestDto teamRequestDto) {
-        ContestDto contestDto = contestService.getContest(contestId);
-        Contest contest = dtoToEntity(contestDto);
+    public ChatTeamResponse createRoom(@PathVariable("contestId") Integer contestId, @RequestBody TeamRequestDto teamRequestDto) {
+        ContestDtoResponse contestDto = contestClientService.getContestById(contestId);
         Team team = new Team();
         team.setTeamName(teamRequestDto.getTeamName());
         team.setLeader(teamRequestDto.getLeader());
         team.setContent(teamRequestDto.getContent());
         team.setMaxMember(teamRequestDto.getMaxMember());
-        team.setContest(contest);
+        team.setContestName(contestDto.getTitle()); // Use the title from the ContestDto as the contest name
         Team savedTeam = teamRepository.save(team);
-        return savedTeam.getId(); // Return the ID of the newly created team
+
+        ChatTeamResponse response = new ChatTeamResponse();
+        response.setId(savedTeam.getId());
+        response.setTeamName(savedTeam.getTeamName());
+        response.setLeader(savedTeam.getLeader());
+        response.setMaxMember(savedTeam.getMaxMember());
+        response.setContent(savedTeam.getContent());
+
+        return response; // Return the newly created team as a ChatTeamResponse
     }
 
 

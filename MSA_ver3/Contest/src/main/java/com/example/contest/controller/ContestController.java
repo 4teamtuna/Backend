@@ -2,12 +2,12 @@ package com.example.contest.controller;
 
 import com.example.contest.dto.ContestDto;
 import com.example.contest.dto.ContestTeamResponse;
-import com.example.contest.dto.TeamResponse;
 import com.example.contest.entity.Contest;
 import com.example.contest.entity.ContestJjim;
 import com.example.contest.repository.ContestRepository;
 import com.example.contest.service.ContestJjimService;
 import com.example.contest.service.ContestService;
+import com.example.contest.model.Team;
 import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -17,9 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.util.Map;
-import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.publisher.Mono;
-import java.util.Arrays;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -35,60 +33,39 @@ public class ContestController {
 
     @Autowired
     private ContestService contestService;
-    private final WebClient webClient;
+
     private final ContestJjimService contestJjimService;
     @Autowired
     private ContestRepository contestRepository;
 
-
     @Autowired
-    public ContestController(ContestJjimService contestJjimService,WebClient.Builder webClientBuilder) {
+    public ContestController(ContestJjimService contestJjimService) {
         this.contestJjimService = contestJjimService;
-        this.webClient = webClientBuilder.baseUrl("http://team-service").build();
     }
+
+//    @GetMapping("/contest/{id}") // id에 해당하는 이미지를 제외한 공모전 정보를 반환
+//    public ContestDto getContest(@PathVariable Integer id) {
+//        return contestService.getContest(id);
+//    }
 
     @GetMapping("/contest/{id}") // id에 해당하는 이미지를 제외한 공모전 정보를 반환
-    public ContestDto getContest(@PathVariable Integer id) {
-        return contestService.getContest(id);
+    public ContestDto getContest(@PathVariable(name = "id") Integer id, @RequestParam Long userId) {
+        ContestDto contestDto = contestService.getContest(id);
+        List<Team> teams = contestService.getTeamsByContestId(id);
+        List<ContestTeamResponse> teamResponses = teams.stream()
+                .map(team -> {
+                    ContestTeamResponse response = new ContestTeamResponse();
+                    response.setTeamName(team.getTeamName());
+                    response.setId(team.getId());
+                    return response;
+                })
+                .collect(Collectors.toList());
+        contestDto.setTeams(teamResponses);
+
+        boolean isJjim = contestJjimService.isJjim(userId, id);
+        contestDto.setJjim(isJjim);
+        return contestDto;
     }
-//@GetMapping("/contest/{id}")
-//public ContestDto getContest(@PathVariable(name = "id") Integer id, @RequestParam Long userId) {
-//
-//    Mono<TeamResponse> teamMono = webClient.get()
-//            .uri("/api/team/{id}", id)
-//            .retrieve()
-//            .bodyToMono(TeamResponse.class);
-//
-//    Mono<ContestTeamResponse> contestTeamDtoMono = webClient.get()
-//            .uri("/api/contestTeam/{id}", id)
-//            .retrieve()
-//            .bodyToMono(ContestTeamResponse.class);
-//
-//    ContestDto contestDto = Mono.zip(teamMono, contestTeamDtoMono)
-//            .map(tuple -> {
-//                TeamResponse team = tuple.getT1();
-//                ContestTeamResponse contestTeamDto = tuple.getT2();
-//
-//                ContestDto dto = new ContestDto();
-//                dto.setTeams(Arrays.asList(contestTeamDto).stream()
-//                        .map(response -> {
-//                            ContestTeamDto teamDto = new ContestTeamDto();
-//                            tea mDto.setTeamName(response.getTeamName());
-//                            teamDto.setId(response.getId());
-//                            return teamDto;
-//                        })
-//                        .collect(Collectors.toList()));
-//                dto.setId(Long.valueOf(id)); // Convert Integer to Long
-//                // Populate other fields of dto using team and contestTeamDto
-//                // ...
-//
-//                return dto;
-//            }).block(); // Convert Mono<ContestDto> to ContestDto
-//
-//    boolean isJjim = contestJjimService.isJjim(userId, id);
-//    contestDto.setJjim(isJjim);
-//    return contestDto;
-//}
 
     @GetMapping("/contestImg/{id}") // id에 해당하는 공모전 이미지 반환
     public ResponseEntity<byte[]> getContestImg(@PathVariable(name = "id") Integer id) throws SQLException {

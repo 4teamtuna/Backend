@@ -3,24 +3,25 @@ package com.example.contest.service;
 import com.example.contest.dto.ContestDto;
 import com.example.contest.entity.Contest;
 import com.example.contest.repository.ContestRepository;
-import com.example.gsmoa.TeamChatting.model.Team;
-import com.example.gsmoa.TeamChatting.repository.TeamRepository;
+import com.example.contest.model.Team;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
+import org.springframework.web.client.RestTemplate;
 import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
-public cla
-        ContestService {
+public class ContestService {
     @Autowired
     private ContestRepository contestRepository;
 
     @Autowired
-    private TeamRepository teamRepository;
+    private RestTemplate restTemplate;
+
 
     public Contest saveContest(Contest contest) throws Exception { // Contest 객체 저장
         if (contestRepository.existsByTitle(contest.getTitle())) {
@@ -69,11 +70,16 @@ public cla
     }
 
     public List<Team> getTeamsByContestId(Integer contestId) {
-        return teamRepository.findByContestId(contestId);
+        String teamServiceUrl = "http://team-chatting-service/teams/contest/" + contestId;
+        ResponseEntity<Team[]> response = restTemplate.getForEntity(teamServiceUrl, Team[].class);
+        return Arrays.asList(response.getBody());
     }
 
-
-
+    public ContestDto getContestById(Integer id) {
+        String contestServiceUrl = "http://contest-service/contests/" + id;
+        ResponseEntity<ContestDto> response = restTemplate.getForEntity(contestServiceUrl, ContestDto.class);
+        return response.getBody();
+    }
 
 
 
