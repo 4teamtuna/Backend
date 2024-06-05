@@ -10,6 +10,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -19,6 +20,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -27,11 +29,6 @@ public class ContestController {
 
     @Autowired
     private ContestService contestService;
-
-//    @GetMapping("/contest/{id}") // id에 해당하는 이미지를 제외한 공모전 정보를 반환
-//    public ContestDto getContest(@PathVariable Integer id) {
-//        return contestService.getContest(id);
-//    }
 
     @GetMapping("/contest/{id}") // id에 해당하는 이미지를 제외한 공모전 정보를 반환
     public ContestDto getContest(@PathVariable(name = "id") Integer id) {
@@ -89,6 +86,36 @@ public class ContestController {
             }
         }
         return imageUrls;
+    }
+
+    @GetMapping("/contests/recommend")
+    public List<ContestDto> getRecommendedContests(@RequestParam String interests) {
+        // Split the interests string into individual tags
+        List<String> tags = Arrays.asList(interests.split(","));
+
+        List<Contest> contests = new ArrayList<>();
+        for (String tag : tags) {
+            // Trim the tag to remove any leading or trailing whitespace
+            tag = tag.trim();
+
+            // Find contests with the matching tag and add them to the list
+            contests.addAll(contestService.getContestsByInterest(tag));
+        }
+
+        List<ContestDto> contestDtos = new ArrayList<>();
+        for (Contest contest : contests) {
+            ContestDto contestDto = new ContestDto();
+            contestDto.setId(contest.getId());
+            contestDto.setTitle(contest.getTitle());
+            contestDto.setHostName(contest.getHostName());
+            contestDto.setPeriod(contest.getPeriod());
+            contestDto.setPostedDate(contest.getPostedDate());
+            contestDto.setTag(contest.getTag());
+            contestDto.setViewCount(contest.getViewCount());
+            contestDto.setDetails(contest.getDetails());
+            contestDtos.add(contestDto);
+        }
+        return contestDtos;
     }
 
 }

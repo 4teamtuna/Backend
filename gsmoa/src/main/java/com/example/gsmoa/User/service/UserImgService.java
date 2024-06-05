@@ -24,7 +24,8 @@ public class UserImgService {
         if (userEntityOptional.isPresent()) {
             UserEntity userEntity = userEntityOptional.get();
             UserImg userImg = new UserImg();
-            userImg.setUserID(userEntity);
+            userImg.setId(Long.valueOf(userId));
+            userImg.setUserId(userEntity);
             userImg.setImg(file.getBytes());
             userImgRepository.save(userImg);
         } else {

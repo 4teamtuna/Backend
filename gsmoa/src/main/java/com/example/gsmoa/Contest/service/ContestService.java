@@ -2,6 +2,7 @@ package com.example.gsmoa.Contest.service;
 
 import com.example.gsmoa.Contest.dto.ContestDto;
 import com.example.gsmoa.Contest.entity.Contest;
+import com.example.gsmoa.Contest.entity.ContestTag;
 import com.example.gsmoa.Contest.repository.ContestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -63,13 +64,35 @@ public class ContestService {
         return images;
     }
 
-    public Contest updateContestDetails(Integer id, String details) { // id에 해당하는 공모전의 details를 업데이트
+    public Contest updateContestDetails(Integer id, String details) { // id에 해당하는 공모전의 details를 업데이트 (업데이트용)
         Contest contest = contestRepository.findById(id).orElse(null);
         if (contest != null) {
             contest.setDetails(details);
             return contestRepository.save(contest);
         }
         return null;
+    }
+
+//    public List<Contest> getContestsByInterests(List<String> interests) {
+//        List<Contest> contests = new ArrayList<>();
+//        for (String interest : interests) {
+//            // Convert the user's interest to a ContestTag
+//            ContestTag tag = ContestTag.valueOf(interest.toUpperCase());
+//
+//            // Find contests with the matching tag and add them to the list
+//            contests.addAll(contestRepository.findByTagsContaining(tag.getDisplayName()));
+//        }
+//        return contests;
+//    }
+
+    public List<Contest> getContestsByInterest(String interest) {
+        // Convert the user's interest to a ContestTag
+        ContestTag tag = ContestTag.valueOf(interest.toUpperCase());
+
+        // Find contests with the matching tag
+        List<Contest> contests = contestRepository.findByTag(tag.getDisplayName());
+
+        return contests;
     }
 
 

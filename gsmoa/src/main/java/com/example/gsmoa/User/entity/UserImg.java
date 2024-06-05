@@ -12,13 +12,12 @@ import lombok.Setter;
 public class UserImg {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @OneToOne
     @JoinColumn(name = "user_id")
     @JsonBackReference
-    private UserEntity userID;
+    private UserEntity userId;
 
     @Lob
     @Column(columnDefinition = "LONGBLOB")
