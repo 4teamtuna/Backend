@@ -32,4 +32,8 @@ public class Team {
     public void increaseCurrentMember() {
         this.currentMember++;
     }
+
+    public void decreaseCurrentMember() {
+        this.currentMember--;
+    }
 }

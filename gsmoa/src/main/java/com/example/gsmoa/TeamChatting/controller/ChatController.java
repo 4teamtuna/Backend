@@ -41,7 +41,6 @@ public class ChatController {
 
     @MessageMapping("/chat/message")
     public void message(ChatMessage message) {
-        // broadcast message to all subscribers of the room
         simpMessagingTemplate.convertAndSend("/sub/chat/room/" + message.getRoomId(), message);
     }
 
@@ -72,7 +71,6 @@ public class ChatController {
             dto.setContestId(contest.getId());
             dto.setContestTitle(contest.getTitle());
             dto.setContestImage(contest.getImage());
-            // Add more contest fields to the DTO as needed
         }
 
         return dto;
@@ -96,7 +94,7 @@ public class ChatController {
         teamJoin.setUserId(teamRequestDto.getUserId());
         teamJoinRepository.save(teamJoin);
         Team savedTeam = teamRepository.save(team);
-        return savedTeam.getId(); // Return the ID of the newly created team
+        return savedTeam.getId();
     }
 
 
@@ -121,21 +119,42 @@ public class ChatController {
         return null;
     }
 
-    @PostMapping("/teams/{roomId}/{userId}/join")
-    public ResponseEntity<Void> JoinTeam(@PathVariable("roomId") Long roomId , @PathVariable("userId") Long userId) {
+    @PostMapping("/teams/{roomId}/join")
+    public ResponseEntity<Void> joinTeam(@PathVariable("roomId") Long roomId, @RequestBody TeamJoin teamJoin) {
         Team team = teamRepository.findById(roomId).orElse(null);
-        TeamJoin teamJoin = new TeamJoin();
         if (team != null) {
             team.increaseCurrentMember();
-            teamJoin.setTeamId(team.getId());
-            teamJoin.setUserId(userId);
             teamRepository.save(team);
             teamJoinRepository.save(teamJoin);
             return ResponseEntity.ok().build();
         }
         return ResponseEntity.notFound().build();
     }
-    // Add more methods as needed
 
+    @DeleteMapping("/teams/{roomId}/join")
+    public ResponseEntity<Void> leaveTeam(@PathVariable("roomId") Long roomId, @RequestBody TeamJoin teamJoin) {
+        Team team = teamRepository.findById(roomId).orElse(null);
+        TeamJoin existingTeamJoin = teamJoinRepository.findByUserIdAndTeamId(teamJoin.getUserId(), roomId);
+        if (team != null && existingTeamJoin != null) {
+            team.decreaseCurrentMember();
+            teamRepository.save(team);
+            teamJoinRepository.delete(existingTeamJoin);
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("/teams/joined/{userId}")
+    public List<TeamResponseDto> getJoinedTeams(@PathVariable("userId") Long userId) {
+        List<TeamJoin> teamJoins = teamJoinRepository.findByUserId(userId);
+        List<TeamResponseDto> teamDtos = new ArrayList<>();
+        for (TeamJoin teamJoin : teamJoins) {
+            Team team = teamRepository.findById(teamJoin.getTeamId()).orElse(null);
+            if (team != null) {
+                teamDtos.add(convertToDto(team));
+            }
+        }
+        return teamDtos;
+    }
 
 }

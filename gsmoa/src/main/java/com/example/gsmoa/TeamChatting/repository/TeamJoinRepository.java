@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface TeamJoinRepository extends JpaRepository<TeamJoin, Long> {
     List<TeamJoin> findByUserId(Long userId);
+    TeamJoin findByUserIdAndTeamId(Long teamId, Long userId);
 }
