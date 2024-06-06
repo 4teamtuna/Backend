@@ -91,10 +91,11 @@ public class ChatController {
         team.setContest(contest);
         team.setCurrentMember(1L);
         team.setUserId(teamRequestDto.getUserId());
-        teamJoinRepository.save(teamJoin);
+
         Team savedTeam = teamRepository.save(team);
         teamJoin.setTeamId(savedTeam.getId());
         teamJoin.setUserId(teamRequestDto.getUserId());
+        teamJoinRepository.save(teamJoin);
         return savedTeam.getId();
     }
 
