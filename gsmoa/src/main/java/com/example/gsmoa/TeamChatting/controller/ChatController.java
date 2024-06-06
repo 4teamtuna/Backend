@@ -90,10 +90,11 @@ public class ChatController {
         team.setMaxMember(teamRequestDto.getMaxMember());
         team.setContest(contest);
         team.setCurrentMember(1L);
-        teamJoin.setTeamId(team.getId());
-        teamJoin.setUserId(teamRequestDto.getUserId());
+        team.setUserId(teamRequestDto.getUserId());
         teamJoinRepository.save(teamJoin);
         Team savedTeam = teamRepository.save(team);
+        teamJoin.setTeamId(savedTeam.getId());
+        teamJoin.setUserId(teamRequestDto.getUserId());
         return savedTeam.getId();
     }
 
