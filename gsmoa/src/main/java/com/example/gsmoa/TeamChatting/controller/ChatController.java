@@ -13,6 +13,7 @@ import com.example.gsmoa.TeamChatting.repository.TeamJoinRepository;
 import com.example.gsmoa.TeamChatting.repository.TeamRepository;
 import com.example.gsmoa.User.entity.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -124,13 +125,14 @@ public class ChatController {
     @PostMapping("/teams/{roomId}/join")
     public ResponseEntity<Void> joinTeam(@PathVariable("roomId") Long roomId, @RequestBody TeamJoin teamJoin) {
         Team team = teamRepository.findById(roomId).orElse(null);
-        if (team != null) {
+        TeamJoin existingTeamJoin = teamJoinRepository.findByUserIdAndTeamId(teamJoin.getUserId(), roomId);
+        if (team != null && existingTeamJoin == null) {
             team.increaseCurrentMember();
             teamRepository.save(team);
             teamJoinRepository.save(teamJoin);
             return ResponseEntity.ok().build();
         }
-        return ResponseEntity.notFound().build();
+        return ResponseEntity.status(HttpStatus.CONFLICT).build();
     }
 
     @DeleteMapping("/teams/{roomId}/join")
