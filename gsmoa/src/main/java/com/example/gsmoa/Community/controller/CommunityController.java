@@ -1,8 +1,10 @@
 package com.example.gsmoa.Community.controller;
 
 import com.example.gsmoa.Community.entity.CommentEntity;
+import com.example.gsmoa.Community.entity.Notification;
 import com.example.gsmoa.Community.entity.PostEntity;
 import com.example.gsmoa.Community.entity.PostLike;
+import com.example.gsmoa.Community.service.NotificationService;
 import com.example.gsmoa.Community.service.PostLikeService;
 import com.example.gsmoa.Community.service.PostService;
 import com.example.gsmoa.Community.service.CommentService;
@@ -11,12 +13,14 @@ import com.example.gsmoa.User.entity.UserEntity;
 import com.example.gsmoa.User.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -30,16 +34,17 @@ public class CommunityController {
     private final CommentService commentService;
     private final UserRepository userRepository;
     private final PostLikeService postLikeService;
+    private final NotificationService notificationService;
     // CommunityController.java
     private final List<SseEmitter> emitters = Collections.synchronizedList(new ArrayList<>());
 
 
     @Autowired
-    public CommunityController(PostService postService, CommentService commentService, UserRepository userRepository, PostLikeService postLikeService) {
-        this.postService = postService;
+    public CommunityController(PostService postService, CommentService commentService, UserRepository userRepository, PostLikeService postLikeService, NotificationService notificationService) {        this.postService = postService;
         this.commentService = commentService;
         this.userRepository = userRepository;
         this.postLikeService = postLikeService;
+        this.notificationService = notificationService;
     }
 
 //    @PostMapping("/post")
@@ -156,6 +161,13 @@ public class CommunityController {
     UserEntity user = userRepository.findById(comment.getUserId().intValue()).orElseThrow();
     comment.setPostOwner(user);
     comment.setPost(post);
+    Notification notification = new Notification();
+    notification.setPostId(postId);
+    notification.setChecked(false);
+    notification.setCommentId(comment.getCommentId());
+    notification.setPostOwnerId((long) post.getWriter().getId());
+    notificationService.saveNotification(notification);
+
     return commentService.createComment(comment, (long) user.getId());
 }
 
@@ -180,6 +192,11 @@ public class CommunityController {
         Long userId = Long.valueOf(params.get("userId").toString());
         Long postId = Long.valueOf(params.get("postId").toString());
         postLikeService.removeLikedPost(userId, postId);
+    }
+    @GetMapping("/users/{userId}/comments/latest")
+    public ResponseEntity<LocalDateTime> getLatestCommentTime(@PathVariable Long userId) {
+        LocalDateTime latestCommentTime = commentService.getLatestCommentTimeByUser(userId);
+        return ResponseEntity.ok(latestCommentTime);
     }
 
 }
