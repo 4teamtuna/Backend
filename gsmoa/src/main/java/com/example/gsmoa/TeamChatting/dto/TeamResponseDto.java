@@ -14,6 +14,7 @@ public class TeamResponseDto {
     private Integer contestId;
     private int sessionCount;
     private String contestTitle;
+    private Long currentMember;
     // Add more contest fields as needed
 
     // getters and setters

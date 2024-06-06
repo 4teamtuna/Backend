@@ -18,6 +18,7 @@ public class Team {
     private String teamName;
     private String leader;
     private Long maxMember;
+    private Long userId;
     private Long currentMember = 1L;
 
     @ManyToOne
