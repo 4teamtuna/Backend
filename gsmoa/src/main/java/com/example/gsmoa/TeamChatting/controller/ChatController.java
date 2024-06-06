@@ -10,6 +10,7 @@ import com.example.gsmoa.TeamChatting.model.ChatMessage;
 import com.example.gsmoa.TeamChatting.model.Team;
 import com.example.gsmoa.TeamChatting.repository.TeamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
@@ -83,6 +84,7 @@ public class ChatController {
         team.setContent(teamRequestDto.getContent());
         team.setMaxMember(teamRequestDto.getMaxMember());
         team.setContest(contest);
+        team.setCurrentMember(1L);
         Team savedTeam = teamRepository.save(team);
         return savedTeam.getId(); // Return the ID of the newly created team
     }
@@ -107,6 +109,17 @@ public class ChatController {
             return convertToDto(team);
         }
         return null;
+    }
+
+    @PostMapping("/teams/{roomId}/join")
+    public ResponseEntity<Void> JoinTeam(@PathVariable("roomId") Long roomId) {
+        Team team = teamRepository.findById(roomId).orElse(null);
+        if (team != null) {
+            team.increaseCurrentMember();
+            teamRepository.save(team);
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.notFound().build();
     }
     // Add more methods as needed
 
