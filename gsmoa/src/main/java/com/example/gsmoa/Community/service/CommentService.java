@@ -8,6 +8,7 @@ import com.example.gsmoa.User.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -16,6 +17,7 @@ public class CommentService {
     private final CommentRepository commentRepository;
     private final SimpMessagingTemplate messagingTemplate;
     private final UserRepository userRepository;
+
 
     @Autowired
     public CommentService(CommentRepository commentRepository, SimpMessagingTemplate simpMessagingTemplate, UserRepository userRepository) {
@@ -37,14 +39,8 @@ public class CommentService {
             );
         }
         // 게시글 작성자에게 알림을 보냅니다.
-        UserEntity postOwner = savedComment.getPostOwner();
-        if (!postOwner.equals(loggedInUser)) {
-            messagingTemplate.convertAndSendToUser(
-                    postOwner.getUsername(),
-                    "/queue/notification",
-                    "New comment on your post: " + savedComment.getContent()
-            );
-        }
+
+
         return savedComment;
     }
 
@@ -61,4 +57,6 @@ public class CommentService {
     public void deleteComment(Long id) {
         commentRepository.deleteById(id);
     }
+
+
 }
