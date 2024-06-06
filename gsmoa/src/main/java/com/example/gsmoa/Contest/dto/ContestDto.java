@@ -2,6 +2,7 @@ package com.example.gsmoa.Contest.dto;
 
 import com.example.gsmoa.TeamChatting.dto.ContestTeamDto;
 
+import jakarta.persistence.Column;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,6 +19,8 @@ public class ContestDto {
     private Timestamp postedDate;
     private String tag;
     private Integer viewCount;
+    private String details;
+
     private boolean jjim;
     private List<ContestTeamDto> teams;
 }

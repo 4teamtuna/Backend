@@ -1,5 +1,6 @@
 package com.example.gsmoa.Community.entity;
 
+import com.example.gsmoa.User.entity.UserEntity;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -60,4 +61,12 @@ public class PostEntity extends BaseEntity {
 
     @Transient
     private boolean liked;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private UserEntity writer;
+
+    public UserEntity getPostOwner() {
+        return this.writer;
+    }
 }

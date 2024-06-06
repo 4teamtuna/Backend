@@ -16,6 +16,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.util.Map;
 
@@ -25,6 +29,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -139,6 +144,36 @@ public class ContestController {
     @GetMapping("/contest/like/{userId}")
     public List<ContestDto> getLikedContestsDetails(@PathVariable Long userId) {
         return contestJjimService.getLikedContestsDetails(userId);
+    }
+
+    @GetMapping("/contests/recommend")
+    public List<ContestDto> getRecommendedContests(@RequestParam String interests) {
+        // Split the interests string into individual tags
+        List<String> tags = Arrays.asList(interests.split(","));
+
+        List<Contest> contests = new ArrayList<>();
+        for (String tag : tags) {
+            // Trim the tag to remove any leading or trailing whitespace
+            tag = tag.trim();
+
+            // Find contests with the matching tag and add them to the list
+            contests.addAll(contestService.getContestsByInterest(tag));
+        }
+
+        List<ContestDto> contestDtos = new ArrayList<>();
+        for (Contest contest : contests) {
+            ContestDto contestDto = new ContestDto();
+            contestDto.setId(contest.getId());
+            contestDto.setTitle(contest.getTitle());
+            contestDto.setHostName(contest.getHostName());
+            contestDto.setPeriod(contest.getPeriod());
+            contestDto.setPostedDate(contest.getPostedDate());
+            contestDto.setTag(contest.getTag());
+            contestDto.setViewCount(contest.getViewCount());
+            contestDto.setDetails(contest.getDetails());
+            contestDtos.add(contestDto);
+        }
+        return contestDtos;
     }
 
 }

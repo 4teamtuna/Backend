@@ -1,5 +1,6 @@
 package com.example.gsmoa.Community.entity;
 
+import com.example.gsmoa.User.entity.UserEntity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -27,7 +28,15 @@ public class CommentEntity extends BaseEntity {
     // 댓글 작성자 Id
     private String writerId;
 
+    @Transient
+    private Long userId;
+
     // 댓글 내용
     @Column(length = 500)
     private String content;
+
+    @ManyToOne
+    @JoinColumn(name = "post_owner_id")
+    private UserEntity postOwner;
+
 }

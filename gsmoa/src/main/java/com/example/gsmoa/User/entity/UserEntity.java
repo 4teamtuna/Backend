@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.util.Set;
 
 @Entity
@@ -12,7 +13,6 @@ import java.util.Set;
 @Setter
 @Table(name = "user")
 public class UserEntity {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -31,4 +31,5 @@ public class UserEntity {
     private Set<Interest> interests;
 
     private String role;
+
 }
