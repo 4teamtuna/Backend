@@ -15,7 +15,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -27,6 +30,8 @@ public class CommunityController {
     private final CommentService commentService;
     private final UserRepository userRepository;
     private final PostLikeService postLikeService;
+    // CommunityController.java
+    private final List<SseEmitter> emitters = Collections.synchronizedList(new ArrayList<>());
 
 
     @Autowired
@@ -47,6 +52,17 @@ public class CommunityController {
 //        // Create the post
 //        return postService.createPost(board);
 //    }
+
+    // CommunityController.java
+    @GetMapping("/sse")
+    public SseEmitter handleSse() {
+        SseEmitter emitter = new SseEmitter();
+        // Add the emitter to a list of active emitters
+        emitters.add(emitter);
+        emitter.onCompletion(() -> emitters.remove(emitter));
+        emitter.onTimeout(() -> emitters.remove(emitter));
+        return emitter;
+    }
 
     @PostMapping("/post")
     public PostEntity createPost(@RequestBody PostEntity board) {

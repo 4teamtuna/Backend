@@ -7,6 +7,7 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import com.example.gsmoa.User.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import java.util.List;
 
@@ -16,12 +17,15 @@ public class CommentService {
     private final CommentRepository commentRepository;
     private final SimpMessagingTemplate messagingTemplate;
     private final UserRepository userRepository;
+    private final SseService sseService;
+
 
     @Autowired
-    public CommentService(CommentRepository commentRepository, SimpMessagingTemplate simpMessagingTemplate, UserRepository userRepository) {
+    public CommentService(CommentRepository commentRepository, SimpMessagingTemplate simpMessagingTemplate, UserRepository userRepository, SseService sseService) {
         this.commentRepository = commentRepository;
         this.messagingTemplate = simpMessagingTemplate;
         this.userRepository = userRepository;
+        this.sseService = sseService;
     }
 
     public CommentEntity createComment(CommentEntity comment, Long loggedInUserId) {
@@ -45,6 +49,16 @@ public class CommentService {
                     "New comment on your post: " + savedComment.getContent()
             );
         }
+
+        for (SseEmitter emitter : sseService.getEmitters()) {
+            try {
+                emitter.send(SseEmitter.event().name("comment").data(savedComment));
+                System.out.println(savedComment);
+            }
+            catch (Exception e) {
+            }
+        }
+
         return savedComment;
     }
 
