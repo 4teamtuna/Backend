@@ -166,6 +166,7 @@ public class CommunityController {
     notification.setChecked(false);
     notification.setCommentId(comment.getCommentId());
     notification.setPostOwnerId((long) post.getWriter().getId());
+    notification.setWriterId(post.getWriter().getNickname());
     notificationService.saveNotification(notification);
 
     return commentService.createComment(comment, (long) user.getId());

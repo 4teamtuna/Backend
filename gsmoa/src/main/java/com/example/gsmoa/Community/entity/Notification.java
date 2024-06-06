@@ -20,6 +20,9 @@ public class Notification {
     private Long postId;
 
     @Column
+    private String writerId;
+
+    @Column
     private Long commentId;
 
     @Column
