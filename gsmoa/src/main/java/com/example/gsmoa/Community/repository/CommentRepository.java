@@ -9,5 +9,4 @@ import java.util.Optional;
 
 public interface CommentRepository extends JpaRepository<CommentEntity, Long> {
     List<CommentEntity> findAllByPost_PostId(Long postId);
-    Optional<CommentEntity> findTopByPost_Writer_IdOrderByCreatedTimeDesc(Long writerId);
 }

@@ -194,10 +194,6 @@ public class CommunityController {
         Long postId = Long.valueOf(params.get("postId").toString());
         postLikeService.removeLikedPost(userId, postId);
     }
-    @GetMapping("/users/{userId}/comments/latest")
-    public ResponseEntity<LocalDateTime> getLatestCommentTime(@PathVariable Long userId) {
-        LocalDateTime latestCommentTime = commentService.getLatestCommentTimeByUser(userId);
-        return ResponseEntity.ok(latestCommentTime);
-    }
+
 
 }
