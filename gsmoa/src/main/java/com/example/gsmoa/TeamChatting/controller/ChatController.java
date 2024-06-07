@@ -8,8 +8,13 @@ import com.example.gsmoa.TeamChatting.dto.TeamRequestDto;
 import com.example.gsmoa.TeamChatting.dto.TeamResponseDto;
 import com.example.gsmoa.TeamChatting.model.ChatMessage;
 import com.example.gsmoa.TeamChatting.model.Team;
+import com.example.gsmoa.TeamChatting.model.TeamJoin;
+import com.example.gsmoa.TeamChatting.repository.TeamJoinRepository;
 import com.example.gsmoa.TeamChatting.repository.TeamRepository;
+import com.example.gsmoa.User.entity.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
@@ -24,18 +29,19 @@ public class ChatController {
     private final TeamRepository teamRepository;
     private final ContestService contestService;
     private final WebSocketConfig webSocketConfig;
+    private final TeamJoinRepository teamJoinRepository;
 
     @Autowired
-    public ChatController(SimpMessagingTemplate simpMessagingTemplate, TeamRepository teamRepository, ContestService contestService) {
+    public ChatController(SimpMessagingTemplate simpMessagingTemplate, TeamRepository teamRepository, ContestService contestService, TeamJoinRepository teamJoinRepository) {
         this.simpMessagingTemplate = simpMessagingTemplate;
         this.teamRepository = teamRepository;
         this.contestService = contestService;
         this.webSocketConfig = new WebSocketConfig();
+        this.teamJoinRepository = teamJoinRepository;
     }
 
     @MessageMapping("/chat/message")
     public void message(ChatMessage message) {
-        // broadcast message to all subscribers of the room
         simpMessagingTemplate.convertAndSend("/sub/chat/room/" + message.getRoomId(), message);
     }
 
@@ -59,13 +65,13 @@ public class ChatController {
         dto.setTeamName(team.getTeamName());
         dto.setLeader(team.getLeader());
         dto.setContent(team.getContent());
+        dto.setCurrentMember(team.getCurrentMember());
 
         Contest contest = team.getContest();
         if (contest != null) {
             dto.setContestId(contest.getId());
             dto.setContestTitle(contest.getTitle());
             dto.setContestImage(contest.getImage());
-            // Add more contest fields to the DTO as needed
         }
 
         return dto;
@@ -77,14 +83,21 @@ public class ChatController {
     public Long createRoom(@PathVariable("contestId") Integer contestId, @RequestBody TeamRequestDto teamRequestDto) {
         ContestDto contestDto = contestService.getContest(contestId);
         Contest contest = dtoToEntity(contestDto);
+        TeamJoin teamJoin = new TeamJoin();
         Team team = new Team();
         team.setTeamName(teamRequestDto.getTeamName());
         team.setLeader(teamRequestDto.getLeader());
         team.setContent(teamRequestDto.getContent());
         team.setMaxMember(teamRequestDto.getMaxMember());
         team.setContest(contest);
+        team.setCurrentMember(1L);
+        team.setUserId(teamRequestDto.getUserId());
+
         Team savedTeam = teamRepository.save(team);
-        return savedTeam.getId(); // Return the ID of the newly created team
+        teamJoin.setTeamId(savedTeam.getId());
+        teamJoin.setUserId(teamRequestDto.getUserId());
+        teamJoinRepository.save(teamJoin);
+        return savedTeam.getId();
     }
 
 
@@ -108,7 +121,44 @@ public class ChatController {
         }
         return null;
     }
-    // Add more methods as needed
 
+    @PostMapping("/teams/{roomId}/join")
+    public ResponseEntity<Void> joinTeam(@PathVariable("roomId") Long roomId, @RequestBody TeamJoin teamJoin) {
+        Team team = teamRepository.findById(roomId).orElse(null);
+        TeamJoin existingTeamJoin = teamJoinRepository.findByUserIdAndTeamId(teamJoin.getUserId(), roomId);
+        if (team != null && existingTeamJoin == null) {
+            team.increaseCurrentMember();
+            teamRepository.save(team);
+            teamJoinRepository.save(teamJoin);
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.status(HttpStatus.CONFLICT).build();
+    }
+
+    @DeleteMapping("/teams/{roomId}/join")
+    public ResponseEntity<Void> leaveTeam(@PathVariable("roomId") Long roomId, @RequestBody TeamJoin teamJoin) {
+        Team team = teamRepository.findById(roomId).orElse(null);
+        TeamJoin existingTeamJoin = teamJoinRepository.findByUserIdAndTeamId(teamJoin.getUserId(), roomId);
+        if (team != null && existingTeamJoin != null) {
+            team.decreaseCurrentMember();
+            teamRepository.save(team);
+            teamJoinRepository.delete(existingTeamJoin);
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("/teams/joined/{userId}")
+    public List<TeamResponseDto> getJoinedTeams(@PathVariable("userId") Long userId) {
+        List<TeamJoin> teamJoins = teamJoinRepository.findByUserId(userId);
+        List<TeamResponseDto> teamDtos = new ArrayList<>();
+        for (TeamJoin teamJoin : teamJoins) {
+            Team team = teamRepository.findById(teamJoin.getTeamId()).orElse(null);
+            if (team != null) {
+                teamDtos.add(convertToDto(team));
+            }
+        }
+        return teamDtos;
+    }
 
 }

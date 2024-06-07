@@ -18,6 +18,8 @@ public class Team {
     private String teamName;
     private String leader;
     private Long maxMember;
+    private Long userId;
+    private Long currentMember = 1L;
 
     @ManyToOne
     @JoinColumn(name = "contest_id")
@@ -26,4 +28,12 @@ public class Team {
     private String contestName;
 
     private String content;
+
+    public void increaseCurrentMember() {
+        this.currentMember++;
+    }
+
+    public void decreaseCurrentMember() {
+        this.currentMember--;
+    }
 }

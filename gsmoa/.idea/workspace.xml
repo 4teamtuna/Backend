@@ -6,8 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="bb8b8c6f-8fdc-4ee2-ba86-442a59c0b4b4" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gsmoa/Community/controller/CommunityController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gsmoa/Community/controller/CommunityController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gsmoa/Community/service/CommentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gsmoa/Community/service/CommentService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,8 +38,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="package-info" />
-        <option value="Interface" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -157,7 +155,8 @@
       <workItem from="1717067084878" duration="17562000" />
       <workItem from="1717239915519" duration="10092000" />
       <workItem from="1717420700802" duration="14133000" />
-      <workItem from="1717650357155" duration="15922000" />
+      <workItem from="1717650357155" duration="17597000" />
+      <workItem from="1717685644360" duration="8582000" />
     </task>
     <servers />
   </component>
