@@ -4,10 +4,12 @@ import com.example.gsmoa.User.dto.UserDto;
 import com.example.gsmoa.User.dto.UserUpdateDto;
 import com.example.gsmoa.User.entity.UserEntity;
 import com.example.gsmoa.User.entity.Interest;
+import com.example.gsmoa.User.repository.InterestRepository;
 import com.example.gsmoa.User.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -15,6 +17,9 @@ import java.util.stream.Collectors;
 public class UserService {
 
     private final UserRepository userRepository;
+
+    @Autowired
+    private InterestRepository interestRepository;
 
     @Autowired
     public UserService(UserRepository userRepository) {
@@ -48,4 +53,12 @@ public class UserService {
         userRepository.save(userEntity);
         return getUserByUsername(username);
     }
+
+
+
+    public List<String> getUserInterests(Integer userId) {
+        List<Interest> interests = interestRepository.findByUserId(userId);
+        return interests.stream().map(Interest::getInterest).collect(Collectors.toList());
+    }
+
 }

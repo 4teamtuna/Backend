@@ -95,11 +95,8 @@ public class ContestService {
 //    }
 
     public List<Contest> getContestsByInterest(String interest) {
-        // Convert the user's interest to a ContestTag
-        ContestTag tag = ContestTag.valueOf(interest.toUpperCase());
-
         // Find contests with the matching tag
-        List<Contest> contests = contestRepository.findByTag(tag.getDisplayName());
+        List<Contest> contests = contestRepository.findByTagsContaining(interest);
 
         return contests;
     }

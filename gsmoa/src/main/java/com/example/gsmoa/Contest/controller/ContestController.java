@@ -1,6 +1,7 @@
 package com.example.gsmoa.Contest.controller;
 
 import com.example.gsmoa.Contest.dto.ContestDto;
+import com.example.gsmoa.Contest.dto.ContestRecommendDto;
 import com.example.gsmoa.Contest.entity.Contest;
 import com.example.gsmoa.Contest.entity.ContestJjim;
 import com.example.gsmoa.Contest.repository.ContestRepository;
@@ -9,6 +10,7 @@ import com.example.gsmoa.Contest.service.ContestService;
 import com.example.gsmoa.TeamChatting.dto.ContestTeamDto;
 import com.example.gsmoa.TeamChatting.model.Team;
 import com.example.gsmoa.User.repository.UserRepository;
+import com.example.gsmoa.User.service.UserService;
 import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -46,6 +48,9 @@ public class ContestController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private UserService userService;
 
     @Autowired
     public ContestController(ContestJjimService contestJjimService) {
@@ -146,34 +151,52 @@ public class ContestController {
         return contestJjimService.getLikedContestsDetails(userId);
     }
 
-    @GetMapping("/contests/recommend")
-    public List<ContestDto> getRecommendedContests(@RequestParam String interests) {
-        // Split the interests string into individual tags
-        List<String> tags = Arrays.asList(interests.split(","));
+    @GetMapping("/contests/recommend/{userId}")
+    public List<ContestRecommendDto> getRecommendedContests(@PathVariable(name = "userId") Integer userId) {
+        // userid로 interest 정보 가져옴
+        //System.out.println("userId: " + userId);
+        List<String> interests = userService.getUserInterests(userId);
+        //System.out.println("interests: " + interests);
 
         List<Contest> contests = new ArrayList<>();
-        for (String tag : tags) {
-            // Trim the tag to remove any leading or trailing whitespace
-            tag = tag.trim();
-
-            // Find contests with the matching tag and add them to the list
-            contests.addAll(contestService.getContestsByInterest(tag));
+        if (interests.isEmpty()) {
+            // 일치하는 관심사가 없으면 랜덤 생성
+            contests = contestRepository.findAllHavePeriod();
+        } else {
+            for (String interest : interests) {
+                contests.addAll(contestService.getContestsByInterest(interest));
+            }
         }
+        //System.out.println("contests: " + contests);
 
-        List<ContestDto> contestDtos = new ArrayList<>();
+        List<ContestRecommendDto> recommends = new ArrayList<>();
         for (Contest contest : contests) {
-            ContestDto contestDto = new ContestDto();
-            contestDto.setId(contest.getId());
-            contestDto.setTitle(contest.getTitle());
-            contestDto.setHostName(contest.getHostName());
-            contestDto.setPeriod(contest.getPeriod());
-            contestDto.setPostedDate(contest.getPostedDate());
-            contestDto.setTag(contest.getTag());
-            contestDto.setViewCount(contest.getViewCount());
-            contestDto.setDetails(contest.getDetails());
-            contestDtos.add(contestDto);
+            ContestRecommendDto recommenddto = new ContestRecommendDto();
+            recommenddto.setId(contest.getId());
+            recommenddto.setTitle(contest.getTitle());
+            try {
+                recommenddto.setImage(contestService.getContestImg(contest.getId()));
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            recommends.add(recommenddto);
         }
-        return contestDtos;
+        return recommends;
+
+//        List<ContestDto> contestDtos = new ArrayList<>();
+//        for (Contest contest : contests) {
+//            ContestDto contestDto = new ContestDto();
+//            contestDto.setId(contest.getId());
+//            contestDto.setTitle(contest.getTitle());
+//            contestDto.setHostName(contest.getHostName());
+//            contestDto.setPeriod(contest.getPeriod());
+//            contestDto.setPostedDate(contest.getPostedDate());
+//            contestDto.setTag(contest.getTag());
+//            contestDto.setViewCount(contest.getViewCount());
+//            contestDto.setDetails(contest.getDetails());
+//            contestDtos.add(contestDto);
+//        }
+//        return contestDtos;
     }
 
 }
