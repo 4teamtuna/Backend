@@ -19,6 +19,14 @@ ext {
     set('springCloudVersion', "2023.0.0")
 }
 
+bootJar {
+    if (project.hasProperty('customArchiveName')) {
+        archiveFileName = "${project.getProperty('customArchiveName')}.jar"
+    } else {
+        archiveFileName = "${project.name}-${project.version}.jar"
+    }
+}
+
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'

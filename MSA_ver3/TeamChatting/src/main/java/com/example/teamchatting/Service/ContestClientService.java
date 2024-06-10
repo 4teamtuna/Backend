@@ -1,20 +1,21 @@
 package com.example.teamchatting.Service;
 import com.example.teamchatting.dto.ContestDtoResponse;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
 
 @Service
 public class ContestClientService {
-    private final RestTemplate restTemplate;
+    private final WebClient webClient;
 
-    public ContestClientService(RestTemplate restTemplate) {
-        this.restTemplate = restTemplate;
+    public ContestClientService(WebClient.Builder webClientBuilder) {
+        this.webClient = webClientBuilder.baseUrl("http://contest-service").build();
     }
 
-    public ContestDtoResponse getContestById(Integer id) {
-        String contestServiceUrl = "http://contest-service/contests/" + id;
-        ResponseEntity<ContestDtoResponse> response = restTemplate.getForEntity(contestServiceUrl, ContestDtoResponse.class);
-        return response.getBody();
+    public Mono<ContestDtoResponse> getContestById(Integer id) {
+        return webClient.get()
+                .uri("/contests/{id}", id)
+                .retrieve()
+                .bodyToMono(ContestDtoResponse.class);
     }
 }

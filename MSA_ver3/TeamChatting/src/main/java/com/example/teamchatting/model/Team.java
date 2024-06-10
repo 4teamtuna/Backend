@@ -1,6 +1,5 @@
 package com.example.teamchatting.model;
 
-import com.example.gsmoa.Contest.entity.Contest;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,11 +18,8 @@ public class Team {
     private String leader;
     private Long maxMember;
 
-    @ManyToOne
-    @JoinColumn(name = "contest_id")
-    private Contest contest;
-
-    private String contestName;
+    private Integer contestId; // Contest ID
+    private String contestName; // Contest Name
 
     private String content;
 }

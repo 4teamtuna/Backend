@@ -1,6 +1,5 @@
 package com.example.contest.entity;
 
-import com.example.gsmoa.User.entity.UserEntity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
