@@ -12,6 +12,7 @@ import com.example.gsmoa.TeamChatting.model.TeamJoin;
 import com.example.gsmoa.TeamChatting.repository.TeamJoinRepository;
 import com.example.gsmoa.TeamChatting.repository.TeamRepository;
 import com.example.gsmoa.User.entity.UserEntity;
+import com.example.gsmoa.User.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,18 +31,24 @@ public class ChatController {
     private final ContestService contestService;
     private final WebSocketConfig webSocketConfig;
     private final TeamJoinRepository teamJoinRepository;
+    private final UserRepository userRepository;
 
     @Autowired
-    public ChatController(SimpMessagingTemplate simpMessagingTemplate, TeamRepository teamRepository, ContestService contestService, TeamJoinRepository teamJoinRepository) {
+    public ChatController(SimpMessagingTemplate simpMessagingTemplate, TeamRepository teamRepository, ContestService contestService, TeamJoinRepository teamJoinRepository, UserRepository userRepository) {
         this.simpMessagingTemplate = simpMessagingTemplate;
         this.teamRepository = teamRepository;
         this.contestService = contestService;
         this.webSocketConfig = new WebSocketConfig();
         this.teamJoinRepository = teamJoinRepository;
+        this.userRepository = userRepository;
     }
 
     @MessageMapping("/chat/message")
     public void message(ChatMessage message) {
+        UserEntity user  = userRepository.findById(Integer.valueOf(message.getWriter())).orElse(null);
+        if (user != null) {
+            message.setNickName(user.getNickname());
+        }
         simpMessagingTemplate.convertAndSend("/sub/chat/room/" + message.getRoomId(), message);
     }
 
