@@ -1,5 +1,6 @@
 package com.example.gsmoa.User.service;
 
+import com.example.gsmoa.User.dto.UpdateIntroduce;
 import com.example.gsmoa.User.dto.UserDto;
 import com.example.gsmoa.User.dto.UserUpdateDto;
 import com.example.gsmoa.User.entity.UserEntity;
@@ -7,7 +8,9 @@ import com.example.gsmoa.User.entity.Interest;
 import com.example.gsmoa.User.repository.InterestRepository;
 import com.example.gsmoa.User.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Set;
@@ -59,6 +62,12 @@ public class UserService {
     public List<String> getUserInterests(Integer userId) {
         List<Interest> interests = interestRepository.findByUserId(userId);
         return interests.stream().map(Interest::getInterest).collect(Collectors.toList());
+    }
+
+    public UserEntity updateUserIntroduce(Integer userId, UpdateIntroduce updateIntroduce) {
+        UserEntity user = userRepository.findById(userId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
+        user.setIntroduce(updateIntroduce.getIntroduce());
+        return userRepository.save(user);
     }
 
 }
