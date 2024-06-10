@@ -15,12 +15,10 @@ import org.springframework.web.bind.annotation.*;
 public class MypageController {
 
     private final UserService userService;
-    private final UserRepository userRepository;
 
     @Autowired
-    public MypageController(UserService userService, UserRepository userRepository) {
+    public MypageController(UserService userService) {
         this.userService = userService;
-        this.userRepository = userRepository;
     }
 
     @GetMapping("/main/my")
@@ -36,7 +34,7 @@ public class MypageController {
     }
 
     @PutMapping("/main/update/introduce/{userId}")
-    public UserEntity updateIntroduce(@RequestBody String newIntroduce, @PathVariable Integer userId) {
-        return userService.updateUserIntroduce(userId, newIntroduce);
+    public UserEntity updateIntroduce(@RequestBody UpdateIntroduce updateIntroduce, @PathVariable Integer userId) {
+        return userService.updateUserIntroduce(userId, updateIntroduce);
     }
 }

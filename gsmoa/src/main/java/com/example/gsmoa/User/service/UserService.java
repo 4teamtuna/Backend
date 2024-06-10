@@ -1,5 +1,6 @@
 package com.example.gsmoa.User.service;
 
+import com.example.gsmoa.User.dto.UpdateIntroduce;
 import com.example.gsmoa.User.dto.UserDto;
 import com.example.gsmoa.User.dto.UserUpdateDto;
 import com.example.gsmoa.User.entity.UserEntity;
@@ -63,9 +64,9 @@ public class UserService {
         return interests.stream().map(Interest::getInterest).collect(Collectors.toList());
     }
 
-    public UserEntity updateUserIntroduce(Integer userId, String newIntroduce) {
+    public UserEntity updateUserIntroduce(Integer userId, UpdateIntroduce updateIntroduce) {
         UserEntity user = userRepository.findById(userId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
-        user.setIntroduce(newIntroduce);
+        user.setIntroduce(updateIntroduce.getIntroduce());
         return userRepository.save(user);
     }
 
