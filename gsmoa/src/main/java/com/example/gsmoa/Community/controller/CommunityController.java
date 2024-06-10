@@ -69,11 +69,11 @@ public class CommunityController {
         return emitter;
     }
 
-    @PostMapping("/post")
-    public PostEntity createPost(@RequestBody PostEntity board) {
+    @PostMapping("/post/{userId}")
+    public PostEntity createPost(@RequestBody PostEntity board, @PathVariable Integer userId) {
         // Get the username of the currently logged in user
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        UserEntity user = userRepository.findByUsername(username);
+//        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        UserEntity user = userRepository.findById(userId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
         board.setWriterId(user.getNickname());
         // Set the writer of the post to the user
         board.setWriter(user);
