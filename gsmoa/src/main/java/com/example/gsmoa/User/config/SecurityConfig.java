@@ -17,6 +17,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 
+import java.util.Arrays;
 import java.util.Collections;
 
 @Configuration
@@ -56,7 +57,7 @@ public class SecurityConfig {
 
                                 CorsConfiguration configuration = new CorsConfiguration(); //CORS 설정 객체 생성
 
-                                configuration.setAllowedOrigins(Collections.singletonList("http://localhost:5173"));
+                                configuration.setAllowedOrigins(Arrays.asList("http://localhost:5173", "https://localhost:5173", "https://gsmoa.site", "https://www.gsmoa.site", "https://frontend-xi-rosy.vercel.app"));
                                 configuration.setAllowedMethods(Collections.singletonList("*")); //허용할 메소드
                                 configuration.setAllowCredentials(true); //인증정보를 같이 보낼지 여부
                                 configuration.setAllowedHeaders(Collections.singletonList("*")); //허용할 헤더

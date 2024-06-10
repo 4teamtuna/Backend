@@ -28,7 +28,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint("/ws/chat").setAllowedOrigins("http://localhost:5173").withSockJS()
+        registry.addEndpoint("/ws/chat").setAllowedOrigins("http://localhost:5173", "https://localhost:5173", "https://gsmoa.site", "https://www.gsmoa.site", "https://frontend-xi-rosy.vercel.app").withSockJS()
                 .setInterceptors(new HandshakeInterceptor() {
                     @Override
                     public boolean beforeHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler wsHandler, Map<String, Object> attributes) throws Exception {
@@ -49,7 +49,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
                     }
                 });
 
-        registry.addEndpoint("/ws/notification").setAllowedOrigins("http://localhost:5173").withSockJS();
+        registry.addEndpoint("/ws/notification").setAllowedOrigins("http://localhost:5173", "https://localhost:5173", "https://gsmoa.site", "https://www.gsmoa.site", "https://frontend-xi-rosy.vercel.app").withSockJS();
     }
 
     public Map<String, Integer> getTeamSessionCount() {

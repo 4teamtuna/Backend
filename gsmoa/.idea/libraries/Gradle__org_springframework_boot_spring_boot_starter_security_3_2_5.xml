@@ -5,6 +5,8 @@
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter-security/3.2.5/8ce0f176dfcf9a0b3b5d76babd971057f009961d/spring-boot-starter-security-3.2.5.jar!/" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter-security/3.2.5/2f149ba18f1dbeb6993236448ee879e53e8a5913/spring-boot-starter-security-3.2.5-sources.jar!/" />
+    </SOURCES>
   </library>
 </component>

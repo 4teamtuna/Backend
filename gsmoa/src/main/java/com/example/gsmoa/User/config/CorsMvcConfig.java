@@ -9,8 +9,8 @@ public class CorsMvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addCorsMappings(CorsRegistry corsRegistry) {
-
         corsRegistry.addMapping("/**")
-                .allowedOrigins("http://localhost:5173");
+                .allowedOrigins("http://localhost:5173", "https://localhost:5173", "https://gsmoa.site", "https://www.gsmoa.site", "https://frontend-xi-rosy.vercel.app");
+
     }
 }
