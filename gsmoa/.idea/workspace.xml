@@ -6,7 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="bb8b8c6f-8fdc-4ee2-ba86-442a59c0b4b4" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gsmoa/TeamChatting/model/ChatMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gsmoa/TeamChatting/model/ChatMessage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gsmoa/User/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gsmoa/User/config/SecurityConfig.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -159,7 +159,8 @@
       <workItem from="1717650357155" duration="17597000" />
       <workItem from="1717685644360" duration="12198000" />
       <workItem from="1717941287986" duration="656000" />
-      <workItem from="1717995791263" duration="1035000" />
+      <workItem from="1717995791263" duration="4515000" />
+      <workItem from="1718029114077" duration="1753000" />
     </task>
     <servers />
   </component>
